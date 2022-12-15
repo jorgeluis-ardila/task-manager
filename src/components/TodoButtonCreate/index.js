@@ -2,14 +2,14 @@ import React from "react";
 import button from './buttons.module.css'
 
 function TodoButtonCreate(props) {
-  const addNewTask = (msg) => {
-    alert(msg)
+  const onClickButton = () => {
+    props.setOpenModal(prevState => !prevState);
   };
 
   return (
     <button 
-      className={button['button-create']}
-      onClick={() => addNewTask('ABRIR MODAL DE CREACION')}
+      className={`${button.create} ${props.openModal ? button.close : ''}`}
+      onClick={onClickButton}
     >
       +
     </button>

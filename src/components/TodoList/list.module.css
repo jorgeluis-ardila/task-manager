@@ -1,4 +1,9 @@
-ul {
+p.loading-state{
+  text-align: center;
+  font-weight: bold;
+}
+
+ul.list {
   margin: 0;
   padding: 0 0 56px 0;
   list-style: none;

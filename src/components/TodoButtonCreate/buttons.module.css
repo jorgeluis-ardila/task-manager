@@ -1,4 +1,4 @@
-.button-create {
+.create {
   background-color: #61DAFA;
   box-shadow: 0px 5px 25px rgba(97, 218, 250, 0.5);
   border: none;
@@ -15,11 +15,23 @@
   align-items: center;
   height: 64px;
   width: 64px;
+  z-index: 1;
+  filter: brightness(95%);
 
   transform: rotate(0);
-  transition: .3s ease;
+  transition: all .3s ease;
 }
 
-.button-create:hover {
+.create:hover {
+  /* transform: rotate(224deg); */
+  
+  background-color: green;
+  box-shadow: 0px 5px 25px rgba(0, 128, 0, 0.5);
+}
+.close {
   transform: rotate(224deg);
+}
+.close:hover {
+  background-color: red;
+  box-shadow: 0px 5px 25px rgba(255, 0, 0, 0.5);
 }
