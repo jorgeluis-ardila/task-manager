@@ -1,4 +1,6 @@
 import React from "react";
+import { CompleteIcon } from "../../Icon/CompleteIcon"
+import { DeleteIcon } from "../../Icon/DeleteIcon";
 import item from '../list.module.css'
 
 function TodoItem(props) {
@@ -6,19 +8,14 @@ function TodoItem(props) {
     <li 
       className={item.item}
     >
-      <span
-        className={`${item.icon} ${item['icon-check']} ${props.completed && item['icon-check--active']}`}
-        onClick={props.onComplete}
-      >
-        &#10003;
-      </span>
+      <CompleteIcon
+        completed={props.completed}
+        onComplete={props.onComplete}
+      />
       <p className={`${item.paragraf} ${props.completed && item['paragraf--completed']}`}>{`${props.text}`}</p>
-      <span
-        className={`${item.icon} ${item['icon-delete']}`}
-        onClick={props.onDelete}
-      >
-        X
-      </span>
+      <DeleteIcon
+        onDelete={props.onDelete}
+      />
     </li>
   );
 }

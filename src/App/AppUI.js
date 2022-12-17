@@ -6,17 +6,44 @@ import { TodoList } from '../components/TodoList';
 import { TodoButtonCreate } from '../components/TodoButtonCreate';
 import { Modal } from '../components/Modal';
 import { TodoForm } from '../components/TodoForm';
+import { ToDoMessage, ToDoLoading } from '../components/MessageLoading';
 
 function AppUI() {
 
-  const { openModal, setOpenModal } = React.useContext(ToDoContext);
+  const {
+    loading,
+    error,
+    searchTodos,
+    openModal,
+    setOpenModal
+  } = React.useContext(ToDoContext);
 
   return (
     <React.Fragment>
-      <TodoCounter />
 
-      <TodoSearch />
-      <TodoList />
+      { loading && <ToDoLoading /> }
+      { error && <ToDoMessage message={'Hubo un error!'} /> }
+      { (!loading && !error) &&
+        <React.Fragment>
+          {
+            searchTodos.length
+            ? <React.Fragment>
+                <TodoCounter />
+                <TodoSearch />
+              </React.Fragment>
+            : <TodoCounter message='Aun no tienes tareas creadas' />
+          }
+          {
+            !searchTodos.length
+            ? <ToDoMessage message={"Crea tus To Do's"} />
+            : <TodoList />
+          }
+          <TodoButtonCreate
+            openModal={openModal}
+            setOpenModal={setOpenModal}
+          />
+        </React.Fragment>
+      }
 
       {!!openModal && (
         <Modal>
@@ -24,10 +51,6 @@ function AppUI() {
         </Modal>
       )}
 
-      <TodoButtonCreate
-        openModal={openModal}
-        setOpenModal={setOpenModal}
-      />
     </React.Fragment>
   );
 }

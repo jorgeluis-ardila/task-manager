@@ -20,19 +20,30 @@ function TodoForm() {
   const onCancel = () => {
     setOpenModal(false);
   }
-  const onSubmit = (event) => {
-    event.preventDefault();
-    if(newTodoValue.length < 0) {
+  function submit() {
+    if (newTodoValue.length > 0) {
       addTodo(newTodoValue);
       onCancel();
-    } else{
+    } else {
       setShowAlert(true)
     }
   }
+  const onSubmit = (event) => {
+    event.preventDefault();
+    submit()
+  }
+  const onKeyUp = (e) => {
+    console.log();
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      submit()
+    }
+  };
 
   return (
-    <form 
+    <form
       onSubmit={onSubmit}
+      onKeyDownCapture={onKeyUp}
     >
       <label>Crea tu nuevo TODO</label>
       <textarea

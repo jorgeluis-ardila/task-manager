@@ -1,0 +1,19 @@
+.container {
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* background-color: #CCC; */
+}
+
+.svg {
+  width: 24px;
+  height: 24px;
+  transition: fill .15s;
+}
+.container:hover .svg--check {
+  fill: #4caf50;
+}
+.container:hover .svg--delete {
+  fill: red;
+}
