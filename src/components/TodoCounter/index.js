@@ -1,5 +1,5 @@
 import React from "react";
-import { ToDoContext } from "../TodoContext";
+import { ToDoContext } from "../../context";
 import counter from './counter.module.css';
 
 function TodoCounter(props) {
