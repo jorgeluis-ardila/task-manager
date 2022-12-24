@@ -1,11 +1,11 @@
 import React from 'react';
 import loading from './loading.module.css'
 
-function ToDoMessage(props) {
+function Message(props) {
   return <p className={loading['loading-state']}>{props.message}</p>
 }
 
-function ToDoLoading() {
+function Loading() {
   return (
     <div className={loading.container}>
       <span className={loading.completeIcon}></span>
@@ -15,4 +15,4 @@ function ToDoLoading() {
   );
 }
 
-export { ToDoMessage, ToDoLoading };
+export { Message, Loading };

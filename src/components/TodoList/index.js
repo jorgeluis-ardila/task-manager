@@ -1,21 +1,25 @@
 import React from "react";
-import { ToDoContext } from "../../context";
-import { TodoItem } from './TodoItem';
+import { Context } from "../../context";
+import { ToDoItem } from './ToDoItem';
+import { FilterContainer } from '../Filter'
 import listContainer from './list.module.css'
 
-function TodoList() {
+
+
+function ToDoList() {
   const {
     searchTodos,
     findIndex,
     completeTodo,
     deleteTodo,
-  } = React.useContext(ToDoContext);
+  } = React.useContext(Context);
 
   return (
     <section>
+      <FilterContainer/>
       <ul className={listContainer.list}>
           {searchTodos.map(todo => (
-            <TodoItem
+            <ToDoItem
               index={findIndex(todo.text)}
               key={findIndex(todo.text)}
               text={todo.text}
@@ -29,4 +33,4 @@ function TodoList() {
   );
 }
 
-export { TodoList };
+export { ToDoList };

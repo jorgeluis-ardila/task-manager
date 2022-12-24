@@ -1,9 +1,9 @@
 import React from 'react';
-import { TodoIcon } from './';
+import { ToDoIcon } from './';
 
 function DeleteIcon({ onDelete }) {
   return (
-    <TodoIcon
+    <ToDoIcon
       type="delete"
       onClick={onDelete}
     />

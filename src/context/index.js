@@ -1,7 +1,7 @@
 import React from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
-const ToDoContext = React.createContext();
+const Context = React.createContext();
 
 function ToDoProvider(props) {
 
@@ -13,11 +13,24 @@ function ToDoProvider(props) {
   } = useLocalStorage('TODOS_V1', []);
 
   const [searchValue, setSearchValue] = React.useState(''),
+        [filterTodos, setFilterTodos] = React.useState(''),
         [openModal, setOpenModal] = React.useState(false);
 
-  const completedTodos = todos.filter(todo => !!todo.completed).length,
-        totalTodos = todos.length,
-        searchTodos = todos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
+  const filteredToDos = (filter) => {
+    switch (filter) {
+      case 'complete':
+        return todos.filter(todo => !!todo.completed)
+      case 'active':
+        return todos.filter(todo => !todo.completed)
+      default:
+        return todos
+    }
+  }
+
+  const completedTodos = filteredToDos('complete').length,
+        totalTodos = filteredToDos().length,
+        rederedTodos = filteredToDos(filterTodos),
+        searchTodos = rederedTodos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
 
   const findIndex = (text) => todos.findIndex(todo => todo.text === text);
 
@@ -43,7 +56,7 @@ function ToDoProvider(props) {
   };
 
   return (
-    <ToDoContext.Provider value={{
+    <Context.Provider value={{
       loading,
       error,
       totalTodos,
@@ -55,13 +68,15 @@ function ToDoProvider(props) {
       searchTodos,
       searchValue,
       setSearchValue,
+      filterTodos,
+      setFilterTodos,
       openModal,
       setOpenModal
     }}>
       {props.children}
-    </ToDoContext.Provider>
+    </Context.Provider>
   );
 
 }
 
-export { ToDoContext, ToDoProvider}
+export { Context, ToDoProvider}

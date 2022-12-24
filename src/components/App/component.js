@@ -1,44 +1,43 @@
 import React from 'react';
-import { ToDoContext } from '../../context';
-import { TodoCounter } from '../TodoCounter';
-import { TodoSearch } from '../TodoSearch';
-import { TodoList } from '../TodoList';
-import { TodoButtonCreate } from '../TodoButtonCreate';
+import { Context } from '../../context';
+import { Counter } from '../Counter';
+import { Search } from '../SearchBar';
+import { ToDoList } from '../ToDoList';
+import { ButtonCreate } from '../ButtonCreate';
 import { Modal } from '../Modal';
-import { TodoForm } from '../TodoForm';
-import { ToDoMessage, ToDoLoading } from '../MessageLoading';
+import { CreateForm } from '../CreateForm';
+import { Message, Loading } from '../MessageLoading';
 
 function AppUI() {
 
   const {
     loading,
     error,
-    searchTodos,
+    totalTodos,
     openModal,
     setOpenModal
-  } = React.useContext(ToDoContext);
+  } = React.useContext(Context);
 
   return (
     <React.Fragment>
 
-      { loading && <ToDoLoading /> }
-      { error && <ToDoMessage message={'Hubo un error!'} /> }
+      { loading && <Loading /> }
+      { error && <Message message={'Hubo un error!'} /> }
       { (!loading && !error) &&
         <React.Fragment>
           {
-            searchTodos.length
+            totalTodos
             ? <React.Fragment>
-                <TodoCounter />
-                <TodoSearch />
+                <Counter />
+                <Search />
+                <ToDoList />
               </React.Fragment>
-            : <TodoCounter message='Aun no tienes tareas creadas' />
+            : <React.Fragment>
+                <Counter message='Aun no tienes tareas creadas' />
+                <Message message={"Crea tus To Do's"} />
+              </React.Fragment>
           }
-          {
-            !searchTodos.length
-            ? <ToDoMessage message={"Crea tus To Do's"} />
-            : <TodoList />
-          }
-          <TodoButtonCreate
+          <ButtonCreate
             openModal={openModal}
             setOpenModal={setOpenModal}
           />
@@ -47,7 +46,7 @@ function AppUI() {
 
       {!!openModal && (
         <Modal>
-          <TodoForm></TodoForm>
+          <CreateForm></CreateForm>
         </Modal>
       )}
 

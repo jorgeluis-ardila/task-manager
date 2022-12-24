@@ -1,6 +1,6 @@
 import React from 'react';
-import { ReactComponent as CheckSVG } from './check.svg';
-import { ReactComponent as DeleteSVG } from './delete.svg';
+import { ReactComponent as CheckSVG } from './icons/check.svg';
+import { ReactComponent as DeleteSVG } from './icons/delete.svg';
 import icon from './icon.module.css';
 
 const iconTypes = {
@@ -12,7 +12,7 @@ const iconTypes = {
   ),
 };
 
-function TodoIcon({ type, color = 'gray', onClick }) {
+function ToDoIcon({ type, color = 'gray', onClick }) {
   return (
     <span
       className={`${icon.container} ${icon[`container--${type}`]}`}
@@ -23,4 +23,4 @@ function TodoIcon({ type, color = 'gray', onClick }) {
   );
 }
 
-export { TodoIcon };
+export { ToDoIcon };

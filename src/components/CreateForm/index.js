@@ -1,8 +1,8 @@
 import React from "react";
-import { ToDoContext } from "../../context";
+import { Context } from "../../context";
 import form from "./form.module.css"
 
-function TodoForm() {
+function CreateForm() {
 
   const [newTodoValue, setNewTodoValue] = React.useState(''),
         [showAlert, setShowAlert] = React.useState(false);
@@ -10,7 +10,7 @@ function TodoForm() {
   const {
     addTodo,
     setOpenModal
-  } = React.useContext(ToDoContext);
+  } = React.useContext(Context);
 
 
   const onChange = (event) => {
@@ -71,4 +71,4 @@ function TodoForm() {
   );
 }
 
-export { TodoForm }
+export { CreateForm }

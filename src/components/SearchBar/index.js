@@ -1,10 +1,10 @@
 import React from "react";
-import { ToDoContext } from "../../context";
+import { Context } from "../../context";
 import search from './search.module.css';
 
-function TodoSearch() {
+function Search() {
 
-  const { searchValue, setSearchValue } = React.useContext(ToDoContext);
+  const { searchValue, setSearchValue } = React.useContext(Context);
 
   const onSearchValueChange = (event) => {
     setSearchValue(event.target.value);
@@ -20,4 +20,4 @@ function TodoSearch() {
   );
 }
 
-export { TodoSearch }
+export { Search }

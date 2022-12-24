@@ -1,14 +1,14 @@
 import React from "react";
-import { ToDoContext } from "../../context";
+import { Context } from "../../context";
 import counter from './counter.module.css';
 
-function TodoCounter(props) {
+function Counter(props) {
 
-  const { completedTodos, totalTodos } = React.useContext(ToDoContext);
+  const { completedTodos, totalTodos } = React.useContext(Context);
 
   return (
     <h2 className={counter.title}>{props.message ? props.message : `Has Completado ${completedTodos} de ${totalTodos} To Do's`}</h2>
   );
 }
 
-export { TodoCounter };
+export { Counter };

@@ -19,7 +19,7 @@ function useLocalStorage(storageName, initialValue) {
         setError(error)
       }
 
-    }, 10000);
+    }, 500);
   })
 
   const saveStorage = (newStorage) => {
