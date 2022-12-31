@@ -1,58 +1,45 @@
 import React from "react";
-import { Context } from "../../context";
-import filter from "./filter.module.css"
+import { SearchBar } from "../SearchBar";
+import { FilterButton, FilterDropdown } from "./FilterButton";
+import filter from "./filter.module.css";
 
-function FilterButton({
-  setIsActive,
-  isActive,
-  filterState,
-  text,
-}) {
-  const {
-    setFilterTodos
-  } = React.useContext(Context);
+function Filters() {
 
-  const onClickButton = (e) => {
-    setFilterTodos(filterState);
-    [...e.target.parentElement.children].forEach(sibling => sibling.classList.remove(filter.active))
-    e.target.classList.add(filter.active);
+  const [isOpen, setIsOpen] = React.useState(false);
+
+  const handleTrigger = () => {
+    setIsOpen(prevState => !prevState)
   };
 
   return (
-    <button
-      onClick={onClickButton}
-      className={`${isActive ? filter.active : ''} ${filter.button}`}
-    >
-      {text}
-    </button>
+    <React.Fragment>
+      <nav className={filter['trigger-container']}>
+        <SearchBar/>
+        <button
+          className={filter.trigger}
+          onClick={handleTrigger}
+        ></button>
+      </nav>
+      {isOpen &&
+        <FilterDropdown
+          buttons={[
+            <FilterButton
+              isActive={true}
+              text={'Todos'}
+            />,
+            <FilterButton
+              filterState={'active'}
+              text={'Activos'}
+            />,
+            <FilterButton
+              filterState={'complete'}
+              text={'Completados'}
+            />
+          ]}
+        />
+      }
+    </React.Fragment>
   );
 }
 
-function FilterContainer() {
-
-  // const [isActive, setIsActive] = React.useState(false);
-
-  return (
-    <div className={filter.container}>
-      <FilterButton
-        // setIsActive={setIsActive}
-        isActive={true}
-        text={'Todos'}
-      />
-      <FilterButton
-        // setIsActive={setIsActive}
-        // isActive={isActive}
-        filterState={'active'}
-        text={'Activos'}
-      />
-      <FilterButton
-        // setIsActive={setIsActive}
-        // isActive={isActive}
-        filterState={'complete'}
-        text={'Completados'}
-      />
-    </div>
-  );
-}
-
-export { FilterContainer };
+export { Filters };

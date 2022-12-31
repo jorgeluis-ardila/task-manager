@@ -1,7 +1,7 @@
 import React from 'react';
 import { Context } from '../../context';
 import { Counter } from '../Counter';
-import { Search } from '../SearchBar';
+import { Filters } from '../Filter';
 import { ToDoList } from '../ToDoList';
 import { ButtonCreate } from '../ButtonCreate';
 import { Modal } from '../Modal';
@@ -23,13 +23,13 @@ function AppUI() {
 
       { loading && <Loading /> }
       { error && <Message message={'Hubo un error!'} /> }
-      { (!loading && !error) &&
+      { !loading && !error && (
         <React.Fragment>
           {
             totalTodos
             ? <React.Fragment>
                 <Counter />
-                <Search />
+                <Filters />
                 <ToDoList />
               </React.Fragment>
             : <React.Fragment>
@@ -42,7 +42,7 @@ function AppUI() {
             setOpenModal={setOpenModal}
           />
         </React.Fragment>
-      }
+      )}
 
       {!!openModal && (
         <Modal>

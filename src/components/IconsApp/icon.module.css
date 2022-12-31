@@ -7,8 +7,8 @@
 }
 
 .svg {
-  width: 24px;
-  height: 24px;
+  width: 15px;
+  height: 15px;
   transition: fill .15s;
 }
 .container:hover .svg--check {

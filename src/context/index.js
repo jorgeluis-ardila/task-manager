@@ -12,9 +12,19 @@ function ToDoProvider(props) {
     error
   } = useLocalStorage('TODOS_V1', []);
 
-  const [searchValue, setSearchValue] = React.useState(''),
+  const [isMobile, setIsMobile] = React.useState(false),
+        [searchValue, setSearchValue] = React.useState(''),
         [filterTodos, setFilterTodos] = React.useState(''),
         [openModal, setOpenModal] = React.useState(false);
+
+  const detectMobile = () => {
+    setIsMobile(window.innerWidth <= 768 ? true : false);
+  }
+  React.useEffect(() => {
+    window.addEventListener('resize', detectMobile);
+    detectMobile();
+    return () => window.removeEventListener('resize', detectMobile);
+  })
 
   const filteredToDos = (filter) => {
     switch (filter) {
@@ -71,7 +81,8 @@ function ToDoProvider(props) {
       filterTodos,
       setFilterTodos,
       openModal,
-      setOpenModal
+      setOpenModal,
+      isMobile
     }}>
       {props.children}
     </Context.Provider>

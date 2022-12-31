@@ -10,6 +10,12 @@ const iconTypes = {
   "delete": color => (
     <DeleteSVG className={`${icon.svg} ${icon['svg--delete']}`} fill={color} />
   ),
+  /* "filter": color => (
+    <FilterSVG className={`${icon.svg} ${icon['svg--delete']}`} fill={color} />
+  ),
+  "search": color => (
+    <SearchSVG className={`${icon.svg} ${icon['svg--delete']}`} fill={color} />
+  ), */
 };
 
 function ToDoIcon({ type, color = 'gray', onClick }) {

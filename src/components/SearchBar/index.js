@@ -2,7 +2,7 @@ import React from "react";
 import { Context } from "../../context";
 import search from './search.module.css';
 
-function Search() {
+function SearchBar() {
 
   const { searchValue, setSearchValue } = React.useContext(Context);
 
@@ -20,4 +20,4 @@ function Search() {
   );
 }
 
-export { Search }
+export { SearchBar }
