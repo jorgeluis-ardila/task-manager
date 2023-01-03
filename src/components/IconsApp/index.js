@@ -1,30 +1,36 @@
 import React from 'react';
-import { ReactComponent as CheckSVG } from './icons/check.svg';
-import { ReactComponent as DeleteSVG } from './icons/delete.svg';
+import { ReactComponent as CheckSVG } from '../../assets/svg/check-icon.svg';
+import { ReactComponent as UnCheckSVG } from '../../assets/svg/uncheck-icon.svg';
+import { ReactComponent as DeleteSVG } from '../../assets/svg/delete-icon.svg';
+import { ReactComponent as SearchSVG } from '../../assets/svg/search-icon.svg';
+import { ReactComponent as FilterSVG } from '../../assets/svg/sort-icon.svg';
 import icon from './icon.module.css';
 
 const iconTypes = {
-  "check": color => (
-    <CheckSVG className={`${icon.svg} ${icon['svg--check']}`} fill={color} />
+  "check": () => (
+    <CheckSVG className={`${icon.svg} ${icon['svg--check']}`} fill="#0D0D0D"/>
   ),
-  "delete": color => (
-    <DeleteSVG className={`${icon.svg} ${icon['svg--delete']}`} fill={color} />
+  "uncheck": () => (
+    <UnCheckSVG className={`${icon.svg} ${icon['svg--uncheck']}`} fill="#0D0D0D" />
   ),
-  /* "filter": color => (
-    <FilterSVG className={`${icon.svg} ${icon['svg--delete']}`} fill={color} />
+  "delete": () => (
+    <DeleteSVG className={`${icon.svg} ${icon['svg--delete']}`} fill="#0D0D0D" />
   ),
-  "search": color => (
-    <SearchSVG className={`${icon.svg} ${icon['svg--delete']}`} fill={color} />
-  ), */
+  "search": (classNameSvg) => (
+    <SearchSVG className={`${icon.svg} ${icon['svg--search']} ${classNameSvg ? classNameSvg : ''}`} fill="#0D0D0D" />
+  ),
+  "filter": (classNameSvg) => (
+    <FilterSVG className={`${icon.svg} ${icon['svg--filter']} ${classNameSvg ? classNameSvg : ''}`} fill="#0D0D0D" />
+  ),
 };
 
-function ToDoIcon({ type, color = 'gray', onClick }) {
+function ToDoIcon({ type, onClick, className, classNameSvg }) {
   return (
     <span
-      className={`${icon.container} ${icon[`container--${type}`]}`}
       onClick={onClick}
+      className={`${icon.container} ${className ? className : ''}`}
     >
-      {iconTypes[type](color)}
+      {iconTypes[type](classNameSvg)}
     </span>
   );
 }

@@ -1,19 +1,20 @@
 import React from 'react';
 import { Context } from '../../context';
+import { Greeting } from '../Greeting';
 import { Counter } from '../Counter';
 import { Filters } from '../Filter';
 import { ToDoList } from '../ToDoList';
 import { ButtonCreate } from '../ButtonCreate';
 import { Modal } from '../Modal';
 import { CreateForm } from '../CreateForm';
-import { Message, Loading } from '../MessageLoading';
+import { Status } from '../MessageLoading';
 
 function AppUI() {
 
   const {
     loading,
     error,
-    totalTodos,
+    totalTasks,
     openModal,
     setOpenModal
   } = React.useContext(Context);
@@ -21,20 +22,43 @@ function AppUI() {
   return (
     <React.Fragment>
 
-      { loading && <Loading /> }
-      { error && <Message message={'Hubo un error!'} /> }
+      <Greeting/>
+      { loading &&
+        <React.Fragment>
+          <Counter message='Buscando tus tareas' />
+          <Status
+            loading={true}
+            type={'loading'}
+            message={'No desesperes'}
+            highlihgt={'estamos cargando'}
+          />
+        </React.Fragment>
+      }
+      { error &&
+        <Status
+          loading={false}
+          type={'error'}
+          message={'Lo sentimos'}
+          highlihgt={'Tuvimos un error'}
+        />
+      }
       { !loading && !error && (
         <React.Fragment>
           {
-            totalTodos
+            totalTasks
             ? <React.Fragment>
-                <Counter />
+                <Counter message='Tu progreso de hoy' />
                 <Filters />
                 <ToDoList />
               </React.Fragment>
             : <React.Fragment>
-                <Counter message='Aun no tienes tareas creadas' />
-                <Message message={"Crea tus To Do's"} />
+                <Counter message='No tienes tareas creadas' />
+                <Status
+                  loading={false}
+                  type={'empty'}
+                  message={'¿Aun no tienes tareas creadas?'}
+                  highlihgt={'Que esperas para crearlas'}
+                />
               </React.Fragment>
           }
           <ButtonCreate

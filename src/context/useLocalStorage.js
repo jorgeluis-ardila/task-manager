@@ -27,6 +27,7 @@ function useLocalStorage(storageName, initialValue) {
       const stringifyStorage = JSON.stringify(newStorage);
       localStorage.setItem(storageName, stringifyStorage);
       setStorage(newStorage);
+      console.log(newStorage);
     } catch (error) {
       setError(error)
     }

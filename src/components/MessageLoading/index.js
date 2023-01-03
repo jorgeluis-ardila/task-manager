@@ -1,18 +1,40 @@
 import React from 'react';
-import loading from './loading.module.css'
+import LoadingIMG  from '../../assets/images/loading.jpg';
+import ErrorIMG  from '../../assets/images/error.jpg';
+import EmptyIMG  from '../../assets/images/empty.jpg';
+import status from './stateLoading.module.css';
 
-function Message(props) {
-  return <p className={loading['loading-state']}>{props.message}</p>
-}
+const imgTypes = {
+  loading: LoadingIMG,
+  error: ErrorIMG,
+  empty: EmptyIMG,
+};
 
-function Loading() {
+function Message({message, highlihgt}) {
   return (
-    <div className={loading.container}>
-      <span className={loading.completeIcon}></span>
-      <p className={loading.text}>Cargando TODOs...</p>
-      <span className={loading.deleteIcon}></span>
-    </div>
+    <p className={status.message}>
+      {message}
+      <span className={status['message-higlight']}>{highlihgt}</span>
+    </p>
   );
 }
 
-export { Message, Loading };
+function Status({ loading = false, type, message, highlihgt }) {
+  return (
+    <React.Fragment>
+      <Message 
+        message={message}
+        highlihgt={highlihgt}
+      />
+      {loading &&
+        <span className={status.loader}></span>
+      }
+      {
+        console.log(imgTypes[type])
+      }
+      <img src={imgTypes[type]} alt={highlihgt} className={`${status.image} ${status[type]}`} />
+    </React.Fragment>
+  );
+}
+
+export { Status };

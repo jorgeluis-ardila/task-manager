@@ -8,11 +8,11 @@ function FilterButton({
   text,
 }) {
   const {
-    setFilterTodos
+    setFilterTasks
   } = React.useContext(Context);
 
   const onClickButton = (e) => {
-    setFilterTodos(filterState);
+    setFilterTasks(filterState);
     [...e.target.parentElement.children].forEach(sibling => sibling.classList.remove(filter.active));
     e.target.classList.add(filter.active);
   };
@@ -31,11 +31,11 @@ function FilterDropdown({
   buttons
 }) {
   return (
-    <ul className={filter.container}>
+    <div className={filter.container}>
       {buttons.map((button, index) => (
-        <li key={index} className={filter.item}>{button}</li>
+        button
       ))}
-    </ul>
+    </div>
   );
 }
 

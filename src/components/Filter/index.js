@@ -1,6 +1,7 @@
 import React from "react";
 import { SearchBar } from "../SearchBar";
 import { FilterButton, FilterDropdown } from "./FilterButton";
+import { FilterIcon } from "../IconsApp/Icons";
 import filter from "./filter.module.css";
 
 function Filters() {
@@ -15,10 +16,11 @@ function Filters() {
     <React.Fragment>
       <nav className={filter['trigger-container']}>
         <SearchBar/>
-        <button
-          className={filter.trigger}
-          onClick={handleTrigger}
-        ></button>
+        <FilterIcon
+          onFilter={handleTrigger}
+          className={`${filter.trigger} ${isOpen ? filter['trigger--active'] : ''}`}
+          classNameSvg={filter['svg-trigger']}
+        />
       </nav>
       {isOpen &&
         <FilterDropdown

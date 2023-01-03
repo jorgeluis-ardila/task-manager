@@ -4,10 +4,22 @@ import counter from './counter.module.css';
 
 function Counter(props) {
 
-  const { completedTodos, totalTodos } = React.useContext(Context);
+  const { loading, completedTasks, totalTasks } = React.useContext(Context);
 
   return (
-    <h2 className={counter.title}>{props.message ? props.message : `Has Completado ${completedTodos} de ${totalTodos} To Do's`}</h2>
+    <div className={counter.container}>
+      <h2 className={counter.title}>
+        {props.message}
+      </h2>
+      {(!loading && totalTasks > 0) &&
+        <React.Fragment>
+          <p className={counter.tasks}>{`${completedTasks} de ${totalTasks} tareas completadas`}</p>
+          <div className={counter.progress}>
+            <div className={counter['progress-bar']} style={{ width: `${((completedTasks * 100) / totalTasks)}%`}}></div>
+          </div>
+        </React.Fragment>
+      }
+    </div>
   );
 }
 

@@ -1,19 +1,40 @@
 .container {
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-  /* background-color: #CCC; */
+  cursor: pointer;
 }
 
-.svg {
+.svg{
+  transition: all 0.3s ease 0s;
+}
+
+.svg--check,
+.svg--uncheck{
   width: 15px;
   height: 15px;
-  transition: fill .15s;
 }
-.container:hover .svg--check {
-  fill: #4caf50;
+.svg--check{
+  fill: var(--green);
 }
-.container:hover .svg--delete {
-  fill: red;
+.svg--uncheck{
+  fill: var(--light-yellow);
+}
+
+.svg--delete{
+  width: 12px;
+  height: 15px;
+  fill: var(--red);
+}
+
+.svg--search{
+  width: 20px;
+  height: 20px;
+  fill: var(--light-yellow);
+}
+
+.svg--filter{
+  width: 15px;
+  height: 10px;
+  fill: var(--dark-blue);
 }

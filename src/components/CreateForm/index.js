@@ -8,7 +8,7 @@ function CreateForm() {
         [showAlert, setShowAlert] = React.useState(false);
 
   const {
-    addTodo,
+    addTask,
     setOpenModal
   } = React.useContext(Context);
 
@@ -22,7 +22,7 @@ function CreateForm() {
   }
   function submit() {
     if (newTodoValue.length > 0) {
-      addTodo(newTodoValue);
+      addTask(newTodoValue);
       onCancel();
     } else {
       setShowAlert(true)

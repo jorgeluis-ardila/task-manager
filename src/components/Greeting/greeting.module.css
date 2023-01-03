@@ -1,0 +1,25 @@
+.container{
+  padding: 0 0 15px;
+}
+.great{
+  margin: 0;
+  display: flex;
+  align-items: center;
+  color: var(--dark-blue);
+  font: 700 30px/40px var(--main-font);
+  letter-spacing: -0.04em;
+}
+.great::before{
+  content: '';
+  display: block;
+  width: 5px;
+  height: 25px;
+  background-color: var(--light-yellow);
+  margin-right: 6px;
+}
+.welcome{
+  opacity: 0.8;
+  margin: 0;
+  color: var(--dark);
+  font: italic 400 13px/15px var(--main-font);
+}

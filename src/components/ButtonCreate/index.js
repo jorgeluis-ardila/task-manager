@@ -8,10 +8,10 @@ function ButtonCreate(props) {
 
   return (
     <button 
-      className={`${button.create} ${props.openModal ? button.close : ''}`}
+      className={button.create}
       onClick={onClickButton}
     >
-      +
+      Agregar nueva tarea
     </button>
   );
 }

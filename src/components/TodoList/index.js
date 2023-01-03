@@ -1,31 +1,31 @@
 import React from "react";
 import { Context } from "../../context";
 import { ToDoItem } from './ToDoItem';
-import listContainer from './list.module.css'
+import list from './list.module.css'
 
 
 
 function ToDoList() {
   const {
-    searchTodos,
-    findIndex,
-    completeTodo,
-    deleteTodo,
+    searchedTasks,
+    completeTask,
+    deleteTask,
   } = React.useContext(Context);
 
   return (
-    <ul className={listContainer.list}>
-      {searchTodos.map(todo => (
-        <ToDoItem
-          index={findIndex(todo.text)}
-          key={findIndex(todo.text)}
-          text={todo.text}
-          completed={todo.completed}
-          onComplete={() => completeTodo(todo.text)}
-          onDelete={() => deleteTodo(todo.text)}
-        />
-      ))}
-    </ul>
+    <div className={list['list-container']}>
+      <ul className={list.list}>
+        {searchedTasks.map((task, index) => (
+          <ToDoItem
+            key={index}
+            text={task.text}
+            completed={task.completed}
+            onComplete={() => completeTask(task.text)}
+            onDelete={() => deleteTask(task.text)}
+          />
+        ))}
+      </ul>
+    </div>
   );
 }
 

@@ -6,83 +6,70 @@ const Context = React.createContext();
 function ToDoProvider(props) {
 
   const {
-    storage: todos,
+    storage: tasks,
     saveStorage: saveToDos,
     loading,
     error
-  } = useLocalStorage('TODOS_V1', []);
+  } = useLocalStorage('TODOS_V1', []),
+    [searchValue, setSearchValue] = React.useState(''),
+    [filterTasks, setFilterTasks] = React.useState(''),
+    [openModal, setOpenModal] = React.useState(false);
 
-  const [isMobile, setIsMobile] = React.useState(false),
-        [searchValue, setSearchValue] = React.useState(''),
-        [filterTodos, setFilterTodos] = React.useState(''),
-        [openModal, setOpenModal] = React.useState(false);
-
-  const detectMobile = () => {
-    setIsMobile(window.innerWidth <= 768 ? true : false);
-  }
-  React.useEffect(() => {
-    window.addEventListener('resize', detectMobile);
-    detectMobile();
-    return () => window.removeEventListener('resize', detectMobile);
-  })
-
-  const filteredToDos = (filter) => {
+  const filteredTasks = (filter) => {
     switch (filter) {
       case 'complete':
-        return todos.filter(todo => !!todo.completed)
+        return tasks.filter(todo => !!todo.completed)
       case 'active':
-        return todos.filter(todo => !todo.completed)
+        return tasks.filter(todo => !todo.completed)
       default:
-        return todos
+        return tasks
     }
   }
 
-  const completedTodos = filteredToDos('complete').length,
-        totalTodos = filteredToDos().length,
-        rederedTodos = filteredToDos(filterTodos),
-        searchTodos = rederedTodos.filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
+  const completedTasks = filteredTasks('complete').length,
+        totalTasks = filteredTasks().length,
+        searchedTasks = filteredTasks(filterTasks).filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
 
-  const findIndex = (text) => todos.findIndex(todo => todo.text === text);
+  const findIndex = (text) => tasks.findIndex(todo => todo.text === text);
 
-  const addTodo = (text) => {
-    const newTodos = [...todos];
-    newTodos.push({
+  const addTask = (text) => {
+    const newTasks = [...tasks];
+    newTasks.push({
       completed: false,
       text,
     });
-    saveToDos(newTodos);
+    saveToDos(newTasks);
   };
 
-  const completeTodo = (text) => {
-    const newTodos = [...todos];
-    newTodos[findIndex(text)].completed = !newTodos[findIndex(text)].completed;
-    saveToDos(newTodos);
+  const completeTask = (text) => {
+    const newTasks = [...tasks];
+    newTasks[findIndex(text)].completed = !newTasks[findIndex(text)].completed;
+    saveToDos(newTasks);
   };
 
-  const deleteTodo = (text) => {
-    const newTodos = [...todos];
-    newTodos.splice(findIndex(text), 1);
-    saveToDos(newTodos);
+  const deleteTask = (text) => {
+    const newTasks = [...tasks];
+    newTasks.splice(findIndex(text), 1);
+    saveToDos(newTasks);
   };
 
   return (
     <Context.Provider value={{
       loading,
       error,
-      totalTodos,
-      completedTodos,
-      findIndex,
-      addTodo,
-      completeTodo,
-      deleteTodo,
-      searchTodos,
       searchValue,
       setSearchValue,
-      filterTodos,
-      setFilterTodos,
+      filterTasks,
+      setFilterTasks,
       openModal,
       setOpenModal,
-      isMobile
+      totalTasks,
+      completedTasks,
+      searchedTasks,
+      findIndex,
+      addTask,
+      completeTask,
+      deleteTask,
     }}>
       {props.children}
     </Context.Provider>

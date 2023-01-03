@@ -1,21 +1,26 @@
 import React from "react";
-import { CompleteIcon } from "../../IconsApp/CompleteIcon"
-import { DeleteIcon } from "../../IconsApp/DeleteIcon";
+import { CompleteIcon, DeleteIcon } from "../../IconsApp/Icons"
 import item from '../list.module.css'
 
 function ToDoItem(props) {
   return (
-    <li 
-      className={item.item}
+    <li
+      className={`${item.item} ${props.completed ? item['item--complete'] : ''}`}
     >
-      <CompleteIcon
-        completed={props.completed}
-        onComplete={props.onComplete}
-      />
-      <p className={`${item.paragraf} ${props.completed && item['paragraf--completed']}`}>{`${props.text}`}</p>
-      <DeleteIcon
-        onDelete={props.onDelete}
-      />
+      <div className={item['inner-container']}>
+        <CompleteIcon
+          completed={props.completed}
+          onComplete={props.onComplete}
+        />
+        <p
+          className={`${item.paragraf}`}
+        >
+          {`${props.text}`}
+        </p>
+        <DeleteIcon
+          onDelete={props.onDelete}
+        />
+      </div>
     </li>
   );
 }
