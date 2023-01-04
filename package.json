@@ -12,12 +12,14 @@
 		"react-transition-group": "^4.4.5",
 		"web-vitals": "^2.1.4"
 	},
-	"homepage": "http://jorgeardila.co/task-manager",
+	"homepage": "https://jorgeluis-ardila.githubio/task-manager",
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
 		"test": "react-scripts test",
-		"eject": "react-scripts eject"
+		"eject": "react-scripts eject",
+		"predeploy": "npm run build",
+		"deploy": "gh-pages -d build"
 	},
 	"repository": {
 		"type": "git",
