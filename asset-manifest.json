@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/task-manager/static/css/main.3f32de4c.css",
+    "main.js": "/task-manager/static/js/main.6f2431b4.js",
+    "static/media/error.jpg": "/task-manager/static/media/error.42040b5c3c2716405535.jpg",
+    "static/media/loading.jpg": "/task-manager/static/media/loading.506fa13e4bc85def77b7.jpg",
+    "static/media/empty.jpg": "/task-manager/static/media/empty.f13d5c5805c55362d682.jpg",
+    "static/media/delete-icon.svg": "/task-manager/static/media/delete-icon.20793021f3b7c20a9d11a2520a155900.svg",
+    "static/media/uncheck-icon.svg": "/task-manager/static/media/uncheck-icon.a912cbb51aaadb870e87ad181ec09343.svg",
+    "static/media/search-icon.svg": "/task-manager/static/media/search-icon.1bb4c9846a25124061b8817a67c3b1f1.svg",
+    "index.html": "/task-manager/index.html",
+    "static/media/check-icon.svg": "/task-manager/static/media/check-icon.a79b96396c0b8cd3fa442a2917ad465b.svg",
+    "static/media/sort-icon.svg": "/task-manager/static/media/sort-icon.2358c01a29ac8456ae3971787bb1c1d1.svg",
+    "main.3f32de4c.css.map": "/task-manager/static/css/main.3f32de4c.css.map",
+    "main.6f2431b4.js.map": "/task-manager/static/js/main.6f2431b4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3f32de4c.css",
+    "static/js/main.6f2431b4.js"
+  ]
+}
