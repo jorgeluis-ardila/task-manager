@@ -12,6 +12,7 @@
 		"react-transition-group": "^4.4.5",
 		"web-vitals": "^2.1.4"
 	},
+	"homepage": "http://jorgeardila.co/task-manager",
 	"scripts": {
 		"start": "react-scripts start",
 		"build": "react-scripts build",
