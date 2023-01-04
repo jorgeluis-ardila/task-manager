@@ -32,6 +32,7 @@ function Modal({ children }) {
         ref={nodeRef}
         onClose={() => setOpenModal(false)}
         className={`${modal.background}`}
+        onClick={() => setOpenModal(false)}
       >
         {children}
       </div>

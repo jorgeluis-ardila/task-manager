@@ -41,7 +41,7 @@ function CreateForm(props) {
 
   return (
     <form
-      // className={form.form}
+      onClick={(e) => e.stopPropagation()}
       onSubmit={onSubmit}
       onKeyDownCapture={onKeyUp}
     >

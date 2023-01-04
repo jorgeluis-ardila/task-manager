@@ -16,7 +16,7 @@ function ToDoList() {
     <ul className={list.list}>
       {searchedTasks.map((task, index) => (
         <ToDoItem
-          key={index}
+          key={task.key}
           text={task.text}
           completed={task.completed}
           onComplete={() => completeTask(task.text, task.key)}
