@@ -30,26 +30,28 @@ function ToDoProvider(props) {
         totalTasks = filteredTasks().length,
         searchedTasks = filteredTasks(filterTasks).filter(todo => todo.text.toLowerCase().includes(searchValue.toLowerCase()));
 
-  const findIndex = (text) => tasks.findIndex(todo => todo.text === text);
+  const findIndex = (text, key) => tasks.findIndex(todo => todo.text === text && todo.key === key);
 
   const addTask = (text) => {
     const newTasks = [...tasks];
     newTasks.push({
       completed: false,
       text,
+      key: tasks.length + 1
     });
     saveToDos(newTasks);
   };
 
-  const completeTask = (text) => {
+  const completeTask = (text, key) => {
     const newTasks = [...tasks];
-    newTasks[findIndex(text)].completed = !newTasks[findIndex(text)].completed;
+    newTasks[findIndex(text, key)].completed = !newTasks[findIndex(text, key)].completed;
     saveToDos(newTasks);
   };
 
-  const deleteTask = (text) => {
+  const deleteTask = (text, key) => {
     const newTasks = [...tasks];
-    newTasks.splice(findIndex(text), 1);
+    newTasks.splice(findIndex(text, key), 1);
+    newTasks.forEach((task, index) => task.key = ++index);
     saveToDos(newTasks);
   };
 

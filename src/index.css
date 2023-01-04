@@ -1,8 +1,10 @@
 @import url('./variable.css');
 
-body {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
+  background-color: var(--white);
   color: var(--dark);
   font-family: var(--main-font);
 }
@@ -12,7 +14,10 @@ body {
   display: flex;
   flex-direction: column;
   position: relative;
-  min-height: 100vh;
-  max-height: 100vh;
+  max-width: 500px;
+  min-height: 100vmin;
+  max-height: 100vmax;
+  margin: 0 auto;
   padding: 15px 20px 20px;
+  background-color: #fff;
 }

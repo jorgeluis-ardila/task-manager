@@ -1,22 +1,26 @@
 .create {
   box-shadow: 0px 0px 25px var(--light-green-blue);
+  text-transform: uppercase;
   transition: all .3s ease 0s;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  transform: rotate(0);
-  width: 100%;
+  position: fixed;
+  z-index: 2;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: calc(100% - 40px);
+  max-width: calc(500px - 40px);
   height: 45px;
   padding: 15px;
-  border-radius: 1000px;
   border: none;
+  border-radius: 1000px;
   background: var(--light-green-blue);
   color: var(--dark-blue);
   font: 700 12px/15px var(--main-font);
-  text-transform: uppercase;
   cursor: pointer;
-  z-index: 2;
 }
 
 .create:hover {

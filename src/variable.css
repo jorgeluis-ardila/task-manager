@@ -1,6 +1,7 @@
 :root{
   --main-font: 'Montserrat', Arial, Helvetica, sans-serif;
   --dark-blue: #183b59;
+  --dark-blue80: rgba(24, 59, 89, 0.8);
   --light-blue: #7E9ABF;
   --dark-green-blue: #03738B;
   --dark-green-blue40: rgba(3, 115, 140, 0.40);
@@ -11,6 +12,7 @@
   --yellow: #DAA404;
   --light-yellow: #F3C53C;
   --orange: #DA580D;
+  --orange60: rgba(218, 88, 13, 0.6);
   --green: #56BF7C;
   --red: #F10545;
   --light: #D7E3F1;
@@ -18,4 +20,5 @@
   --white30: rgba(242, 242, 242, 0.3);
   --dark: #0D0D0D;
   --dark30: rgba(13, 13, 13, 0.3);
+  --dark60: rgba(13, 13, 13, 0.6);
 }

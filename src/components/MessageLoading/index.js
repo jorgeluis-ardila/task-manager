@@ -21,19 +21,18 @@ function Message({message, highlihgt}) {
 
 function Status({ loading = false, type, message, highlihgt }) {
   return (
-    <React.Fragment>
-      <Message 
+    <div className={status.container}>
+      <Message
         message={message}
         highlihgt={highlihgt}
       />
       {loading &&
         <span className={status.loader}></span>
       }
-      {
-        console.log(imgTypes[type])
-      }
-      <img src={imgTypes[type]} alt={highlihgt} className={`${status.image} ${status[type]}`} />
-    </React.Fragment>
+      <figure className={status['image-container']}>
+        <img src={imgTypes[type]} alt={highlihgt} className={`${status.image} ${status[type]}`} />
+      </figure>
+    </div>
   );
 }
 

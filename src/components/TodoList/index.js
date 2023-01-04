@@ -13,19 +13,17 @@ function ToDoList() {
   } = React.useContext(Context);
 
   return (
-    <div className={list['list-container']}>
-      <ul className={list.list}>
-        {searchedTasks.map((task, index) => (
-          <ToDoItem
-            key={index}
-            text={task.text}
-            completed={task.completed}
-            onComplete={() => completeTask(task.text)}
-            onDelete={() => deleteTask(task.text)}
-          />
-        ))}
-      </ul>
-    </div>
+    <ul className={list.list}>
+      {searchedTasks.map((task, index) => (
+        <ToDoItem
+          key={index}
+          text={task.text}
+          completed={task.completed}
+          onComplete={() => completeTask(task.text, task.key)}
+          onDelete={() => deleteTask(task.text, task.key)}
+        />
+      ))}
+    </ul>
   );
 }
 

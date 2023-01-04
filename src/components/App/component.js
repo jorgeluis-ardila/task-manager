@@ -6,7 +6,7 @@ import { Filters } from '../Filter';
 import { ToDoList } from '../ToDoList';
 import { ButtonCreate } from '../ButtonCreate';
 import { Modal } from '../Modal';
-import { CreateForm } from '../CreateForm';
+import { CreateForm } from '../Modal/CreateForm';
 import { Status } from '../MessageLoading';
 
 function AppUI() {
@@ -68,11 +68,9 @@ function AppUI() {
         </React.Fragment>
       )}
 
-      {!!openModal && (
-        <Modal>
-          <CreateForm></CreateForm>
-        </Modal>
-      )}
+      <Modal>
+        <CreateForm/>
+      </Modal>
 
     </React.Fragment>
   );

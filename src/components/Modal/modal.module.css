@@ -1,13 +1,173 @@
 .background {
-  background: rgba(32, 35, 41, .8);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
   position: fixed;
-  top: -10px;
-  left: -10px;
-  right: -10px;
-  bottom: -10px;
+  z-index: 3;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: var(--dark-blue80);
+}
+
+.background-enter {
+  background: transparent;
+}
+
+.background-enter-active {
+  background: var(--dark-blue80);
+  transition: background 200ms;
+}
+
+.background-exit {
+  background: var(--dark-blue80);
+}
+
+.background-exit-active {
+  background: transparent;
+  transition: background 200ms;
+}
+
+form {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  width: 100%;
+  max-width: 500px;
+  padding: 19px 20px;
+  border-radius: 20px 20px 0px 0px;
+  background: var(--white);
+}
+
+form::before {
+  content: '';
+  display: block;
+  position: absolute;
+  z-index: -1;
+  top: -7px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  height: 24px;
+  border-radius: 15px;
+  background-color: var(--light-yellow);
+}
+
+.background-enter form {
+  opacity: 0;
+  bottom: -100%;
+}
+
+.background-enter-active form {
+  opacity: 1;
+  bottom: 0;
+  transition: opacity 300ms, bottom 300ms;
+}
+
+.background-enter-done form{
+  opacity: 1;
+  bottom: 0;
+}
+
+.background-exit form {
+  opacity: 1;
+  bottom: 0;
+}
+
+.background-exit-active form {
+  opacity: 0;
+  bottom: -100%;
+  transition: opacity 300ms, bottom 300ms;
+}
+
+label {
+  font: 800 18px/22px var(--main-font);
+  text-align: center;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--dark-blue);
+  margin-bottom: 10px;
+}
+
+textarea {
+  resize: none;
+  box-sizing: border-box;
+  width: 100%;
+  height: 95px;
+  margin-bottom: 9px;
+  padding: 12px;
+  border: none;
+  border-radius: 10px;
+  outline: none;
+  background-color: #FFF;
+  color: var(--dark60);
+  font: 400 14px/15px var(--main-font);
+  text-align: center;
+}
+
+textarea::placeholder {
+  color: var(--dark60);
+  font: 400 14px/15px var(--main-font);
+}
+
+textarea:focus {
+  outline: 1px solid var(--light-green-blue);
+}
+
+.alert {
+  margin: 0;
+  color: var(--red);
+  font: 600 13px/16px var(--main-font);
+  text-align: center;
+}
+
+.buttonContainer {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
-  z-index: 3;
+  width: 100%;
+  margin-top: 9px;
+}
+
+.button {
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+  display: inline-block;
+  width: 125px;
+  height: 45px;
+  padding: 0;
+  border: none;
+  color: var(--dark-blue);
+  font: 700 13px/16px var(--main-font);
+  /* font-weight: 700;
+  font-size: 13px;
+  line-height: 16px;
+  font-family: var(--maim-font); */
+  cursor: pointer;
+}
+
+.button--add {
+  text-indent: -10px;
+  border-radius: 0 100px 100px 0;
+  background: var(--light-green-blue);
+}
+.button--add:hover {
+  background: linear-gradient(180deg, var(--light-green-blue) 0%, rgba(3, 115, 139, 0.2) 100%), var(--light-green-blue);
+}
+
+.button--cancel {
+  text-indent: 10px;
+  border: 2px solid var(--light);
+  border-radius: 100px 0 0 100px;
+  background: transparent;
+}
+
+.button--cancel:hover {
+  border: none;
+  background-color: var(--red);
+  color: var(--white);
 }

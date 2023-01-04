@@ -3,11 +3,11 @@ import button from './buttons.module.css'
 
 function ButtonCreate(props) {
   const onClickButton = () => {
-    props.setOpenModal(prevState => !prevState);
+    props.setOpenModal(!props.openModal);
   };
 
   return (
-    <button 
+    <button
       className={button.create}
       onClick={onClickButton}
     >

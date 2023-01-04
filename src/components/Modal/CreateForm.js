@@ -1,17 +1,17 @@
 import React from "react";
 import { Context } from "../../context";
-import form from "./form.module.css"
+import form from "./modal.module.css"
 
-function CreateForm() {
+function CreateForm(props) {
 
   const [newTodoValue, setNewTodoValue] = React.useState(''),
         [showAlert, setShowAlert] = React.useState(false);
 
   const {
     addTask,
+    // openModal,
     setOpenModal
   } = React.useContext(Context);
-
 
   const onChange = (event) => {
     setNewTodoValue(event.target.value);
@@ -33,7 +33,6 @@ function CreateForm() {
     submit()
   }
   const onKeyUp = (e) => {
-    console.log();
     if (e.keyCode === 13) {
       e.preventDefault();
       submit()
@@ -42,16 +41,17 @@ function CreateForm() {
 
   return (
     <form
+      // className={form.form}
       onSubmit={onSubmit}
       onKeyDownCapture={onKeyUp}
     >
-      <label>Crea tu nuevo TODO</label>
+      <label>Crea tu nueva tarea</label>
       <textarea
         value={newTodoValue}
         onChange={onChange}
         placeholder="Que tienes que hacer?"
       />
-      {showAlert && <p className={form.alert}>Escribe el texto de tu nuevo To Do</p>}
+      {showAlert && <p className={form.alert}>Debes añadir texto a tu tarea</p>}
       <div className={form.buttonContainer}>
         <button
           type="button"

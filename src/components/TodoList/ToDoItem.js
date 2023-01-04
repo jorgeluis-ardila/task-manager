@@ -1,6 +1,6 @@
 import React from "react";
-import { CompleteIcon, DeleteIcon } from "../../IconsApp/Icons"
-import item from '../list.module.css'
+import { CompleteIcon, DeleteIcon } from "../IconsApp/Icons"
+import item from './list.module.css'
 
 function ToDoItem(props) {
   return (
