@@ -1,0 +1,42 @@
+.desktop-container{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  align-content: stretch;
+  position: relative;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  max-width: 1000px;
+  max-height: 85vh;
+  margin: auto;
+}
+
+.desktop-left,
+.desktop-right{
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+@media (max-width: 1000px){
+  .desktop-left{
+    margin-right: 2.5%;
+  }
+  .desktop-right {
+    margin-left: 2.5%;
+  }
+}
+
+.desktop-left{
+  box-sizing: border-box;
+  width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+  background-color: var(--dark-blue07);
+}
+.desktop-right{
+  width: 450px;
+}

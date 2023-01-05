@@ -21,7 +21,7 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "git+https://github.com/jorgeluis-ardila/react-introduction.git"
+		"url": "git+https://github.com/jorgeluis-ardila/task-manager.git"
 	},
 	"eslintConfig": {
 		"extends": [

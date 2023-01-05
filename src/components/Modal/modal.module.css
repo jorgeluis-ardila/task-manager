@@ -31,23 +31,78 @@
 
 form {
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   position: relative;
   width: 100%;
   max-width: 500px;
-  padding: 19px 20px;
-  border-radius: 20px 20px 0px 0px;
-  background: var(--white);
+}
+
+@media (min-width: 769px) {
+  form {
+    top: 0;
+    right: 0;
+    /* bottom: 0; */
+    left: 0;
+    margin: auto auto;
+  }
+
+  .background-enter form {
+    opacity: 0;
+    bottom: -20px;
+    transform: scale(0.8);
+  }
+
+  .background-enter-active form {
+    opacity: 1;
+    bottom: 0;
+    transform: scale(1);
+    transition: opacity 300ms, bottom 300ms, transform 200ms;
+  }
+
+  .background-enter-done form,
+  .background-exit form {
+    opacity: 1;
+    bottom: 0;
+    transform: scale(1);
+  }
+
+  .background-exit-active form {
+    opacity: 0;
+    bottom: -20px;
+    transform: scale(0.8);
+    transition: opacity 300ms, bottom 300ms, transform 200ms;
+  }
+}
+
+@media (max-width: 768px) {
+  .background-enter form {
+    opacity: 0;
+    bottom: -100%;
+  }
+
+  .background-enter-active form {
+    opacity: 1;
+    bottom: 0;
+    transition: opacity 300ms, bottom 300ms;
+  }
+
+  .background-enter-done form,
+  .background-exit form {
+    opacity: 1;
+    bottom: 0;
+  }
+
+  .background-exit-active form {
+    opacity: 0;
+    bottom: -100%;
+    transition: opacity 300ms, bottom 300ms;
+  }
 }
 
 form::before {
   content: '';
   display: block;
   position: absolute;
-  z-index: -1;
+  z-index: 1;
   top: -7px;
   left: 50%;
   transform: translateX(-50%);
@@ -57,31 +112,22 @@ form::before {
   background-color: var(--light-yellow);
 }
 
-.background-enter form {
-  opacity: 0;
-  bottom: -100%;
+.inner-container{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
+  position: relative;
+  padding: 19px 20px;
+  border-radius: 20px 20px 0px 0px;
+  background: var(--white);
 }
 
-.background-enter-active form {
-  opacity: 1;
-  bottom: 0;
-  transition: opacity 300ms, bottom 300ms;
-}
-
-.background-enter-done form{
-  opacity: 1;
-  bottom: 0;
-}
-
-.background-exit form {
-  opacity: 1;
-  bottom: 0;
-}
-
-.background-exit-active form {
-  opacity: 0;
-  bottom: -100%;
-  transition: opacity 300ms, bottom 300ms;
+@media (min-width: 769px) {
+  .inner-container {
+    border-radius: 20px;
+  }
 }
 
 label {
@@ -125,7 +171,7 @@ textarea:focus {
   text-align: center;
 }
 
-.buttonContainer {
+.button-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -143,10 +189,6 @@ textarea:focus {
   border: none;
   color: var(--dark-blue);
   font: 700 13px/16px var(--main-font);
-  /* font-weight: 700;
-  font-size: 13px;
-  line-height: 16px;
-  font-family: var(--maim-font); */
   cursor: pointer;
 }
 

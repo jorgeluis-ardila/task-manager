@@ -30,6 +30,10 @@
   height: 100%;
 }
 
+.image-desktop{
+  margin-bottom: 70px;
+}
+
 .image{
   width: 100%;
   max-width: 500px;

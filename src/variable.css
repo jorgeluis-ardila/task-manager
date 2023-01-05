@@ -1,6 +1,9 @@
 :root{
   --main-font: 'Montserrat', Arial, Helvetica, sans-serif;
+  --desktop-gradient: #EFF1F3;
+  --desktop-gradient0: rgba(239, 241, 243, 0);
   --dark-blue: #183b59;
+  --dark-blue07: rgba(24, 59, 89, 0.07);
   --dark-blue80: rgba(24, 59, 89, 0.8);
   --light-blue: #7E9ABF;
   --dark-green-blue: #03738B;

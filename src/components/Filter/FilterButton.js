@@ -13,7 +13,7 @@ function FilterButton({
 
   const onClickButton = (e) => {
     setFilterTasks(filterState);
-    [...e.target.parentElement.children].forEach(sibling => sibling.classList.remove(filter.active));
+    [...e.target.parentElement.parentElement.children].forEach(sibling => sibling.children[0].classList.remove(filter.active));
     e.target.classList.add(filter.active);
   };
 
@@ -33,7 +33,9 @@ function FilterDropdown({
   return (
     <div className={filter.container}>
       {buttons.map((button, index) => (
-        button
+        <div key={index}>
+          {button}
+        </div>
       ))}
     </div>
   );

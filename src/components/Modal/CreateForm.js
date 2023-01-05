@@ -45,27 +45,29 @@ function CreateForm(props) {
       onSubmit={onSubmit}
       onKeyDownCapture={onKeyUp}
     >
-      <label>Crea tu nueva tarea</label>
-      <textarea
-        value={newTodoValue}
-        onChange={onChange}
-        placeholder="Que tienes que hacer?"
-      />
-      {showAlert && <p className={form.alert}>Debes añadir texto a tu tarea</p>}
-      <div className={form.buttonContainer}>
-        <button
-          type="button"
-          className={`${form.button} ${form['button--cancel']}`}
-          onClick={onCancel}
-        >
-          Cancelar
-        </button>
-        <button
-          type="submit"
-          className={`${form.button} ${form['button--add']}`}
-        >
-          Añadir
-        </button>
+      <div className={form['inner-container']}>
+        <label>Crea tu nueva tarea</label>
+        <textarea
+          value={newTodoValue}
+          onChange={onChange}
+          placeholder="Que tienes que hacer?"
+        />
+        {showAlert && <p className={form.alert}>Debes añadir texto a tu tarea</p>}
+        <div className={form['button-container']}>
+          <button
+            type="button"
+            className={`${form.button} ${form['button--cancel']}`}
+            onClick={onCancel}
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            className={`${form.button} ${form['button--add']}`}
+          >
+            Añadir
+          </button>
+        </div>
       </div>
     </form>
   );

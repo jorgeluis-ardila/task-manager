@@ -5,7 +5,6 @@ import './index.css';
 
 const container = document.getElementById('root'),
       root = ReactDOM.createRoot(container);
-container.style.height = `${document.documentElement.clientHeight}px`;
 root.render(
   <App />
 );

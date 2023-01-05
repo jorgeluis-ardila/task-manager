@@ -9,11 +9,15 @@ function ToDoProvider(props) {
     storage: tasks,
     saveStorage: saveToDos,
     loading,
-    error
+    error,
+    isMobile,
+    detectSize: detectMobile
   } = useLocalStorage('TODOS_V1', []),
     [searchValue, setSearchValue] = React.useState(''),
     [filterTasks, setFilterTasks] = React.useState(''),
     [openModal, setOpenModal] = React.useState(false);
+
+  window.addEventListener('resize', detectMobile);
 
   const filteredTasks = (filter) => {
     switch (filter) {
@@ -55,6 +59,14 @@ function ToDoProvider(props) {
     saveToDos(newTasks);
   };
 
+  const deleteCompleted = () => {
+    const oldTasks = [...tasks];
+    const newTasks = oldTasks.filter(task => task.completed !== true)
+    console.log(newTasks);
+    newTasks.forEach((task, index) => task.key = ++index);
+    saveToDos(newTasks);
+  }
+
   return (
     <Context.Provider value={{
       loading,
@@ -65,6 +77,7 @@ function ToDoProvider(props) {
       setFilterTasks,
       openModal,
       setOpenModal,
+      isMobile,
       totalTasks,
       completedTasks,
       searchedTasks,
@@ -72,6 +85,7 @@ function ToDoProvider(props) {
       addTask,
       completeTask,
       deleteTask,
+      deleteCompleted
     }}>
       {props.children}
     </Context.Provider>

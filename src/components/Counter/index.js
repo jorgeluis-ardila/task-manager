@@ -2,14 +2,16 @@ import React from "react";
 import { Context } from "../../context";
 import counter from './counter.module.css';
 
-function Counter(props) {
+function Counter() {
 
-  const { loading, completedTasks, totalTasks } = React.useContext(Context);
+  const { loading, error, completedTasks, totalTasks } = React.useContext(Context);
+
+  const message = loading ? 'Buscando tus tareas' : error ? 'Tenemos malas noticias' : totalTasks > 0 ? 'Tu progreso de hoy' : 'No tienes tareas creadas';
 
   return (
     <div className={counter.container}>
       <h2 className={counter.title}>
-        {props.message}
+        {message}
       </h2>
       {(!loading && totalTasks > 0) &&
         <React.Fragment>
