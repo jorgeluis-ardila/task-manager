@@ -35,7 +35,7 @@
 
 ## Overview
 
-![overview](https://github.com/jorgeluis-ardila/task-manager/blob/featured-app/src/assets/oveview-task-manager.jpg)
+![overview](https://github.com/jorgeluis-ardila/task-manager/blob/featured-app/src/assets/overview-task-manager.jpg)
 
 You can find the demo [here](http://jorgeardila.co/task-manager/). This was my first project with ReactJS the base was the [challenge](https://devchallenges.io/challenges/hH6PbOHBdPm6otzw2De5) from Devchallenges.io, I add some features and also made my own design. In this project I used the state, effect, events and context from React in order to learn the bases and principles of it.
 
