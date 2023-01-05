@@ -3,9 +3,11 @@ import React from 'react'
 function useLocalStorage(storageName, initialValue) {
   const [error, setError] = React.useState(false),
         [loading, setLoading] = React.useState(true),
-        [storage, setStorage] = React.useState(initialValue);
+        [storage, setStorage] = React.useState(initialValue),
+        [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
+    detectSize()
     setTimeout(() => {
 
       try {
@@ -20,7 +22,8 @@ function useLocalStorage(storageName, initialValue) {
       }
 
     }, 1500);
-  })
+  // eslint-disable-next-line
+  },[]);
 
   const saveStorage = (newStorage) => {
     try {
@@ -32,11 +35,19 @@ function useLocalStorage(storageName, initialValue) {
     }
   };
 
+  const detectSize = () => {
+    const container = document.getElementById('root');
+    setIsMobile(window.innerWidth <= 768 ? true : false);
+    container.style.height = `${document.documentElement.clientHeight}px`;
+  }
+
   return {
     storage,
     saveStorage,
     loading,
-    error
+    error,
+    isMobile,
+    detectSize
   };
 }
 

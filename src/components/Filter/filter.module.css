@@ -3,6 +3,12 @@
   margin: 16px 0 5px;
 }
 
+@media (min-width: 769px) {
+  .trigger-container {
+    margin: 0px 0 5px;
+  }
+}
+
 .trigger{
   min-width: 40px;
   min-height: 40px;
@@ -29,6 +35,13 @@
   align-items: center;
   justify-content: space-around;
   margin: 0 0 5px;
+}
+
+@media (min-width: 769px){
+  .container {
+    justify-content: flex-end;
+    gap: 10px;
+  }
 }
 
 .button{

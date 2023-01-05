@@ -6,15 +6,11 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  position: fixed;
-  z-index: 2;
-  bottom: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: calc(100% - 40px);
-  max-width: calc(500px - 40px);
+  width: 100%;
+  max-width: 280px;
   height: 45px;
   padding: 15px;
+  margin: 0 auto 0;
   border: none;
   border-radius: 1000px;
   background: var(--light-green-blue);
@@ -23,6 +19,17 @@
   cursor: pointer;
 }
 
-.create:hover {
-  background: linear-gradient(180deg, var(--light-green-blue) 0%, rgba(3, 115, 139, 0.2) 100%), var(--light-green-blue);
+@media (min-width: 769px) {
+  .create:hover {
+    background: linear-gradient(180deg, var(--light-green-blue) 0%, rgba(3, 115, 139, 0.2) 100%), var(--light-green-blue);
+  }
 }
+
+@media (max-width: 768px) {
+  .create {
+    z-index: 2;
+    width: 100%;
+    max-width: 500px;
+  }
+}
+
