@@ -3,10 +3,10 @@ import { Context } from '../../context';
 import { Greeting } from '../Greeting';
 import { Counter } from '../Counter';
 import { Filters } from '../Filter';
-import { ToDoList } from '../ToDoList';
+import { ToDoList } from '../TaskList';
 import { ButtonCreate } from '../ButtonCreate';
 import { Status } from '../MessageLoading';
-import app from './app.module.css'
+import app from './app.module.css';
 
 function ResponsiveRender() {
 

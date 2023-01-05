@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 
 function useLocalStorage(storageName, initialValue) {
   const [error, setError] = React.useState(false),

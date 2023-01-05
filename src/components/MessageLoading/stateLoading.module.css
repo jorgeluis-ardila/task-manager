@@ -3,7 +3,16 @@
   flex-direction: column;
   height: 100vh;
   margin: 30px 0 0;
-  padding-bottom: 50px;
+  padding: 0 0 50px;
+}
+
+@media (min-width: 769px) {
+  .container {
+    margin: 0;
+    padding: 30px;
+    border: 3px solid var(--dark-blue07);
+    border-radius: 20px;
+  }
 }
 
 .message{

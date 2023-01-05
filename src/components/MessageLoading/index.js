@@ -1,8 +1,8 @@
 import React from 'react';
-import LoadingIMG  from '../../assets/images/loading.jpg';
-import ErrorIMG  from '../../assets/images/error.jpg';
-import EmptyIMG  from '../../assets/images/empty.jpg';
-import DesktopIMG  from '../../assets/images/desktop.jpg';
+import LoadingIMG  from '../../assets/images/loading.png';
+import ErrorIMG  from '../../assets/images/error.png';
+import EmptyIMG  from '../../assets/images/empty.png';
+import DesktopIMG  from '../../assets/images/desktop.png';
 import status from './stateLoading.module.css';
 
 const imgTypes = {

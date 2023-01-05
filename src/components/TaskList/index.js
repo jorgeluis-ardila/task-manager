@@ -1,6 +1,6 @@
 import React from "react";
 import { Context } from "../../context";
-import { ToDoItem } from './ToDoItem';
+import { ToDoItem } from './TaskItem';
 import list from './list.module.css'
 
 
