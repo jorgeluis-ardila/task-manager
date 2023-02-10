@@ -29,76 +29,14 @@
   transition: background 200ms;
 }
 
-form {
+.modal {
   box-sizing: border-box;
   position: relative;
   width: 100%;
   max-width: 500px;
 }
 
-@media (min-width: 769px) {
-  form {
-    top: 0;
-    right: 0;
-    /* bottom: 0; */
-    left: 0;
-    margin: auto auto;
-  }
-
-  .background-enter form {
-    opacity: 0;
-    bottom: -20px;
-    transform: scale(0.8);
-  }
-
-  .background-enter-active form {
-    opacity: 1;
-    bottom: 0;
-    transform: scale(1);
-    transition: opacity 300ms, bottom 300ms, transform 200ms;
-  }
-
-  .background-enter-done form,
-  .background-exit form {
-    opacity: 1;
-    bottom: 0;
-    transform: scale(1);
-  }
-
-  .background-exit-active form {
-    opacity: 0;
-    bottom: -20px;
-    transform: scale(0.8);
-    transition: opacity 300ms, bottom 300ms, transform 200ms;
-  }
-}
-
-@media (max-width: 768px) {
-  .background-enter form {
-    opacity: 0;
-    bottom: -100%;
-  }
-
-  .background-enter-active form {
-    opacity: 1;
-    bottom: 0;
-    transition: opacity 300ms, bottom 300ms;
-  }
-
-  .background-enter-done form,
-  .background-exit form {
-    opacity: 1;
-    bottom: 0;
-  }
-
-  .background-exit-active form {
-    opacity: 0;
-    bottom: -100%;
-    transition: opacity 300ms, bottom 300ms;
-  }
-}
-
-form::before {
+.modal::before {
   content: '';
   display: block;
   position: absolute;
@@ -112,7 +50,7 @@ form::before {
   background-color: var(--light-yellow);
 }
 
-.inner-container{
+.inner-modal {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -125,91 +63,66 @@ form::before {
 }
 
 @media (min-width: 769px) {
-  .inner-container {
+  .modal {
+    bottom: 0;
+    top: 0;
+    right: 0;
+    left: 0;
+    margin: auto auto;
+  }
+  .inner-modal {
     border-radius: 20px;
+  }
+
+  .background-enter .modal {
+    opacity: 0;
+    bottom: -20px;
+    transform: scale(0.8);
+  }
+
+  .background-enter-active .modal {
+    opacity: 1;
+    bottom: 0;
+    transform: scale(1);
+    transition: opacity 300ms, bottom 300ms, transform 200ms;
+  }
+
+  .background-enter-done .modal,
+  .background-exit .modal {
+    opacity: 1;
+    bottom: 0;
+    transform: scale(1);
+  }
+
+  .background-exit-active .modal {
+    opacity: 0;
+    bottom: -20px;
+    transform: scale(0.8);
+    transition: opacity 300ms, bottom 300ms, transform 200ms;
   }
 }
 
-label {
-  font: 800 18px/22px var(--main-font);
-  text-align: center;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  color: var(--dark-blue);
-  margin-bottom: 10px;
-}
+@media (max-width: 768px) {
+  .background-enter .modal {
+    opacity: 0;
+    bottom: -100%;
+  }
 
-textarea {
-  resize: none;
-  box-sizing: border-box;
-  width: 100%;
-  height: 95px;
-  margin-bottom: 9px;
-  padding: 12px;
-  border: none;
-  border-radius: 10px;
-  outline: none;
-  background-color: #FFF;
-  color: var(--dark60);
-  font: 400 14px/15px var(--main-font);
-  text-align: center;
-}
+  .background-enter-active .modal {
+    opacity: 1;
+    bottom: 0;
+    transition: opacity 300ms, bottom 300ms;
+  }
 
-textarea::placeholder {
-  color: var(--dark60);
-  font: 400 14px/15px var(--main-font);
-}
+  .background-enter-done .modal,
+  .background-exit .modal {
+    opacity: 1;
+    bottom: 0;
+  }
 
-textarea:focus {
-  outline: 1px solid var(--light-green-blue);
-}
-
-.alert {
-  margin: 0;
-  color: var(--red);
-  font: 600 13px/16px var(--main-font);
-  text-align: center;
-}
-
-.button-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  margin-top: 9px;
-}
-
-.button {
-  text-transform: uppercase;
-  transition: all 0.3s ease;
-  display: inline-block;
-  width: 125px;
-  height: 45px;
-  padding: 0;
-  border: none;
-  color: var(--dark-blue);
-  font: 700 13px/16px var(--main-font);
-  cursor: pointer;
-}
-
-.button--add {
-  text-indent: -10px;
-  border-radius: 0 100px 100px 0;
-  background: var(--light-green-blue);
-}
-.button--add:hover {
-  background: linear-gradient(180deg, var(--light-green-blue) 0%, rgba(3, 115, 139, 0.2) 100%), var(--light-green-blue);
-}
-
-.button--cancel {
-  text-indent: 10px;
-  border: 2px solid var(--light);
-  border-radius: 100px 0 0 100px;
-  background: transparent;
-}
-
-.button--cancel:hover {
-  border: none;
-  background-color: var(--red);
-  color: var(--white);
+  .background-exit-active .modal {
+    opacity: 0;
+    bottom: -100%;
+    transition: opacity 300ms, bottom 300ms;
+  }
 }

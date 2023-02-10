@@ -1,5 +1,6 @@
 import React from "react";
 import { useLocalStorage } from "./useLocalStorage";
+import { useAuthentication } from "./useAuthentication";
 
 const Context = React.createContext();
 
@@ -13,10 +14,20 @@ function ToDoProvider(props) {
     isMobile,
     detectSize: detectMobile
   } = useLocalStorage('TODOS_V1', []),
+  {
+    checkLogin,
+    isLogged,
+    userData,
+  } = useAuthentication(),
     [searchValue, setSearchValue] = React.useState(''),
     [filterTasks, setFilterTasks] = React.useState(''),
-    [openModal, setOpenModal] = React.useState(false);
+    [openModal, setOpenModal] = React.useState(false),
+    [modalType, setModalType] = React.useState('');
 
+  window.addEventListener('load', () => {
+    detectMobile();
+    checkLogin();
+  });
   window.addEventListener('resize', detectMobile);
 
   const filteredTasks = (filter) => {
@@ -67,6 +78,13 @@ function ToDoProvider(props) {
     saveToDos(newTasks);
   }
 
+  const closeModal = () => {
+    setOpenModal(false);
+    setTimeout(() => {
+      setModalType('');
+    }, 300);
+  }
+
   return (
     <Context.Provider value={{
       loading,
@@ -77,6 +95,10 @@ function ToDoProvider(props) {
       setFilterTasks,
       openModal,
       setOpenModal,
+      modalType,
+      setModalType,
+      isLogged,
+      userData,
       isMobile,
       totalTasks,
       completedTasks,
@@ -85,7 +107,8 @@ function ToDoProvider(props) {
       addTask,
       completeTask,
       deleteTask,
-      deleteCompleted
+      deleteCompleted,
+      closeModal
     }}>
       {props.children}
     </Context.Provider>

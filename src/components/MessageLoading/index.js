@@ -21,7 +21,7 @@ function Message({message, highlihgt}) {
   );
 }
 
-function Status({
+export function Status({
   loading = false,
   type,
   message = null,
@@ -47,5 +47,3 @@ function Status({
       </figure>
   );
 }
-
-export { Status };

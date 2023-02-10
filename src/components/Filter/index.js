@@ -4,7 +4,7 @@ import { FilterButton, FilterDropdown } from "./FilterButton";
 import { FilterIcon } from "../IconsApp/Icons";
 import filter from "./filter.module.css";
 
-function Filters() {
+export function Filters() {
 
   const [isOpen, setIsOpen] = React.useState(false);
 
@@ -13,7 +13,7 @@ function Filters() {
   };
 
   return (
-    <React.Fragment>
+    <>
       <nav className={filter['trigger-container']}>
         <SearchBar/>
         <FilterIcon
@@ -40,8 +40,6 @@ function Filters() {
           ]}
         />
       }
-    </React.Fragment>
+    </>
   );
 }
-
-export { Filters };

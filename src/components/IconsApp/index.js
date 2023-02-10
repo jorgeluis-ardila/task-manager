@@ -24,15 +24,13 @@ const iconTypes = {
   ),
 };
 
-function ToDoIcon({ type, onClick, className, classNameSvg }) {
+export function ToDoIcon({ type, onClick, className, classNameSvg }) {
   return (
-    <span
+    <button
       onClick={onClick}
       className={`${icon.container} ${className ? className : ''}`}
     >
       {iconTypes[type](classNameSvg)}
-    </span>
+    </button>
   );
 }
-
-export { ToDoIcon };

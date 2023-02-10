@@ -5,7 +5,7 @@ import list from './list.module.css'
 
 
 
-function ToDoList() {
+export function ToDoList() {
   const {
     filterTasks,
     searchedTasks,
@@ -15,7 +15,7 @@ function ToDoList() {
   } = React.useContext(Context);
 
   return (
-    <React.Fragment>
+    <>
       <ul className={list.list}>
         {searchedTasks.map((task, index) => (
           <ToDoItem
@@ -35,8 +35,6 @@ function ToDoList() {
           Borrar Tareas Completadas
         </button>
       }
-    </React.Fragment>
+    </>
   );
 }
-
-export { ToDoList };

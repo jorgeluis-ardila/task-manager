@@ -1,9 +1,18 @@
 import React from "react";
+import { Context } from "../../context";
 import button from './buttons.module.css'
 
-function ButtonCreate(props) {
+export function ButtonCreate() {
+
+  const {
+    openModal,
+    setOpenModal,
+    setModalType,
+  } = React.useContext(Context);
+  
   const onClickButton = () => {
-    props.setOpenModal(!props.openModal);
+    setOpenModal(!openModal);
+    setModalType('create');
   };
 
   return (
@@ -15,5 +24,3 @@ function ButtonCreate(props) {
     </button>
   );
 }
-
-export { ButtonCreate }

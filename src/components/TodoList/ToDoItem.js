@@ -2,7 +2,7 @@ import React from "react";
 import { CompleteIcon, DeleteIcon } from "../IconsApp/Icons"
 import item from './list.module.css'
 
-function ToDoItem(props) {
+export function ToDoItem(props) {
   return (
     <li
       className={`${item.item} ${props.completed ? item['item--complete'] : ''}`}
@@ -24,5 +24,3 @@ function ToDoItem(props) {
     </li>
   );
 }
-
-export { ToDoItem }

@@ -1,19 +1,22 @@
 import React from 'react';
+import { Context } from '../../../context';
 import { useAuthentication } from "../../../context/useAuthentication";
-import { Context } from "../../../context";
 import { Login, Register } from './Forms'
-import formBase from "../formBase.module.css"
+// import formBase from "../formBase.module.css"
 import form from "./formSession.module.css"
 
-function SessionForm() {
+export function SessionForm() {
 
-  const [userData, setUserData] = React.useState({}),
-        [isLogin, setIsLogin] = React.useState(true),
-        {
-          createAccountEmailPass,
-          authEmailPass,
-          authCuentaGoogle
-        } = useAuthentication(userData);
+  const{
+    closeModal
+  } = React.useContext(Context),
+  [userData, setUserData] = React.useState({}),
+  [isLogin, setIsLogin] = React.useState(true),
+  {
+    createAccountEmailPass,
+    authEmailPass,
+    authGoogle
+  } = useAuthentication(userData, closeModal);
 
   const onChange = (event) => {
     setUserData({ ...userData, [event.target.name]: event.target.value});
@@ -40,13 +43,12 @@ function SessionForm() {
   };
 
   return(
-    <form
-      className=''
-      onClick={(e) => e.stopPropagation()}
-      onSubmit={onSubmit}
-      onKeyDownCapture={onKeyUp}
-    >
-      <div className={formBase['inner-container']}>
+    <>
+      <form
+        className=''
+        onSubmit={onSubmit}
+        onKeyDownCapture={onKeyUp}
+      >
         <div className={form.fields}>
           {isLogin
             ? <Login
@@ -63,26 +65,42 @@ function SessionForm() {
             {isLogin ? 'Entrar' : 'Unete'}
           </button>
         </div>
-        <p
-          className={form['change-action-message']}
+      </form>
+      {isLogin &&
+        <div
+          className={form['more-login-ways']}
         >
-          {isLogin 
-            ? 'Aun no tienes cuenta.'
-            : 'Ya estas registrado.'
-          }
-          <span
-            className={form['change-action-button']}
-            onClick={() => setIsLogin(!isLogin)}
+          <p>o</p>
+          <button 
+            onClick={authGoogle}
+            className={form.authGoogle}
           >
-            {isLogin
-              ? 'Registrate'
-              : 'Inicia Sesión'
-            }
-          </span>
-        </p>
-      </div>
-    </form>
+            GOOGLE LOGIN
+          </button>
+          {/* <GoogleIcon
+            onLogin={authGoogle}
+            className={form.authGoogle}
+            classNameSvg={form['google-trigger']}
+          /> */}
+        </div>
+      }
+      <p
+        className={form['change-action-message']}
+      >
+        {isLogin 
+          ? 'Aun no tienes cuenta.'
+          : 'Ya estas registrado.'
+        }
+        <span
+          className={form['change-action-button']}
+          onClick={() => setIsLogin(!isLogin)}
+        >
+          {isLogin
+            ? 'Registrate'
+            : 'Inicia Sesión'
+          }
+        </span>
+      </p>
+    </>
   );
 }
-
-export { SessionForm }

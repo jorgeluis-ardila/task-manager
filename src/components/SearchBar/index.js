@@ -3,7 +3,7 @@ import { Context } from "../../context";
 import { SearchIcon } from "../IconsApp/Icons";
 import search from './search.module.css';
 
-function SearchBar() {
+export function SearchBar() {
 
   const { searchValue, setSearchValue } = React.useContext(Context),
         ref = React.useRef(null);
@@ -33,5 +33,3 @@ function SearchBar() {
     </div>
   );
 }
-
-export { SearchBar }
