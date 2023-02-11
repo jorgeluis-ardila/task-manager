@@ -4,9 +4,11 @@ import { AppUI } from './component.js';
 
 function App() {
   return (
-    <ToDoProvider>
-      <AppUI />
-    </ToDoProvider>
+    <React.StrictMode>
+      <ToDoProvider>
+        <AppUI />
+      </ToDoProvider>
+    </React.StrictMode>
   );
 }
 

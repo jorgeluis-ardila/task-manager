@@ -3,42 +3,54 @@ import { Context } from "../../context";
 import filter from "./filter.module.css"
 
 function FilterButton({
-  isActive,
-  filterState,
-  text,
+  button,
+  onActive
 }) {
-  const {
-    setFilterTasks
-  } = React.useContext(Context);
-
-  const onClickButton = (e) => {
-    setFilterTasks(filterState);
-    [...e.target.parentElement.parentElement.children].forEach(sibling => sibling.children[0].classList.remove(filter.active));
-    e.target.classList.add(filter.active);
-  };
+  
 
   return (
     <button
-      onClick={onClickButton}
-      className={`${isActive ? filter.active : ''} ${filter.button}`}
+      onClick={() => onActive({
+        ...button,
+        active: true
+      })}
+      className={`${button.active ? filter.active : ''} ${filter.button}`}
     >
-      {text}
+      {button.text}
     </button>
   );
 }
 
-function FilterDropdown({
-  buttons
-}) {
+export function FilterDropdown({buttons, setButtons}) {
+
+  const {
+    setFilterTasks
+  } = React.useContext(Context);
+
+  const handleActive = (activeButton) => {
+    setFilterTasks(activeButton.filterState);
+    setButtons(buttons.map(button => {
+      if (button.text === activeButton.text) {
+        return activeButton;
+      } else {
+        return {
+          ...button,
+          active: false
+        };
+      }
+    }));
+  };
+
   return (
     <div className={filter.container}>
       {buttons.map((button, index) => (
         <div key={index}>
-          {button}
+          <FilterButton
+            button={button}
+            onActive={handleActive}
+          />
         </div>
       ))}
     </div>
   );
 }
-
-export { FilterButton, FilterDropdown }

@@ -19,7 +19,7 @@ export function useAuthentication(formData, closeModal) {
 
   const checkLogin = () => {
     onAuthStateChanged(auth, (user) => {
-      if (user) {
+      if (user?.emailVerified) {
         // console.log('LOGGED');
         setIsLogged(true);
         setUserData({
@@ -41,7 +41,6 @@ export function useAuthentication(formData, closeModal) {
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
     .then((userCredential) => {
       const user = userCredential.user;
-
       updateProfile(user, {
         displayName: formData.name
       });
@@ -74,7 +73,7 @@ export function useAuthentication(formData, closeModal) {
       const user = userCredential.user;
       if (user.emailVerified) {
         console.log('EL EMAIL ESTA VERIFICADO');
-        checkLogin(user);
+        checkLogin();
         closeModal();
       }
       else {
@@ -93,8 +92,8 @@ export function useAuthentication(formData, closeModal) {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
     .then((result) => {
-      const user = result.user;
-      checkLogin(user)
+      // const user = result.user;
+      checkLogin()
       closeModal();
     }).catch((error) => {
       const errorCode = error.code;
