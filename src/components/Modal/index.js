@@ -6,10 +6,10 @@ import modal from './modal.module.css'
 
 const container = document.getElementById('modal');
 
-function Modal({ children }) {
+export function Modal({ children }) {
   const {
     openModal,
-    setOpenModal,
+    closeModal
   } = React.useContext(Context);
 
   const nodeRef = React.useRef(null);
@@ -30,15 +30,22 @@ function Modal({ children }) {
     >
       <div
         ref={nodeRef}
-        onClose={() => setOpenModal(false)}
+        onClose={closeModal}
         className={`${modal.background}`}
-        onClick={() => setOpenModal(false)}
+        onClick={closeModal}
       >
-        {children}
+        <div
+          className={modal.modal}
+          onClick={(e) => e.stopPropagation()}
+        >
+          <div
+            className={modal['inner-modal']}
+          >
+            {children}
+          </div>
+        </div>
       </div>
     </CSSTransition>,
     container
   );
 }
-
-export { Modal }

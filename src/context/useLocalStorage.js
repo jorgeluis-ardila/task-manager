@@ -1,13 +1,12 @@
 import React from 'react';
 
-function useLocalStorage(storageName, initialValue) {
+export function useLocalStorage(storageName, initialValue) {
   const [error, setError] = React.useState(false),
         [loading, setLoading] = React.useState(true),
         [storage, setStorage] = React.useState(initialValue),
         [isMobile, setIsMobile] = React.useState(false);
 
   React.useEffect(() => {
-    detectSize()
     setTimeout(() => {
 
       try {
@@ -50,5 +49,3 @@ function useLocalStorage(storageName, initialValue) {
     detectSize
   };
 }
-
-export { useLocalStorage }

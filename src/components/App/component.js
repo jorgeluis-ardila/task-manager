@@ -1,19 +1,22 @@
 import React from 'react';
-import { ResponsiveRender } from './responsive';
+import { ResponsiveRender, ModalContent } from './responsive';
 import { Modal } from '../Modal';
-import { CreateForm } from '../Modal/CreateForm';
+import { firebaseConfig } from '../../utils/config/configFirebase.js';
+import { initializeApp } from 'firebase/app';
+
+initializeApp(firebaseConfig);
 
 function AppUI() {
 
   return (
-    <React.Fragment>
+    <>
       <ResponsiveRender/>
 
       <Modal>
-        <CreateForm/>
+        <ModalContent/>
       </Modal>
 
-    </React.Fragment>
+    </>
   );
 }
 

@@ -1,19 +1,36 @@
 import React from "react";
 import { SearchBar } from "../SearchBar";
-import { FilterButton, FilterDropdown } from "./FilterButton";
+import { FilterDropdown } from "./FilterButton";
 import { FilterIcon } from "../IconsApp/Icons";
 import filter from "./filter.module.css";
 
-function Filters() {
+export function Filters() {
 
-  const [isOpen, setIsOpen] = React.useState(false);
+  const [isOpen, setIsOpen] = React.useState(false),
+        [buttons, setButtons] = React.useState([
+          {
+            text: 'Todos',
+            filterState: 'all',
+            active: true
+          },
+          {
+            text: 'Activos',
+            filterState: 'active',
+            active: false
+          },
+          {
+            text: 'Completados',
+            filterState: 'complete',
+            active: false
+          }
+        ]);
 
   const handleTrigger = () => {
     setIsOpen(prevState => !prevState)
   };
 
   return (
-    <React.Fragment>
+    <>
       <nav className={filter['trigger-container']}>
         <SearchBar/>
         <FilterIcon
@@ -24,24 +41,10 @@ function Filters() {
       </nav>
       {isOpen &&
         <FilterDropdown
-          buttons={[
-            <FilterButton
-              isActive={true}
-              text={'Todos'}
-            />,
-            <FilterButton
-              filterState={'active'}
-              text={'Activos'}
-            />,
-            <FilterButton
-              filterState={'complete'}
-              text={'Completados'}
-            />
-          ]}
+          buttons={buttons}
+          setButtons={setButtons}
         />
       }
-    </React.Fragment>
+    </>
   );
 }
-
-export { Filters };

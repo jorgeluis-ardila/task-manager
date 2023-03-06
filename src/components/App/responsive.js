@@ -1,12 +1,14 @@
 import React from 'react';
 import { Context } from '../../context';
-import { Greeting } from '../Greeting';
+import { ProfileBar } from '../Account/Profile';
 import { Counter } from '../Counter';
 import { Filters } from '../Filter';
 import { ToDoList } from '../TaskList';
 import { ButtonCreate } from '../ButtonCreate';
 import { Status } from '../MessageLoading';
-import app from './app.module.css';
+import { CreateForm } from '../Forms/CreateForm';
+import { SessionForm } from '../Forms/Login';
+import app from './app.module.css'
 
 function ResponsiveRender() {
 
@@ -16,14 +18,15 @@ function ResponsiveRender() {
     totalTasks,
     openModal,
     setOpenModal,
+    setModalType,
     isMobile,
   } = React.useContext(Context);
 
   return (
-    <React.Fragment>
+    <>
       {isMobile
-        ? <React.Fragment>
-            <Greeting />
+        ? <>
+            <ProfileBar />
             <Counter />
             {loading &&
               <Status
@@ -42,13 +45,13 @@ function ResponsiveRender() {
               />
             }
             {!loading && !error && (
-              <React.Fragment>
+              <>
                 {
                   totalTasks
-                    ? <React.Fragment>
+                    ? <>
                         <Filters />
                         <ToDoList />
-                      </React.Fragment>
+                      </>
                     : <Status
                         loading={false}
                         type={'empty'}
@@ -59,14 +62,15 @@ function ResponsiveRender() {
                 <ButtonCreate
                   openModal={openModal}
                   setOpenModal={setOpenModal}
+                  setModalType={setModalType}
                 />
-              </React.Fragment>
+              </>
             )}
-          </React.Fragment>
-        : <React.Fragment>
+          </>
+        : <>
             <div className={app['desktop-container']}>
               <div className={app['desktop-left']}>
-                <Greeting />
+                <ProfileBar />
                 <Counter />
                 <Status
                   type={'desktop'}
@@ -76,6 +80,7 @@ function ResponsiveRender() {
                   <ButtonCreate
                     openModal={openModal}
                     setOpenModal={setOpenModal}
+                    setModalType={setModalType}
                   />
                 )}
               </div>
@@ -98,10 +103,10 @@ function ResponsiveRender() {
                 }
                 {!loading && !error && (
                   totalTasks
-                    ? <React.Fragment>
+                    ? <>
                         <Filters />
                         <ToDoList />
-                      </React.Fragment>
+                      </>
                     : <Status
                       loading={false}
                       type={'empty'}
@@ -111,10 +116,27 @@ function ResponsiveRender() {
                 )}
               </div>
             </div>
-          </React.Fragment>
+          </>
       }
-    </React.Fragment>
+    </>
   );
 }
 
-export { ResponsiveRender }
+function ModalContent() {
+  const {
+    modalType,
+  } = React.useContext(Context);
+
+  return(
+    <>
+      {
+        {
+          'login': <SessionForm/>,
+          'create': <CreateForm/>
+        }[modalType]
+      }
+    </>
+  );
+}
+
+export { ResponsiveRender, ModalContent }
