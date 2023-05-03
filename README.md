@@ -90,5 +90,5 @@ $ npm start
 ## Contact
 
 - Website [jorgeardila.co](http://jorgeardila.co/)
-- GitHub [@your-username](https://github.com/jorgeluis-ardila)
+- GitHub [@jorgeluis-ardila](https://github.com/jorgeluis-ardila)
 - WhatsApp [3138316392](https://wa.me/573138316392)
