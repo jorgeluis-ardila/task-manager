@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
-import { Context } from '../../context';
+import { Context } from '../../utils/context';
 import modal from './modal.module.css'
 
 const container = document.getElementById('modal');

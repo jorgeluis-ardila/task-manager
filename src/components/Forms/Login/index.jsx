@@ -1,7 +1,7 @@
 import React from 'react';
-import { Context } from '../../../context';
-import { useAuthentication } from "../../../context/useAuthentication";
-import { Login, Register } from './Forms'
+import { Context } from '../../../utils/context';
+import { useAuthentication } from "../../../utils/useAuthentication";
+import { Login, Register } from './Fields'
 // import formBase from "../formBase.module.css"
 import form from "./formSession.module.css"
 

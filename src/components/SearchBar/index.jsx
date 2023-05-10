@@ -1,5 +1,5 @@
 import React from "react";
-import { Context } from "../../context";
+import { Context } from "../../utils/context";
 import { SearchIcon } from "../IconsApp/Icons";
 import search from './search.module.css';
 

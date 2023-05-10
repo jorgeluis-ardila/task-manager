@@ -1,5 +1,5 @@
 import React from 'react';
-import { ToDoIcon } from '.';
+import { ToDoIcon } from './index.jsx';
 
 function CompleteIcon({ completed, onComplete }) {
   return (

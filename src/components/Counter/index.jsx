@@ -1,10 +1,12 @@
 import React from "react";
-import { Context } from "../../context";
 import counter from './counter.module.css';
 
-export function Counter() {
-
-  const { loading, error, completedTasks, totalTasks } = React.useContext(Context);
+export function Counter({
+  loading,
+  error,
+  completedTasks,
+  totalTasks
+}) {
 
   const message = loading ? 'Buscando tus tareas' : error ? 'Tenemos malas noticias' : totalTasks > 0 ? 'Tu progreso de hoy' : 'No tienes tareas creadas';
 

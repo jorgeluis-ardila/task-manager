@@ -1,16 +1,16 @@
 import React from "react";
-import { Context } from "../../context";
+import { Context } from "../../utils/context";
 import filter from "./filter.module.css"
 
 function FilterButton({
   button,
-  onActive
+  onClick
 }) {
   
 
   return (
     <button
-      onClick={() => onActive({
+      onClick={() => onClick({
         ...button,
         active: true
       })}
@@ -44,10 +44,10 @@ export function FilterDropdown({buttons, setButtons}) {
   return (
     <div className={filter.container}>
       {buttons.map((button, index) => (
-        <div key={index}>
+        <div key={button.text}>
           <FilterButton
             button={button}
-            onActive={handleActive}
+            onClick={handleActive}
           />
         </div>
       ))}

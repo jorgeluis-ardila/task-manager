@@ -1,13 +1,10 @@
 import React from "react";
-import { Context } from "../../../../context";
 import greeting from './greeting.module.css';
 
-export function Greeting() {
-
-  const {
-    isLogged,
-    userData
-  } = React.useContext(Context)
+export function Greeting({
+  isLogged,
+  userData
+}) {
 
   return (
     <div className={greeting.container}>

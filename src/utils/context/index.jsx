@@ -1,6 +1,6 @@
 import React from "react";
-import { useLocalStorage } from "./useLocalStorage";
-import { useAuthentication } from "./useAuthentication";
+import { useLocalStorage } from "../useLocalStorage";
+import { useAuthentication } from "../useAuthentication";
 
 const Context = React.createContext();
 

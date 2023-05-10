@@ -20,7 +20,7 @@ export function useLocalStorage(storageName, initialValue) {
         setError(error)
       }
 
-    }, 1500);
+    }, 3000);
   // eslint-disable-next-line
   },[]);
 

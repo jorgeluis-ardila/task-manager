@@ -2,7 +2,7 @@ import React from "react";
 import { CompleteIcon, DeleteIcon } from "../IconsApp/Icons"
 import item from './list.module.css'
 
-export function ToDoItem(props) {
+export function TaskItem(props) {
   return (
     <li
       className={`${item.item} ${props.completed ? item['item--complete'] : ''}`}

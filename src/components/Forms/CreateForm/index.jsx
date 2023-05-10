@@ -1,5 +1,5 @@
 import React from "react";
-import { Context } from "../../../context";
+import { Context } from "../../../utils/context";
 // import formBase from "../formBase.module.css"
 import form from "./createForm.module.css"
 
@@ -38,6 +38,7 @@ export function CreateForm(props) {
 
   return (
     <form
+      className={form.container}
       onClick={(e) => e.stopPropagation()}
       onSubmit={onSubmit}
       onKeyDownCapture={onKeyUp}

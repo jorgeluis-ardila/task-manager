@@ -1,4 +1,9 @@
+form.container{
+  width: 95%;
+}
+
 label.create {
+  display: block;
   font: 800 18px/22px var(--main-font);
   text-align: center;
   letter-spacing: 0.04em;
