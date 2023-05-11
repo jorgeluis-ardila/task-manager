@@ -1,9 +1,15 @@
 .container{
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   margin: 30px 0 0;
+}
+
+.container-start{
   padding: 0 0 50px;
+}
+.container-empty{
+  margin: 10px 0 0;
 }
 
 @media (min-width: 769px) {

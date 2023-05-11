@@ -8,7 +8,8 @@ import status from './stateLoading.module.css';
 const imgTypes = {
   loading: LoadingIMG,
   error: ErrorIMG,
-  empty: EmptyIMG,
+  empty: LoadingIMG,
+  start: EmptyIMG,
   desktop: DesktopIMG
 };
 
@@ -30,7 +31,7 @@ function StatusMessage({
 }) {
   return (
     !desktop
-      ? <div className={status.container}>
+      ? <div className={`${status.container} ${(type === 'empty') && status['container-empty']} ${(type === 'start') && status['container-start']}`}>
           <Message
             message={message}
             highlihgt={highlihgt}
@@ -48,16 +49,4 @@ function StatusMessage({
   );
 }
 
-function LoadingErrorMessage ({loading, error}){
-  return (
-    (loading || error) &&
-      <StatusMessage
-        loading={loading}
-        type={loading ? 'loading' : error && 'error'}
-        message={loading ? 'No desesperes' : error && 'Lo sentimos'}
-        highlihgt={loading ? 'estamos cargando' : error && 'Tuvimos un error'}
-      />
-  );
-}
-
-export { StatusMessage, LoadingErrorMessage }
+export { StatusMessage }

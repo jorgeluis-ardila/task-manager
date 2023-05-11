@@ -1,10 +1,11 @@
 import React from "react";
-import { SearchBar } from "../SearchBar";
-import { FilterDropdown } from "./FilterButton";
 import { FilterIcon } from "../IconsApp/Icons";
 import filter from "./filter.module.css";
 
-export function Filters() {
+export function Filters({
+  searchBar,
+  filterButton,
+}) {
 
   const [isOpen, setIsOpen] = React.useState(false),
         [buttons, setButtons] = React.useState([
@@ -25,25 +26,42 @@ export function Filters() {
           }
         ]);
 
-  const handleTrigger = () => {
+  const openDropDown = () => {
     setIsOpen(prevState => !prevState)
+  };
+
+  const handleActive = (activeButton, setFilterTasks) => {
+    setFilterTasks(activeButton.filterState);
+    setButtons(buttons.map(button => {
+      if (button.text === activeButton.text) {
+        return activeButton;
+      } else {
+        return {
+          ...button,
+          active: false
+        };
+      }
+    }));
   };
 
   return (
     <>
       <nav className={filter['trigger-container']}>
-        <SearchBar/>
+        {searchBar}
         <FilterIcon
-          onFilter={handleTrigger}
+          onClick={openDropDown}
           className={`${filter.trigger} ${isOpen ? filter['trigger--active'] : ''}`}
           classNameSvg={filter['svg-trigger']}
         />
       </nav>
       {isOpen &&
-        <FilterDropdown
-          buttons={buttons}
-          setButtons={setButtons}
-        />
+        <div className={filter.container}>
+          {buttons.map((button) => (
+            <div key={button.text}>
+              {filterButton(button, handleActive)}
+            </div>
+          ))}
+        </div>
       }
     </>
   );

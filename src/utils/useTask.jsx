@@ -1,34 +1,18 @@
 import React from "react";
-import { useLocalStorage } from "../useLocalStorage";
-import { useAuthentication } from "../useAuthentication";
+import { useLocalStorage } from "./useLocalStorage";
 
-const Context = React.createContext();
-
-function ToDoProvider(props) {
+export function useTasks() {
 
   const {
     storage: tasks,
     saveStorage: saveToDos,
     loading,
     error,
-    isMobile,
-    detectSize: detectMobile
   } = useLocalStorage('TODOS_V1', []),
-  {
-    checkLogin,
-    isLogged,
-    userData,
-  } = useAuthentication(),
-    [searchValue, setSearchValue] = React.useState(''),
-    [filterTasks, setFilterTasks] = React.useState(''),
-    [openModal, setOpenModal] = React.useState(false),
-    [modalType, setModalType] = React.useState('');
-
-  window.addEventListener('load', () => {
-    detectMobile();
-    checkLogin();
-  });
-  window.addEventListener('resize', detectMobile);
+  [searchValue, setSearchValue] = React.useState(''),
+  [filterTasks, setFilterTasks] = React.useState(''),
+  [openModal, setOpenModal] = React.useState(false),
+  [modalType, setModalType] = React.useState('');
 
   const filteredTasks = (filter) => {
     switch (filter) {
@@ -86,7 +70,7 @@ function ToDoProvider(props) {
   }
 
   return (
-    <Context.Provider value={{
+    {
       loading,
       error,
       searchValue,
@@ -95,25 +79,17 @@ function ToDoProvider(props) {
       setFilterTasks,
       openModal,
       setOpenModal,
+      closeModal,
       modalType,
       setModalType,
-      isLogged,
-      userData,
-      isMobile,
       totalTasks,
       completedTasks,
       searchedTasks,
-      findIndex,
       addTask,
       completeTask,
       deleteTask,
       deleteCompleted,
-      closeModal
-    }}>
-      {props.children}
-    </Context.Provider>
+    }
   );
 
 }
-
-export { Context, ToDoProvider}

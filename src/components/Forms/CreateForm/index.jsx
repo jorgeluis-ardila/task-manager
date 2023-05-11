@@ -1,17 +1,14 @@
 import React from "react";
-import { Context } from "../../../utils/context";
 // import formBase from "../formBase.module.css"
 import form from "./createForm.module.css"
 
-export function CreateForm(props) {
+export function CreateForm({
+  addTask,
+  closeModal
+}) {
 
   const [newTodoValue, setNewTodoValue] = React.useState(''),
         [showAlert, setShowAlert] = React.useState(false);
-
-  const {
-    addTask,
-    closeModal
-  } = React.useContext(Context);
 
   const onChange = (event) => {
     setNewTodoValue(event.target.value);

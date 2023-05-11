@@ -1,22 +1,20 @@
 import React from 'react';
-import { Context } from '../../../utils/context';
 import { useAuthentication } from "../../../utils/useAuthentication";
 import { Login, Register } from './Fields'
 // import formBase from "../formBase.module.css"
 import form from "./formSession.module.css"
 
-export function SessionForm() {
+export function SessionForm({
+  closeModal
+}) {
 
-  const{
-    closeModal
-  } = React.useContext(Context),
-  [userData, setUserData] = React.useState({}),
-  [isLogin, setIsLogin] = React.useState(true),
-  {
-    createAccountEmailPass,
-    authEmailPass,
-    authGoogle
-  } = useAuthentication(userData, closeModal);
+  const [userData, setUserData] = React.useState({}),
+        [isLogin, setIsLogin] = React.useState(true),
+        {
+          createAccountEmailPass,
+          authEmailPass,
+          authGoogle
+        } = useAuthentication(userData, closeModal);
 
   const onChange = (event) => {
     setUserData({ ...userData, [event.target.name]: event.target.value});

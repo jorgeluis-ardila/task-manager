@@ -1,20 +1,20 @@
 import React from "react";
-import { Context } from "../../utils/context";
-import { Filters } from "../Filter";
-import { TaskItem } from './TaskItem';
-import { StatusMessage } from '../MessageLoading';
 import list from './list.module.css'
 
-function TaskList({children}) {
-  const {
-    filterTasks,
-    deleteCompleted
-  } = React.useContext(Context);
+export function TaskList({
+  children,
+  searchedTasks,
+  filterTasks,
+  deleteCompleted,
+  onRender
+}) {
+
+  const renderFn = children || onRender;
 
   return (
     <>
       <ul className={list.list}>
-        {children}
+        {searchedTasks.map(renderFn)}
       </ul>
       {filterTasks === 'complete' &&
         <button
@@ -25,38 +25,5 @@ function TaskList({children}) {
         </button>
       }
     </>
-  );
-}
-
-export function StructureTaskList() {
-  const {
-    totalTasks,
-    searchedTasks,
-    completeTask,
-    deleteTask,
-  } = React.useContext(Context);
-
-  return (
-    totalTasks
-      ? <>
-          <Filters />
-          <TaskList>
-            {searchedTasks.map((task) => (
-              <TaskItem
-                key={task.key}
-                text={task.text}
-                completed={task.completed}
-                onComplete={() => completeTask(task.text, task.key)}
-                onDelete={() => deleteTask(task.text, task.key)}
-              />
-            ))}
-          </TaskList>
-        </>
-      : <StatusMessage
-          loading={false}
-          type={'empty'}
-          message={'¿Aun no tienes tareas creadas?'}
-          highlihgt={'Que esperas para crearlas'}
-        />
   );
 }

@@ -30,7 +30,7 @@
   list-style: none;
   overflow: auto;
   position: relative;
-  height: 100vh;
+  height: 100%;
   margin: 0;
   padding: 0;
   -ms-overflow-style: none;

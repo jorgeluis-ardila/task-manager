@@ -24,7 +24,12 @@ const iconTypes = {
   ),
 };
 
-export function ToDoIcon({ type, onClick, className, classNameSvg }) {
+export function ToDoIcon({
+  type,
+  onClick,
+  className,
+  classNameSvg
+}) {
   return (
     <button
       onClick={onClick}

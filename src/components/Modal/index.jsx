@@ -1,16 +1,15 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
-import { Context } from '../../utils/context';
 import modal from './modal.module.css'
 
 const container = document.getElementById('modal');
 
-export function Modal({ children }) {
-  const {
-    openModal,
-    closeModal
-  } = React.useContext(Context);
+export function Modal({
+  children,
+  openModal,
+  closeModal
+}) {
 
   const nodeRef = React.useRef(null);
 

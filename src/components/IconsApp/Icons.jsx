@@ -19,11 +19,11 @@ function DeleteIcon({ onDelete }) {
   );
 }
 
-function FilterIcon({ onFilter, className, classNameSvg }) {
+function FilterIcon({ onClick, className, classNameSvg }) {
   return (
     <ToDoIcon
       type="filter"
-      onClick={onFilter}
+      onClick={onClick}
       className={className}
       classNameSvg={classNameSvg}
     />

@@ -1,12 +1,13 @@
 import React from "react";
-import { Context } from "../../utils/context";
 import { SearchIcon } from "../IconsApp/Icons";
 import search from './search.module.css';
 
-export function SearchBar() {
+export function SearchBar({
+  searchValue,
+  setSearchValue
+}) {
 
-  const { searchValue, setSearchValue } = React.useContext(Context),
-        ref = React.useRef(null);
+  const ref = React.useRef(null);
 
   const onSearchValueChange = (event) => {
     setSearchValue(event.target.value);
