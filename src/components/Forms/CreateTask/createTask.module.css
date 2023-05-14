@@ -37,6 +37,10 @@ textarea.create:focus {
   outline: 1px solid var(--light-green-blue);
 }
 
+textarea.create--error {
+  outline: 1px solid var(--red) !important;
+}
+
 .alert {
   margin: 0;
   color: var(--red);
@@ -63,6 +67,12 @@ textarea.create:focus {
   color: var(--dark-blue);
   font: 700 13px/16px var(--main-font);
   cursor: pointer;
+}
+
+.button-create:disabled {
+  opacity: 0.5;
+  pointer-events: none;
+  cursor: default;
 }
 
 .button-create--add {

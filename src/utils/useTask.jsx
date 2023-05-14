@@ -1,14 +1,20 @@
 import React from "react";
 import { useLocalStorage } from "./useLocalStorage";
+import { useStorageListener } from "../components/ChangeAlert/useStorageListener";
 
 export function useTasks() {
 
   const {
     storage: tasks,
-    saveStorage: saveToDos,
+    saveStorage: saveTasks,
+    syncronizeInfo: syncronizeTasks,
     loading,
     error,
   } = useLocalStorage('TODOS_V1', []),
+  {
+    storageChange,
+    handleSync
+  } = useStorageListener(syncronizeTasks),
   [searchValue, setSearchValue] = React.useState(''),
   [filterTasks, setFilterTasks] = React.useState(''),
   [openModal, setOpenModal] = React.useState(false),
@@ -38,28 +44,27 @@ export function useTasks() {
       text,
       key: tasks.length + 1
     });
-    saveToDos(newTasks);
+    saveTasks(newTasks);
   };
 
   const completeTask = (text, key) => {
     const newTasks = [...tasks];
     newTasks[findIndex(text, key)].completed = !newTasks[findIndex(text, key)].completed;
-    saveToDos(newTasks);
+    saveTasks(newTasks);
   };
 
   const deleteTask = (text, key) => {
     const newTasks = [...tasks];
     newTasks.splice(findIndex(text, key), 1);
     newTasks.forEach((task, index) => task.key = ++index);
-    saveToDos(newTasks);
+    saveTasks(newTasks);
   };
 
   const deleteCompleted = () => {
     const oldTasks = [...tasks];
     const newTasks = oldTasks.filter(task => task.completed !== true)
-    console.log(newTasks);
     newTasks.forEach((task, index) => task.key = ++index);
-    saveToDos(newTasks);
+    saveTasks(newTasks);
   }
 
   const closeModal = () => {
@@ -77,11 +82,6 @@ export function useTasks() {
       setSearchValue,
       filterTasks,
       setFilterTasks,
-      openModal,
-      setOpenModal,
-      closeModal,
-      modalType,
-      setModalType,
       totalTasks,
       completedTasks,
       searchedTasks,
@@ -89,6 +89,13 @@ export function useTasks() {
       completeTask,
       deleteTask,
       deleteCompleted,
+      openModal,
+      setOpenModal,
+      closeModal,
+      modalType,
+      setModalType,
+      storageChange,
+      handleSync
     }
   );
 

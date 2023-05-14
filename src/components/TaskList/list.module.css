@@ -138,3 +138,8 @@
 .item--complete .paragraf{
   text-decoration: line-through;
 }
+
+.item--disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}

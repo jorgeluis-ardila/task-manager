@@ -2,23 +2,29 @@ import React from "react";
 import { CompleteIcon, DeleteIcon } from "../IconsApp/Icons"
 import item from './list.module.css'
 
-export function TaskItem(props) {
+export function TaskItem({
+  text,
+  completed,
+  onComplete,
+  onDelete,
+  storageChange
+}) {
   return (
     <li
-      className={`${item.item} ${props.completed ? item['item--complete'] : ''}`}
+      className={`${item.item} ${(completed) ? item['item--complete'] : ''} ${(storageChange) ? item['item--disabled'] : ''}`}
     >
       <div className={item['inner-container']}>
         <CompleteIcon
-          completed={props.completed}
-          onComplete={props.onComplete}
+          completed={completed}
+          onComplete={onComplete}
         />
         <p
           className={`${item.paragraf}`}
         >
-          {`${props.text}`}
+          {`${text}`}
         </p>
         <DeleteIcon
-          onDelete={props.onDelete}
+          onDelete={onDelete}
         />
       </div>
     </li>

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
+import { onKeyUp } from "../../utils/utils";
 import modal from './modal.module.css'
 
 const container = document.getElementById('modal');
@@ -32,6 +33,7 @@ export function Modal({
         onClose={closeModal}
         className={`${modal.background}`}
         onClick={closeModal}
+        onKeyDownCapture={(e) => onKeyUp(e, 'esc', closeModal)}
       >
         <div
           className={modal.modal}

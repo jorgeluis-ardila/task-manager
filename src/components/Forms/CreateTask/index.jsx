@@ -1,6 +1,7 @@
 import React from "react";
+import { onKeyUp } from "../../../utils/utils";
 // import formBase from "../formBase.module.css"
-import form from "./createForm.module.css"
+import form from "./createTask.module.css"
 
 export function CreateForm({
   addTask,
@@ -12,7 +13,7 @@ export function CreateForm({
 
   const onChange = (event) => {
     setNewTodoValue(event.target.value);
-    setShowAlert(false)
+    setShowAlert(!event.target.value)
   }
   function submit() {
     if (newTodoValue.length > 0) {
@@ -26,27 +27,22 @@ export function CreateForm({
     event.preventDefault();
     submit()
   }
-  const onKeyUp = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      submit()
-    }
-  };
 
   return (
     <form
       className={form.container}
       onClick={(e) => e.stopPropagation()}
       onSubmit={onSubmit}
-      onKeyDownCapture={onKeyUp}
+      onKeyDownCapture={(e) => onKeyUp(e, 'enter', submit)}
     >
       {/* <div className={formBase['inner-container']}> */}
       <label className={form.create}>Crea tu nueva tarea</label>
       <textarea
-        className={form.create}
+        className={`${form.create} ${showAlert && form['create--error']}`}
         value={newTodoValue}
         onChange={onChange}
         placeholder="Que tienes que hacer?"
+        autoFocus
       />
       {showAlert && <p className={form.alert}>Debes añadir texto a tu tarea</p>}
       <div className={form['button-create-container']}>
@@ -60,6 +56,7 @@ export function CreateForm({
         <button
           type="submit"
           className={`${form['button-create']} ${form['button-create--add']}`}
+          disabled={showAlert}
         >
           Añadir
         </button>

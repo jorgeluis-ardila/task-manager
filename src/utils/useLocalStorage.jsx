@@ -1,7 +1,8 @@
 import React from 'react';
 
 export function useLocalStorage(storageName, initialValue) {
-  const [error, setError] = React.useState(false),
+  const [syncronizedInfo, setSyncronizedInfo] = React.useState(true),
+        [error, setError] = React.useState(false),
         [loading, setLoading] = React.useState(true),
         [storage, setStorage] = React.useState(initialValue);
 
@@ -15,13 +16,14 @@ export function useLocalStorage(storageName, initialValue) {
 
         setStorage(parsedStorage);
         setLoading(false);
+        setSyncronizedInfo(true);
       } catch (error) {
         setError(error)
       }
 
     }, 3000);
-  // eslint-disable-next-line
-  },[]);
+
+  },[syncronizedInfo]);
 
   const saveStorage = (newStorage) => {
     try {
@@ -33,10 +35,16 @@ export function useLocalStorage(storageName, initialValue) {
     }
   };
 
+  const syncronizeInfo = () => {
+    setLoading(true);
+    setSyncronizedInfo(false);
+  }
+
   return {
     storage,
     saveStorage,
     loading,
     error,
+    syncronizeInfo
   };
 }

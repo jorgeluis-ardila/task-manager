@@ -1,8 +1,9 @@
 import React from 'react';
 import { useAuthentication } from "../../../utils/useAuthentication";
+import { onKeyUp } from '../../../utils/utils';
 import { Login, Register } from './Fields'
 // import formBase from "../formBase.module.css"
-import form from "./formSession.module.css"
+import form from "./login.module.css"
 
 export function SessionForm({
   closeModal
@@ -33,19 +34,13 @@ export function SessionForm({
     event.preventDefault();
     submit()
   }
-  const onKeyUp = (e) => {
-    if (e.keyCode === 13) {
-      e.preventDefault();
-      submit()
-    }
-  };
 
   return(
     <>
       <form
         className=''
         onSubmit={onSubmit}
-        onKeyDownCapture={onKeyUp}
+        onKeyDownCapture={(e) => onKeyUp(e, 'enter', submit)}
       >
         <div className={form.fields}>
           {isLogin

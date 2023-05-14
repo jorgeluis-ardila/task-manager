@@ -1,5 +1,5 @@
 import React from "react";
-import body from './body.module.css'
+import body from './body.module.css';
 
 export function TaskBody ({
   children,
@@ -8,7 +8,6 @@ export function TaskBody ({
   empty,
   start,
   isMobile,
-  statusMessageText,
   onStatusMessage,
   buttonCreate,
   filters,
@@ -17,34 +16,19 @@ export function TaskBody ({
 
   // const renderFn = children || onRender,
   const messageProps = error ? 'error' : loading ? 'loading' : empty ? 'empty' : start && 'start' ;
-  console.log(
+  /* console.log(
     'loading' + loading,
     'error' + error,
     'empty' + empty,
     'start' + start
-  );
-  // console.log(messageProps);
+  ); */
+
   return (
     <section className={body.body}>
-      {/* {error && onError()}
-      {loading && onLoading()}
-
-      {(!loading && !totalTodos) && onEmptyTodos()}
-
-      {(!!totalTodos && !searchedTodos.length) && onEmptySearchResults(searchText)} */}
-      {(loading || error || start)
-        ? onStatusMessage(statusMessageText[messageProps])
-        : (empty)
-        ? <>
-            {filters}
-            {onStatusMessage(statusMessageText[messageProps])}
-          </>
-        : <>
-            {filters}
-            {tasks}
-            {(isMobile) && buttonCreate}
-          </>
-      }
+      {((!loading && !error && !start)) && filters}
+      {(loading || error || start || empty) && onStatusMessage({type: messageProps})}
+      {(!loading && !error && !start && !empty) && tasks}
+      {(isMobile && (!loading && !error && !empty)) && buttonCreate}
     </section>
   );
 }

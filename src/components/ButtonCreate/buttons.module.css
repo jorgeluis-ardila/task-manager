@@ -19,6 +19,11 @@
   cursor: pointer;
 }
 
+.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
 @media (min-width: 769px) {
   .create:hover {
     background: linear-gradient(180deg, var(--light-green-blue) 0%, rgba(3, 115, 139, 0.2) 100%), var(--light-green-blue);

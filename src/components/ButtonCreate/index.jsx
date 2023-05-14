@@ -4,7 +4,8 @@ import button from './buttons.module.css'
 export function ButtonCreate({
   openModal,
   setOpenModal,
-  setModalType
+  setModalType,
+  storageChange,
 }) {
 
   const onClickButton = () => {
@@ -14,8 +15,9 @@ export function ButtonCreate({
 
   return (
     <button
-      className={button.create}
+      className={`${button.create} ${storageChange ? button.disabled : ''}`}
       onClick={onClickButton}
+      disabled={storageChange}
     >
       Agregar nueva tarea
     </button>

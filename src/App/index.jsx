@@ -1,7 +1,7 @@
 import React from 'react';
 import { useWindow } from '../utils/useWindow';
-import { useTasks } from '../utils/useTask';
 import { useAuthentication } from '../utils/useAuthentication';
+import { useTasks } from '../utils/useTask';
 import { TaskHeader } from '../components/TaskHeader';
 import { ProfileBar } from '../components/Account/Profile';
 import { Greeting } from "../components/Account/Profile/Greeting";
@@ -16,22 +16,23 @@ import { TaskItem } from '../components/TaskList/TaskItem';
 import { ButtonCreate } from '../components/ButtonCreate';
 import { Modal } from '../components/Modal';
 import { SessionForm } from '../components/Forms/Login/index.jsx';
-import { CreateForm } from '../components/Forms/CreateForm/index.jsx';
+import { CreateForm } from '../components/Forms/CreateTask/index.jsx';
 import { TaskBody } from '../components/TaskBody';
+import { ChangeAlert } from '../components/ChangeAlert';
 // import app from './app.module.css'
 
 
 function App() {
 
   const {
+    isMobile,
+    detectSize
+  } = useWindow(),
+  {
     checkLogin,
     isLogged,
     userData,
   } = useAuthentication(),
-  {
-    isMobile,
-    detectSize
-  } = useWindow(),
   {
     loading,
     error,
@@ -50,40 +51,23 @@ function App() {
     filterTasks,
     setFilterTasks,
     searchValue,
-    setSearchValue
-  } = useTasks(),
-  statusMessageText = {
-    loading: {
-      type: 'loading',
-      message: 'No desesperes',
-      highlihgt: 'Estamos cargando',
-    },
-    error: {
-      type: 'error',
-      message: 'Lo sentimos',
-      highlihgt: 'Tuvimos un error',
-    },
-    empty: {
-      type: 'empty',
-      message: 'Lo siento no hubo coincidencias para',
-      highlihgt: searchValue,
-    },
-    start: {
-      type: 'start',
-      message: '¿Aun no tienes tareas creadas?',
-      highlihgt: 'Que esperas para crearlas',
-    }
-  }
+    setSearchValue,
+    storageChange,
+    handleSync
+  } = useTasks();
 
   window.addEventListener('load', () => {
-      detectSize();
-      checkLogin();
-    });
+    detectSize();
+    checkLogin();
+  });
   window.addEventListener('resize', detectSize);
-  console.log(`totalTasks ${!totalTasks} ${totalTasks}`)
-  console.log(`totalTasks && searchedTasks lenght ${!!totalTasks && !searchedTasks.lenght} ${searchedTasks.length}`);
+  
   return (
     <React.StrictMode>
+      <ChangeAlert
+        storageChange={storageChange}
+        handleSync={handleSync}
+      />
       <TaskHeader>
         <ProfileBar>
           <ProfileButton
@@ -112,13 +96,19 @@ function App() {
         empty={!!totalTasks && !searchedTasks.length}
         start={!totalTasks}
         isMobile={isMobile}
-        statusMessageText={statusMessageText}
-        onStatusMessage={(props) => <StatusMessage loading={loading} {...props} />}
+        onStatusMessage={(props) =>
+          <StatusMessage
+            loading={loading}
+            searchValue={searchValue}
+            {...props}
+          />
+        }
         buttonCreate={
           <ButtonCreate
             openModal={openModal}
             setOpenModal={setOpenModal}
             setModalType={setModalType}
+            storageChange={storageChange}
           />
         }
         filters={
@@ -143,42 +133,19 @@ function App() {
             searchedTasks={searchedTasks}
             filterTasks={filterTasks}
             deleteCompleted={  deleteCompleted}
-            // onRender={(task) => (
-            //   <TaskItem
-            //     key={task.key}
-            //     text={task.text}
-            //     completed={task.completed}
-            //     onComplete={() => completeTask(task.text, task.key)}
-            //     onDelete={() => deleteTask(task.text, task.key)}
-            //   />
-            // )}
-          >
-            {(task) => (
+            onRender={(task) => (
               <TaskItem
                 key={task.key}
                 text={task.text}
                 completed={task.completed}
                 onComplete={() => completeTask(task.text, task.key)}
                 onDelete={() => deleteTask(task.text, task.key)}
+                storageChange={storageChange}
               />
             )}
-          </TaskList>
+          />
         }
-      >
-        {/* {(loading || error || !totalTasks)
-          ? <StatusMessage
-              loading={loading}
-              type={loading ? 'loading' : error ? 'error' : !totalTasks && 'empty'}
-              message={loading ? 'No desesperes' : error ? 'Lo sentimos' : !totalTasks && '¿Aun no tienes tareas creadas?'}
-              highlihgt={loading ? 'estamos cargando' : error ? 'Tuvimos un error' : !totalTasks && 'Que esperas para crearlas'}
-            />
-          : ''
-        } 
-        {(!loading && !error) &&
-          
-        }
-        */}
-      </TaskBody>
+      />
       {/* <div className={app['desktop-container']}>
         <div className={app['desktop-left']}>
         </div>

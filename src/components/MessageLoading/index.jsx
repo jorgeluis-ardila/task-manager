@@ -25,26 +25,49 @@ function Message({message, highlihgt}) {
 function StatusMessage({
   loading = false,
   type,
-  message = null,
-  highlihgt = null,
+  searchValue,
   desktop = false
 }) {
+
+  const statusMessageText = {
+    loading: {
+      type: 'loading',
+      message: 'No desesperes',
+      highlihgt: 'Estamos cargando',
+    },
+    error: {
+      type: 'error',
+      message: 'Lo sentimos',
+      highlihgt: 'Tuvimos un error',
+    },
+    empty: {
+      type: 'empty',
+      message: `Lo siento no hubo coincidencias ${searchValue && 'para'}`,
+      highlihgt: searchValue,
+    },
+    start: {
+      type: 'start',
+      message: '¿Aun no tienes tareas creadas?',
+      highlihgt: 'Que esperas para crearlas',
+    }
+  }
+
   return (
     !desktop
       ? <div className={`${status.container} ${(type === 'empty') && status['container-empty']} ${(type === 'start') && status['container-start']}`}>
           <Message
-            message={message}
-            highlihgt={highlihgt}
+            message={statusMessageText[type].message}
+            highlihgt={statusMessageText[type].highlihgt}
           />
           {loading &&
             <span className={status.loader}></span>
           }
           <figure className={status['image-container']}>
-            <img src={imgTypes[type]} alt={highlihgt} className={`${status.image} ${status[type]}`} />
+            <img src={imgTypes[type]} alt={statusMessageText[type].highlihgt} className={`${status.image} ${status[type]}`} />
           </figure>
         </div>
       : <figure className={`${status['image-container']} ${status['image-desktop']}`}>
-          <img src={imgTypes[type]} alt={highlihgt} className={`${status.image} ${status[type]}`} />
+          <img src={imgTypes[type]} alt={statusMessageText[type].highlihgt} className={`${status.image} ${status[type]}`} />
         </figure>
   );
 }
