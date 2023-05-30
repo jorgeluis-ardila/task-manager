@@ -1,5 +1,5 @@
 import React from 'react';
-import { useAuthentication } from "../../../utils/useAuthentication";
+import { useAuthentication } from "../../../utils/hooks/useAuthentication";
 import { onKeyUp } from '../../../utils/utils';
 import { Login, Register } from './Fields'
 // import formBase from "../formBase.module.css"

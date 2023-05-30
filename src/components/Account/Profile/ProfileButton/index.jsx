@@ -2,7 +2,7 @@ import React from "react";
 import profile from './profile.module.css';
 import AnonimousUser  from '../../../../assets/images/notLogged.jpg';
 import RegisteredUser  from '../../../../assets/images/logged.jpg';
-import { useAuthentication } from "../../../../utils/useAuthentication";
+import { useAuthentication } from "../../../../utils/hooks/useAuthentication";
 
 export function ProfileButton ({
   isMobile,

@@ -1,7 +1,7 @@
 import React from 'react';
-import { useWindow } from '../utils/useWindow';
-import { useAuthentication } from '../utils/useAuthentication';
-import { useTasks } from '../utils/useTask';
+import { useWindow } from '../utils/hooks/useWindow';
+import { useAuthentication } from '../utils/hooks/useAuthentication';
+import { useTasks } from '../utils/hooks/useTask';
 import { TaskHeader } from '../components/TaskHeader';
 import { ProfileBar } from '../components/Account/Profile';
 import { Greeting } from "../components/Account/Profile/Greeting";
