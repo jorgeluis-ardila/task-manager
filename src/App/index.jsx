@@ -5,7 +5,7 @@ import { useTasks } from '../utils/useTask';
 import { TaskHeader } from '../components/TaskHeader';
 import { ProfileBar } from '../components/Account/Profile';
 import { Greeting } from "../components/Account/Profile/Greeting";
-import { ProfileButton } from "../components/Account/Profile/ProfileButton";
+// import { ProfileButton } from "../components/Account/Profile/ProfileButton";
 import { Counter } from '../components/Counter';
 import { StatusMessage } from '../components/MessageLoading';
 import { Filters } from '../components/Filter';
@@ -61,7 +61,7 @@ function App() {
     checkLogin();
   });
   window.addEventListener('resize', detectSize);
-  
+
   return (
     <React.StrictMode>
       <ChangeAlert
@@ -70,14 +70,14 @@ function App() {
       />
       <TaskHeader>
         <ProfileBar>
-          <ProfileButton
+          {/* <ProfileButton
             isMobile={isMobile}
             openModal={openModal}
             setOpenModal={setOpenModal}
             setModalType={setModalType}
             isLogged={isLogged}
             userData={userData}
-          />
+          /> */}
           <Greeting
             isLogged={isLogged}
             userData={userData}

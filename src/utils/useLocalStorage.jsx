@@ -23,7 +23,7 @@ export function useLocalStorage(storageName, initialValue) {
 
     }, 3000);
 
-  },[syncronizedInfo]);
+  },[syncronizedInfo, initialValue, storageName]);
 
   const saveStorage = (newStorage) => {
     try {
