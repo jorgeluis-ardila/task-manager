@@ -1,69 +1,71 @@
-import React from "react";
-import profile from './profile.module.css';
-import AnonimousUser  from '../../../../assets/images/notLogged.jpg';
-import RegisteredUser  from '../../../../assets/images/logged.jpg';
+import React, { useState } from "react";
+import profile from "./profile.module.css";
+import AnonimousUser from "../../../../assets/images/loggedMale.svg";
+import RegisteredUser from "../../../../assets/images/loggedMale.svg";
 import { useAuthentication } from "../../../../utils/hooks/useAuthentication";
 
-export function ProfileButton ({
+export function ProfileButton({
   isMobile,
   openModal,
   setOpenModal,
   setModalType,
   isLogged,
-  userData
+  userData,
 }) {
+  const { logOut } = useAuthentication(),
+    [openDropdown, setOpenDropdown] = useState(false),
+    menu = [
+      {
+        text: "Cuenta",
+        onClick: () => {
+          console.log("ABRIO LA CUENTA");
+        },
+      },
+      {
+        text: "Cerrar Sesión",
+        onClick: () => {
+          logOut();
+          setOpenDropdown(false);
+        },
+      },
+    ];
 
-  const {logOut} = useAuthentication(),
-  [openDropdown, setOpenDropdown] = React.useState(false),
-  menu = [
-    {
-      text: 'Cuenta',
-      onClick: () => {
-        console.log('ABRIO LA CUENTA');
-      }
-    },
-    {
-      text: 'Cerrar Sesión',
-      onClick: () => {
-        logOut();
-        setOpenDropdown(false);
-      }
-    }
-  ];
-
-  const name = userData.displayName ? userData.displayName.split(' ')[0] : '';
+  const name = userData.displayName ? userData.displayName.split(" ")[0] : "";
 
   const handleClick = () => {
     if (isLogged && !isMobile) {
-      setOpenDropdown(prevState => !prevState)
-    }
-    else{
+      setOpenDropdown((prevState) => !prevState);
+    } else {
       setOpenModal(!openModal);
-      setModalType('login');
+      setModalType("login");
     }
   };
 
   return (
     <div
-      className={profile['profile-btn']}
+      className={profile["profile-btn"]}
       onMouseEnter={() => isLogged && setOpenDropdown(true)}
       onMouseLeave={() => isLogged && setOpenDropdown(false)}
     >
-      <button
-        className={profile.trigger}
-        onClick={handleClick}
-      >
-        <img src={isLogged ? userData.photoURL ? userData.photoURL : RegisteredUser : AnonimousUser} alt={`Hola ${name}`} title={`Hola ${name}`} />
+      <button className={profile.trigger} onClick={handleClick}>
+        <img
+          src={
+            isLogged
+              ? userData.photoURL
+                ? userData.photoURL
+                : RegisteredUser
+              : AnonimousUser
+          }
+          alt={`Hola ${name}`}
+          title={`Hola ${name}`}
+        />
       </button>
-      {openDropdown &&
+      {openDropdown && (
         <ul className={profile.menu}>
           {menu.map((menuItem, index) => (
-            <li
-              key={index}
-              className={profile['menu-item']}
-            >
+            <li key={index} className={profile["menu-item"]}>
               <button
-                className={profile['menu-item']}
+                className={profile["menu-item"]}
                 onClick={menuItem.onClick}
               >
                 {menuItem.text}
@@ -71,7 +73,7 @@ export function ProfileButton ({
             </li>
           ))}
         </ul>
-      }
+      )}
     </div>
   );
 }

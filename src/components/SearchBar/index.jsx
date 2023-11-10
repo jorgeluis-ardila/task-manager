@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { SearchIcon } from "../IconsApp/Icons";
 import search from './search.module.css';
 
@@ -7,7 +7,7 @@ export function SearchBar({
   setSearchValue
 }) {
 
-  const ref = React.useRef(null);
+  const ref = useRef(null);
 
   const onSearchValueChange = (event) => {
     setSearchValue(event.target.value);

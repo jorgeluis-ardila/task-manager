@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import ReactDOM from 'react-dom';
 import { CSSTransition } from 'react-transition-group';
 import { onKeyUp } from "../../utils/utils";
@@ -12,7 +12,7 @@ export function Modal({
   closeModal
 }) {
 
-  const nodeRef = React.useRef(null);
+  const nodeRef = useRef(null);
 
   return ReactDOM.createPortal(
     <CSSTransition

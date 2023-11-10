@@ -1,10 +1,12 @@
-import React from 'react';
+import { useState, useEffect } from "react";
 
 function useStorageListener(syncronizeTasks) {
-  const [storageChange, setStorageChange] = React.useState(false);
+  const [storageChange, setStorageChange] = useState(false);
 
-  React.useEffect(() => {
-    const onChange = (change) => { if (change.key === "TODOS_V1") setStorageChange(true) };
+  useEffect(() => {
+    const onChange = (change) => {
+      if (change.key === "TODOS_V1") setStorageChange(true);
+    };
 
     window.addEventListener("storage", onChange);
 
@@ -12,7 +14,7 @@ function useStorageListener(syncronizeTasks) {
       window.removeEventListener("storage", onChange);
     };
   }, []);
-  
+
   const handleSync = () => {
     syncronizeTasks();
     setStorageChange(false);
@@ -20,8 +22,8 @@ function useStorageListener(syncronizeTasks) {
 
   return {
     storageChange,
-    handleSync
-  }
+    handleSync,
+  };
 }
 
 export { useStorageListener };
