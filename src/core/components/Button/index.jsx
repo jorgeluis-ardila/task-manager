@@ -1,19 +1,21 @@
 import PropTypes from 'prop-types';
 import StyledButton from './style';
 
-const Button = ({ onClick, className, children, variant }) => {
+const Button = ({ type, onClick, className, children, variant, disabled }) => {
   return (
-    <StyledButton variant={variant} onClick={onClick} className={className}>
+    <StyledButton type={type} variant={variant} onClick={onClick} className={className} disabled={disabled}>
       {children}
     </StyledButton>
   );
 };
 
 Button.propTypes = {
-  variant: PropTypes.string,
+  type: PropTypes.string,
   className: PropTypes.string,
-  children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]),
+  children: PropTypes.oneOfType([PropTypes.node, PropTypes.element]).isRequired,
   onClick: PropTypes.func,
+  variant: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export { Button };

@@ -28,14 +28,6 @@ const StyledBody = styled('section')(
             color: ${theme.hexToRGB(theme.colors.neutral.dark, 0.6)};
           }
         }
-        .sort-button {
-          background: ${theme.colors.neutral[10]};
-          color: ${theme.colors.green[70]};
-          box-shadow: ${theme.shadows.blue.dark};
-          &:hover {
-            background: ${theme.colors.green[20]};
-          }
-        }
       }
       .items-list {
         display: flex;

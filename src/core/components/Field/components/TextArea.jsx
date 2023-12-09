@@ -1,0 +1,44 @@
+import PropTypes from 'prop-types';
+import { FieldWrapper, StyledTextArea } from './style';
+import { useEffect, useRef } from 'react';
+
+const TextArea = ({ name, id, value, placeholder, onBlur, onFocus, onChange }) => {
+  const textareaRef = useRef(null);
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = 'auto';
+      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
+    }
+  }, [value]);
+
+  const handleChange = e => onChange(e.target.value);
+
+  return (
+    <FieldWrapper className="field-wrapper field-wrapper--textarea">
+      <StyledTextArea
+        onFocus={onFocus}
+        onBlur={onBlur}
+        onChange={handleChange}
+        ref={textareaRef}
+        name={name}
+        id={id}
+        value={value}
+        placeholder={placeholder}
+        rows={1}
+      />
+    </FieldWrapper>
+  );
+};
+
+TextArea.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  onChange: PropTypes.func,
+};
+
+export { TextArea };

@@ -1,126 +1,9 @@
 import { createContext, useContext, useState, useMemo } from 'react';
 import useLocalStorage from '../../hooks/useLocalStorage';
 import { isExpired } from '../../utils';
+import { INITIAL_DATA } from './mockData';
 
 const findIndex = (data, id) => data.findIndex(item => item.id === id);
-
-const INITIAL_DATA = [
-  {
-    id: 1,
-    name: 'Categori Name really long too',
-    tasks: [
-      {
-        id: 1,
-        name: 'Task Title 1', //max lenght 30
-        description: 'Task description, yara yara numbeleque yara yara', //max lenght 100
-        isCompleted: true,
-        dueDate: '2023-11-30',
-        category: 'Categori Name really long too',
-      },
-      {
-        id: 2,
-        name: 'Task Title 2', //max lenght 30
-        description: 'Task description, yara yara numbeleque yara yara', //max lenght 100
-        isCompleted: true,
-        dueDate: '2023-11-30',
-        category: 'Categori Name really long too',
-      },
-      {
-        id: 3,
-        name: 'Task Title 3', //max lenght 30
-        description: 'Task description, yara yara numbeleque yara yara', //max lenght 100
-        isCompleted: false,
-        dueDate: '2023-11-30',
-        category: 'Categori Name really long too',
-      },
-      {
-        id: 4,
-        name: 'Task Title 4', //max lenght 30
-        description: 'Task description, yara yara numbeleque yara yara', //max lenght 100
-        isCompleted: false,
-        dueDate: '2023-11-30',
-        category: 'Categori Name really long too',
-      },
-      {
-        id: 5,
-        name: 'Task Title 5', //max lenght 30
-        description: 'Task description, yara yara numbeleque yara yara', //max lenght 100
-        isCompleted: false,
-        dueDate: '2023-11-30',
-        category: 'Categori Name really long too',
-      },
-    ],
-    isFavorite: false,
-    totalTasks: 5,
-    completedTasks: 2,
-  },
-  {
-    id: 2,
-    name: 'Category Name 2',
-    tasks: [
-      {
-        id: 1,
-        name: 'Task Title 1', //max lenght 30
-        description: 'Task description, yara yara numbeleque yara yara', //max lenght 100
-        isCompleted: true,
-        dueDate: '2023-11-30',
-        category: 'Category Name 2',
-      },
-      {
-        id: 2,
-        name: 'Task Title 2', //max lenght 30
-        description: 'Task description, yara yara numbeleque yara yara', //max lenght 100
-        isCompleted: false,
-        dueDate: '2023-11-30',
-        category: 'Category Name 2',
-      },
-    ],
-    isFavorite: false,
-    totalTasks: 2,
-    completedTasks: 1,
-  },
-  {
-    id: 3,
-    name: 'The Name of Category',
-    tasks: [
-      {
-        id: 1,
-        name: 'Task Title', //max lenght 30
-        description: 'Task description, yara yara numbeleque yara yara', //max lenght 100
-        isCompleted: true,
-        dueDate: '2023-11-30',
-        category: 'The Name of Category',
-      },
-    ],
-    isFavorite: false,
-    totalTasks: 10,
-    completedTasks: 0,
-  },
-];
-
-const INITIAL_STATE = {
-  theme: 'light',
-  onChangeTheme: () => {},
-  isLoading: false,
-  error: false,
-  data: INITIAL_DATA,
-  searchTerm: '',
-  onChangeSearchTerm: newSearchTerm => {},
-  dataSearched: [],
-  currentCategory: null,
-  onOpenCategory: newCategoryId => {},
-  tasksFiltered: [],
-  activeFilter: 'none',
-  onChangeActiveFilter: newFilter => {},
-  modalOptions: {
-    isOpen: false,
-    modalContent: {
-      login: false,
-      create: false,
-    },
-  },
-  onChangeModalOptions: newValue => {},
-};
 
 const FILTERS_FN = {
   none: prevTasks => prevTasks,
@@ -129,21 +12,22 @@ const FILTERS_FN = {
   expired: prevTasks => prevTasks.filter(task => isExpired(task.date)),
 };
 
-const StoreContext = createContext(INITIAL_STATE);
+const StoreContext = createContext();
 
 const StoreProvider = ({ children }) => {
-  const [theme, setTheme] = useLocalStorage('theme', INITIAL_STATE.theme);
-  const [isLoading /* setIsLoading */] = useState(INITIAL_STATE.isLoading);
-  const [error /* setError */] = useState(INITIAL_STATE.error);
-  const [data /* setData */] = useLocalStorage('task', { value: INITIAL_STATE.data }, true);
-  const [currentCategory, setCurrentCategory] = useState(INITIAL_STATE.currentCategory);
-  const [searchTerm, setSearchTerm] = useState(INITIAL_STATE.searchTerm);
-  const [activeFilter, setActiveFilter] = useState(INITIAL_STATE.activeFilter);
-  const [modalOptions, setModalOptions] = useState(INITIAL_STATE.modalOptions);
+  const [theme, setTheme] = useLocalStorage('theme', 'light');
+  const [isLoading /* setIsLoading */] = useState(false);
+  const [error /* setError */] = useState(false);
+  const [data /* setData */] = useLocalStorage('task', { value: INITIAL_DATA }, true);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [currentCategory, setCurrentCategory] = useState(null);
+  const [activeFilter, setActiveFilter] = useState('none');
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalData, setModalData] = useState({ content: null, type: '' });
 
-  const handleTheme = () => setTheme(prevTheme => (prevTheme !== 'light' ? 'light' : 'dark'));
+  const onChangeTheme = () => setTheme(prevTheme => (prevTheme !== 'light' ? 'light' : 'dark'));
 
-  const handleOpenCategory = newCategoryId => {
+  const onOpenCategory = newCategoryId => {
     const categories = data.value;
     const categoryIndex = findIndex(categories, newCategoryId);
     setCurrentCategory(categories[categoryIndex] ?? null);
@@ -173,29 +57,41 @@ const StoreProvider = ({ children }) => {
     return newData;
   }, [searchTerm, tasksFiltered, currentCategory, data.value]);
 
-  const handleSearchTerm = newSearchTerm => setSearchTerm(newSearchTerm);
+  const onChangeSearchTerm = newSearchTerm => setSearchTerm(newSearchTerm);
 
-  const handleActiveFilter = newFilter => setActiveFilter(newFilter);
-  const handleModalOptions = newValue => setModalOptions(newValue);
+  const onChangeActiveFilter = newFilter => setActiveFilter(newFilter);
+
+  const onOpenModal = (modalContent, modalType) => {
+    setModalData({ content: modalContent, type: modalType });
+    setIsModalOpen(true);
+  };
+  const onCloseModal = () => {
+    setIsModalOpen(false);
+    setTimeout(() => {
+      setModalData({ content: null, type: '' });
+    }, 500);
+  };
 
   return (
     <StoreContext.Provider
       value={{
         theme,
-        onChangeTheme: handleTheme,
+        onChangeTheme,
         isLoading,
         error,
         data: data.value,
         searchTerm,
-        onChangeSearchTerm: handleSearchTerm,
+        onChangeSearchTerm,
         dataSearched,
         currentCategory,
-        onOpenCategory: handleOpenCategory,
+        onOpenCategory,
         tasksFiltered,
         activeFilter,
-        onChangeActiveFilter: handleActiveFilter,
-        modalOptions,
-        onChangeModalOptions: handleModalOptions,
+        onChangeActiveFilter,
+        isModalOpen,
+        modalData,
+        onOpenModal,
+        onCloseModal,
       }}
     >
       {children}
@@ -218,8 +114,10 @@ const useStore = () => {
     tasksFiltered,
     activeFilter,
     onChangeActiveFilter,
-    modalOptions,
-    onChangeModalOptions,
+    isModalOpen,
+    modalData,
+    onOpenModal,
+    onCloseModal,
   } = useContext(StoreContext);
   return {
     theme,
@@ -235,9 +133,11 @@ const useStore = () => {
     tasksFiltered,
     activeFilter,
     onChangeActiveFilter,
-    modalOptions,
-    onChangeModalOptions,
+    isModalOpen,
+    modalData,
+    onOpenModal,
+    onCloseModal,
   };
 };
 
-export { StoreContext, StoreProvider, useStore };
+export { StoreProvider, useStore };

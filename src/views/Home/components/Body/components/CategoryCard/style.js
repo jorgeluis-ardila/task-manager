@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const StyledCategoryCard = styled('div')(
+const StyledCategoryCard = styled('li')(
   ({ theme }) => css`
     background: ${theme.colors.neutral[0]};
     border-radius: 20px;
@@ -33,7 +33,7 @@ const StyledCategoryCard = styled('div')(
         font-size: ${theme.typography.size(20)};
       }
     }
-    .task-info {
+    .tasks-info {
       display: flex;
       align-items: center;
       gap: 5px;

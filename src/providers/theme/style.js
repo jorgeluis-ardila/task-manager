@@ -8,6 +8,25 @@ const GlobalStyles = ({ theme }) => css`
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
+    scrollbar-color: ${theme.colors.neutral[30]} ${theme.colors.neutral[10]};
+    scrollbar-width: thin;
+
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 7px;
+    }
+
+    &::-webkit-scrollbar-track {
+      background-color: ${theme.colors.neutral[10]};
+      border-radius: 8px;
+      border: none;
+      box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: ${theme.colors.neutral[30]};
+      border-radius: 8px;
+    }
   }
   ${ResetsStyles}
   html,

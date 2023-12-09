@@ -10,7 +10,6 @@ export const GreetingContainer = styled('div')(
     .edit-profile {
       background: ${theme.colors.neutral[0]};
       color: ${theme.colors.orange.main};
-      box-shadow: ${theme.shadows.blue.dark};
       &:hover {
         background: ${theme.colors.orange.main};
         color: ${theme.colors.neutral[0]};

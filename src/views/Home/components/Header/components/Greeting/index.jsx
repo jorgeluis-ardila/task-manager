@@ -19,7 +19,7 @@ const Greeting = ({ userData, onOpenProfile, onGoBack, isCategoryOpen }) => {
     <GreetingContainer>
       <UserInfo className="user-info">
         {isCategoryOpen && (
-          <Button className='back-button' onClick={handleGoBack}>
+          <Button className="back-button" onClick={handleGoBack}>
             <Icon type="back" />
           </Button>
         )}
@@ -28,7 +28,7 @@ const Greeting = ({ userData, onOpenProfile, onGoBack, isCategoryOpen }) => {
         </figure>
         <h2 className="greet">{`Hola ${userName}`}</h2>
       </UserInfo>
-      <IconButton type="dots" className="edit-profile" onClick={handleOpenProfile} />
+      <IconButton variant="filter" iconType="dots" className="edit-profile" onClick={handleOpenProfile} />
     </GreetingContainer>
   );
 };

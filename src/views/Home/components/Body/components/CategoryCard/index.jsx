@@ -1,30 +1,32 @@
 import PropTypes from 'prop-types';
-import ToDo from '../../../../../../assets/images/to-do-list.png';
-import StyledCategoryCard from './styles';
-import { Button, Icon } from '../../../../../../core';
-import { getPercentage } from '../../../../../../utils';
-import { ProgressBar } from '../ProgressBar';
 import cn from 'classnames';
+import ToDo from '../../../../../../assets/images/to-do-list.png';
+import StyledCategoryCard from './style';
+import { Button, Icon } from '../../../../../../core';
+import { ProgressBar } from '../ProgressBar';
 
-const CategoryCard = ({ category, onClick }) => {
-  const percentage = getPercentage({ partialValue: category.completedTasks, totalValue: category.totalTasks });
-
+const CategoryCard = ({ name, id, isFavorite, totalTasks, percentage, onOpen, onAddFavorite }) => {
   const handleClick = () => {
-    onClick(category.id);
+    onOpen(id);
+  };
+
+  const handleAddFavorite = (e) => {
+    e.stopPropagation();
+    onAddFavorite();
   };
 
   return (
     <StyledCategoryCard onClick={handleClick}>
       <div className="name-container">
-        <Button>
-          <Icon type="star" className={cn({ favorite: category.isFavorite })} />
+        <Button onClick={handleAddFavorite}>
+          <Icon type="star" className={cn({ favorite: isFavorite })} />
         </Button>
-        <p>{category.name}</p>
+        <p>{name}</p>
       </div>
-      <div className="task-info">
+      <div className="tasks-info">
         <div className="total-tasks">
           <img src={ToDo} alt="Task" />
-          {category.totalTasks}
+          {totalTasks}
         </div>
         <ProgressBar percentage={percentage} showText />
       </div>
@@ -33,7 +35,13 @@ const CategoryCard = ({ category, onClick }) => {
 };
 
 CategoryCard.protoTypes = {
-  category: PropTypes.object,
+  name: PropTypes.string,
+  id: PropTypes.string,
+  isFavorite: PropTypes.string,
+  totalTasks: PropTypes.string,
+  percentage: PropTypes.string,
+  onOpen: PropTypes.func,
+  onAddFavorite: PropTypes.func,
 };
 
 export { CategoryCard };

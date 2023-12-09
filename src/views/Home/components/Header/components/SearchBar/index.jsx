@@ -34,7 +34,7 @@ const SearchBar = ({ searchValue, onChangeSearchValue }) => {
         onBlur={handleFocus}
         autoComplete="off"
       />
-      {searchValue && <IconButton type="cancel" onClick={handleClear} className='clear-button'/>}
+      {searchValue && <IconButton iconType="cancel" onClick={handleClear} className="clear-button" />}
     </SearchBarContainer>
   );
 };

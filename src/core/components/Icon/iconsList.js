@@ -28,6 +28,4 @@ const iconNames = {
   google: props => <GoogleSVG {...props} />,
 };
 
-const IconSVG = type => (type ? iconNames[type] : null);
-
-export default IconSVG;
+export default iconNames;
