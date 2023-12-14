@@ -1,11 +1,12 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { Button } from '../Button';
-import { Action, Delete, Disabled, Filter } from './variants';
+import { Action, Add, Delete, Disabled, Filter } from './variants';
 
 const variants = {
   filter: Filter,
   delete: Delete,
+  add: Add,
   action: Action,
   disabled: Disabled,
 };

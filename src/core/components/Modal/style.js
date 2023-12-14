@@ -14,14 +14,13 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
     justify-content: center;
     align-items: flex-end;
     position: fixed;
-    z-index: 3;
+    z-index: 1000;
     top: 0;
     right: 0;
     bottom: 0;
     left: 0;
-    background: ${theme.hexToRGB(theme.colors.blue[80], 0.8)};
     &.background {
-      &--enter {
+      &-enter {
         background: transparent;
         .modal-container {
           opacity: 0;
@@ -29,7 +28,7 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
         }
       }
 
-      &--enter-active {
+      &-enter-active {
         background: ${theme.hexToRGB(theme.colors.blue[80], 0.8)};
         transition: background 200ms;
         .modal-container {
@@ -37,20 +36,21 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
           bottom: 0;
         }
       }
-      &--enter-done {
+      &-enter-done {
+        background: ${theme.hexToRGB(theme.colors.blue[80], 0.8)};
       }
-      &--enter-done,
-      &--exit {
+      &-enter-done,
+      &-exit {
         .modal-container {
           opacity: 1;
           bottom: 0;
         }
       }
-      &--exit {
+      &-exit {
         background: ${theme.hexToRGB(theme.colors.blue[80], 0.8)};
       }
 
-      &--exit-active {
+      &-exit-active {
         background: transparent;
         transition: background 200ms;
         .modal-container {

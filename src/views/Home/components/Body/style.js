@@ -1,41 +1,21 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const StyledBody = styled('section')(
+export const StyledBody = styled('section')(
   ({ theme }) => css`
     padding: 0 5px 5px;
     flex-grow: 1;
+    height: calc(100% - 167px);
     .inner-body {
       display: flex;
       flex-direction: column;
       gap: 10px;
-      padding: 25px;
+      padding: 0 0 25px;
       border-radius: 30px;
       height: 100%;
       box-shadow: ${theme.shadows.green.dark};
       background: ${theme.colors.neutral[0]};
-      header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        .title-container {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 15px;
-          width: calc(100% - 40px);
-          .edit-button {
-            color: ${theme.hexToRGB(theme.colors.neutral.dark, 0.6)};
-          }
-        }
-      }
-      .items-list {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
+      position: relative;
     }
   `
 );
-
-export default StyledBody;

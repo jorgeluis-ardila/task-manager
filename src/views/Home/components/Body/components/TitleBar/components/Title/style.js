@@ -7,6 +7,9 @@ const StyledTitleContainer = styled('div')(
     align-items: center;
     gap: 5px;
     max-width: calc(100% - 45px);
+    * {
+      transition: all 0.3s ease 0s;
+    }
     p {
       font-family: ${theme.typography.family.hauora.light};
       font-size: ${theme.typography.size(25)};

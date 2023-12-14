@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { firebaseConfig } from './utils/config/configFirebase';
+import { firebaseConfig } from './config/firebase';
 import { initializeApp } from 'firebase/app';
 import App from './App';
 // import App from './App/old-index';

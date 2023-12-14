@@ -1,46 +1,34 @@
 import React, { useRef } from 'react';
 import { createPortal } from 'react-dom';
-import { onKeyUp } from '../../../utils';
-import { CSSTransition } from 'react-transition-group';
+import { onKeyUp } from 'utils';
+import { useModal } from 'providers/context';
+import { TransitionWrapper } from 'core/components';
 import ModalStyled from './style';
-import { useStore } from '../../../providers/context';
 
 const Modal = () => {
-  const { isModalOpen, modalData, onCloseModal } = useStore();
+  const { modalState, modalActions } = useModal();
   const nodeRef = useRef(null);
 
   const handleKeyDown = e => {
-    onKeyUp(e, 27, onCloseModal);
+    onKeyUp(e, 27, modalActions.close);
   };
 
   return createPortal(
-    <CSSTransition
-      in={isModalOpen}
-      nodeRef={nodeRef}
-      timeout={300}
-      classNames={{
-        enter: 'background--enter',
-        enterActive: 'background--enter-active',
-        enterDone: 'background--enter-done',
-        exit: 'background--exit',
-        exitActive: 'background--exit-active',
-      }}
-      unmountOnExit
-    >
+    <TransitionWrapper open={modalState.isOpen} nodeRef={nodeRef} classNames="background" unmountOnExit>
       <ModalStyled
-        tabIndex="0"
+        tabIndex="-1"
         ref={nodeRef}
-        onClose={onCloseModal}
+        onClose={modalActions.close}
         className="background"
-        onClick={onCloseModal}
-        onKeyDownCapture={handleKeyDown}
-        type={modalData.type}
+        onClick={modalActions.close}
+        onKeyDown={handleKeyDown}
+        type={modalState.type}
       >
         <div className="modal-container" onClick={e => e.stopPropagation()}>
-          <div className="inner-modal-container">{modalData.content}</div>
+          <div className="inner-modal-container">{modalState.content}</div>
         </div>
       </ModalStyled>
-    </CSSTransition>,
+    </TransitionWrapper>,
     document.body
   );
 };

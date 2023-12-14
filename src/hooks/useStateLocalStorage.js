@@ -1,7 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import { md5 } from 'js-md5';
-
-const getHashId = stringValue => md5(stringValue);
+import { getHashId } from 'utils/helpers';
 
 const getItem = key => {
   try {
@@ -23,7 +21,7 @@ const setItem = (key, value) => {
 const formatStorageValue = (value, id, requiredVersion) =>
   requiredVersion ? (typeof value === 'object' ? { version: id, ...value } : { version: id, value: value }) : value;
 
-const useLocalStorage = (key, defaultValue, requiredVersion) => {
+const useStateLocalStorage = (key, defaultValue, requiredVersion) => {
   const newId = getHashId(typeof defaultValue === 'object' ? JSON.stringify(defaultValue) : defaultValue);
   const prevId = getItem(key)?.version ?? newId;
   const [localStorageValue, setLocalStorageValue] = useState(() => {
@@ -38,7 +36,7 @@ const useLocalStorage = (key, defaultValue, requiredVersion) => {
     newValue => {
       const newState = typeof newValue === 'function' ? newValue(localStorageValue) : newValue;
       setItem(key, formatStorageValue(newState, newId));
-      setLocalStorageValue(newState);
+      setLocalStorageValue(formatStorageValue(newState, newId));
     },
     [key, localStorageValue, newId]
   );
@@ -53,4 +51,4 @@ const useLocalStorage = (key, defaultValue, requiredVersion) => {
   return [localStorageValue, setLocalStorageStateValue];
 };
 
-export default useLocalStorage;
+export { useStateLocalStorage, setItem as setLocalStorage, getItem as getLocalStorage };

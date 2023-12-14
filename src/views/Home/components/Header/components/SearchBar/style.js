@@ -20,12 +20,13 @@ export const SearchBarContainer = styled('div')(
       top: 50%;
       right: 10px;
       transform: translateY(-50%);
-      width: 20px;
-      height: 20px;
+      min-width: 20px;
+      min-height: 20px;
+      border-radius: 100%;
       align-self: center;
       color: ${theme.colors.neutral[70]};
       .icon {
-        width: 100%;
+        width: 50%;
       }
     }
   `

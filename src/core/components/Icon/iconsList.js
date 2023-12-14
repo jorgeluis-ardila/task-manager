@@ -7,6 +7,7 @@ import { ReactComponent as EmailSVG } from '../../../assets/svg/email-icon.svg';
 import { ReactComponent as PasswordSVG } from '../../../assets/svg/password-icon.svg';
 import { ReactComponent as EditSVG } from '../../../assets/svg/edit-icon.svg';
 import { ReactComponent as CancelSVG } from '../../../assets/svg/cancel-icon.svg';
+import { ReactComponent as AddSVG } from '../../../assets/svg/add-icon.svg';
 import { ReactComponent as ArrowSVG } from '../../../assets/svg/arrow-icon.svg';
 import { ReactComponent as BackSVG } from '../../../assets/svg/back-icon.svg';
 import { ReactComponent as StarSVG } from '../../../assets/svg/star-icon.svg';
@@ -22,6 +23,7 @@ const iconNames = {
   password: props => <PasswordSVG {...props} />,
   edit: props => <EditSVG {...props} />,
   cancel: props => <CancelSVG {...props} />,
+  add: props => <AddSVG {...props} />,
   arrow: props => <ArrowSVG {...props} />,
   back: props => <BackSVG {...props} />,
   star: props => <StarSVG {...props} />,

@@ -4,10 +4,15 @@ import styled from '@emotion/styled';
 const StyledTaskCard = styled('div')(
   ({ theme }) => css`
     display: flex;
-    align-items: center;
+    align-items: stretch;
     border-radius: 10px;
+    min-height: 70px;
     overflow: hidden;
     box-shadow: ${theme.shadows.green.dark2};
+    cursor: pointer;
+    * {
+      transition: all 0.3s ease 0s;
+    }
     &.expired {
       .state-bar {
         background: ${theme.colors.red.main};
@@ -42,7 +47,6 @@ const StyledTaskCard = styled('div')(
     .state-bar {
       background: ${theme.colors.yellow.main};
       width: 8px;
-      height: 100%;
     }
     .task-info {
       flex-grow: 1;
@@ -88,6 +92,9 @@ const StyledTaskCard = styled('div')(
           font-size: ${theme.typography.size(15)};
           font-weight: 600;
           color: ${theme.colors.blue[80]};
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
         }
         &__specs {
           display: flex;
@@ -95,8 +102,11 @@ const StyledTaskCard = styled('div')(
           gap: 5px;
           span {
             font-family: ${theme.typography.family.hauora.light};
-            font-size: ${theme.typography.size(12)};
+            font-size: ${theme.typography.size(13)};
             color: ${theme.colors.neutral[40]};
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
           }
           div {
             width: 3px;
@@ -107,6 +117,7 @@ const StyledTaskCard = styled('div')(
       }
       .delete-content {
         .icon-button {
+          border-radius: 100px;
           color: ${theme.colors.red.main};
           .icon {
             width: 18px;

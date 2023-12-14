@@ -1,10 +1,10 @@
 import { ThemeProvider as EmotionThemeProvider, Global } from '@emotion/react';
-import { useStore } from '../context';
+import { useGlobalStore } from 'providers/context';
 import getThemeConfig from './config';
 import GlobalStyles from './style';
 
 const ThemeProvider = ({ children }) => {
-  const { theme } = useStore();
+  const { theme } = useGlobalStore();
   const themeConfig = getThemeConfig(theme);
   const globalStyles = GlobalStyles({ theme: themeConfig });
 

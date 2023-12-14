@@ -1,16 +1,16 @@
 import { useRef, useState } from 'react';
+import { useField } from 'formik';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { useField } from 'formik';
 import { StyledMessageWrapper, StyledWrapper } from './style';
-import { Icon } from '../Icon';
-import { InputMessage } from '../index';
+import { Icon, InputMessage } from 'core/components';
 import { fieldsList, fieldProps } from './constans';
 
 const Field = ({ variant, as = 'default', label, icon, helperText, max, type, id, name, options }) => {
   const [field, meta, helpers] = useField({ name });
   const [isFocused, setIsFocused] = useState(false);
   const wrapperRef = useRef(null);
+  const showFeedback = (!!isFocused && field.value.trim().length > 2) || meta.touched;
 
   const handleFocus = e => {
     setIsFocused(true);
@@ -31,7 +31,7 @@ const Field = ({ variant, as = 'default', label, icon, helperText, max, type, id
     <StyledWrapper
       ref={wrapperRef}
       variant={variant}
-      className={cn('form-field', { error: meta.touched && meta.error, focused: isFocused })}
+      className={cn('form-field', { error: showFeedback && meta.error, focused: isFocused })}
     >
       <label htmlFor={id || name}>{label}</label>
       {icon && <Icon type={icon} />}
@@ -45,7 +45,7 @@ const Field = ({ variant, as = 'default', label, icon, helperText, max, type, id
         {...fieldComponentProps[as]}
       />
       <StyledMessageWrapper>
-        {meta.touched && meta.error && (
+        {showFeedback && meta.error && (
           <InputMessage className="input-message" variant="error">
             {meta.error}
           </InputMessage>

@@ -14,6 +14,20 @@ export const Delete = ({ theme }) => css`
   }
 `;
 
+export const Add = ({ theme }) => css`
+  padding: 13px;
+  border-radius: 15px;
+  background: ${theme.colors.green.main};
+  box-shadow: ${theme.shadows.green.main};
+  color: ${theme.colors.green[80]};
+  .icon {
+    width: 18px;
+  }
+  &:hover {
+    background: ${theme.colors.green[50]};
+  }
+`;
+
 export const Filter = props => css`
   padding: 5px;
   border-radius: 100%;

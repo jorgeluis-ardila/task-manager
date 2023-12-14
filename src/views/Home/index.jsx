@@ -1,4 +1,3 @@
-import { Modal } from '../../core';
 import { Body, Header } from './components';
 import StyledHome from './style';
 
@@ -7,7 +6,6 @@ const Home = () => {
     <StyledHome>
       <Header />
       <Body />
-      <Modal />
     </StyledHome>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import { SearchBarContainer, InputStyled } from './style';
-import { Icon, IconButton } from '../../../../../../core';
+import { Icon, IconButton } from 'core';
 
 const PLACEHOLDER = 'Que quieres buscar?';
 

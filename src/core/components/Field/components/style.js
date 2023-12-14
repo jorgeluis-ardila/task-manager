@@ -128,7 +128,7 @@ export const StyledSelectMenuItem = styled('li')(
       }
     }
     &:hover {
-      background: ${theme.hexToRGB(theme.colors.green[40], 0.1)};
+      background: ${theme.hexToRGB(theme.colors.green[40], 0.2)};
     }
   `
 );

@@ -9,6 +9,9 @@ const StyledProgressBar = styled('div')(
     width: 100%;
     border-radius: 100px;
     background: ${theme.hexToRGB(theme.colors.blue[60], 0.15)};
+    * {
+      transition: all 0.3s ease 0s;
+    }
     .progress-bar {
       border-radius: 100px;
       width: ${percentage}%;

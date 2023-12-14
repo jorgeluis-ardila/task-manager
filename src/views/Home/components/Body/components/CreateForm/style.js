@@ -9,7 +9,6 @@ export const StyledCreateModal = styled('div')(
     h4 {
       font-family: ${theme.typography.family.montserrat};
       font-size: ${theme.typography.size(20)};
-      color: ${theme.colors.blue[70]};
       color: ${theme.colors.blue[60]};
       font-weight: 600;
       text-align: center;

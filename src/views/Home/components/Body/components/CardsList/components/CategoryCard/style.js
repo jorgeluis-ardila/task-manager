@@ -8,6 +8,9 @@ const StyledCategoryCard = styled('li')(
     overflow: hidden;
     box-shadow: ${theme.shadows.green.dark};
     cursor: pointer;
+    * {
+      transition: all 0.3s ease 0s;
+    }
 
     .name-container {
       display: flex;

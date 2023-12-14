@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Icon, IconButton } from '../../../../../../core';
+import { Button, Icon, IconButton } from 'core';
+import AnonimousUser from 'assets/images/userAnonimus.png';
 import { GreetingContainer, UserInfo } from './style';
-import AnonimousUser from '../../../../../../assets/images/userAnonimus.png';
 
 const Greeting = ({ userData, onOpenProfile, onGoBack, isCategoryOpen }) => {
   const userName = userData?.displayName?.split(' ')[0] ?? '';

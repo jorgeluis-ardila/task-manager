@@ -1,10 +1,10 @@
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
-import useOutsideClick from '../../../../../hooks/useOutsideClick';
-import { Icon } from '../../../index';
+import { useOutsideClick } from 'hooks';
+import { Icon } from 'core/components';
 import { FieldWrapper, StyledInput, StyledSelectValue } from '../style';
 import { MenuSelect } from './MenuSelect';
-import { positionStyles } from './helpers';
+import { positionStyles } from './constants';
 
 const Select = ({ name, id, value, onChange, onFocus, onBlur, options, parentRef }) => {
   const [showMenu, setShowMenu] = useState(false);
