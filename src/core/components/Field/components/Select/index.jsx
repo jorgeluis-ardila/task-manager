@@ -1,14 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
+import { findIndex } from 'utils';
 import { useOutsideClick } from 'hooks';
-import { Icon } from 'core/components';
-import { FieldWrapper, StyledInput, StyledSelectValue } from '../style';
-import { MenuSelect } from './MenuSelect';
+import { IconButton } from 'core/components';
 import { positionStyles } from './constants';
+import { MenuSelect } from './MenuSelect';
+import { FieldWrapper, StyledInput, StyledSelectValue } from '../style';
 
-const Select = ({ name, id, value, onChange, onFocus, onBlur, options, parentRef }) => {
+const Select = ({ name, id, value, onChange, onFocus, onBlur, options, className, disabled, variant }) => {
   const [showMenu, setShowMenu] = useState(false);
-  const [selectedValue, setSelectedValue] = useState('Selecciona una Categoría');
+  const [selectedValue, setSelectedValue] = useState(
+    options[findIndex(options, value, 'value')]?.label ?? 'Selecciona una Categoría'
+  );
   const [styles, setStyles] = useState();
   const inputRef = useRef(null);
   const menuRef = useRef(null);
@@ -35,8 +38,12 @@ const Select = ({ name, id, value, onChange, onFocus, onBlur, options, parentRef
   }, [showMenu, options, wrapperRef]);
 
   const handleClick = () => {
+    if (showMenu) {
+      inputRef.current.blur();
+    } else {
+      inputRef.current.focus();
+    }
     setShowMenu(prevState => !prevState);
-    inputRef.current.focus();
   };
 
   const handleChange = option => {
@@ -45,10 +52,16 @@ const Select = ({ name, id, value, onChange, onFocus, onBlur, options, parentRef
   };
 
   return (
-    <FieldWrapper ref={wrapperRef} title={selectedValue} className="field-wrapper" onClick={handleClick}>
-      <StyledSelectValue>
+    <FieldWrapper
+      ref={wrapperRef}
+      title={selectedValue}
+      className={className}
+      onClick={() => !disabled && handleClick()}
+      variant={variant}
+    >
+      <StyledSelectValue className="value">
         <span className="current-value">{selectedValue}</span>
-        <Icon type="arrow" />
+        <IconButton type="button" iconType="arrow" />
         <StyledInput
           ref={inputRef}
           type="text"
@@ -57,6 +70,7 @@ const Select = ({ name, id, value, onChange, onFocus, onBlur, options, parentRef
           onFocus={onFocus}
           onBlur={onBlur}
           defaultValue={value}
+          disabled={disabled}
         />
       </StyledSelectValue>
       {showMenu && (
@@ -81,6 +95,9 @@ Select.propTypes = {
   onBlur: PropTypes.func,
   options: PropTypes.array.isRequired,
   parentRef: PropTypes.object.isRequired,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  variant: PropTypes.string,
 };
 
 export { Select };

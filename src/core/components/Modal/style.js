@@ -19,6 +19,7 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
     right: 0;
     bottom: 0;
     left: 0;
+    background: ${theme.hexToRGB(theme.colors.blue[80], 0.8)};
     &.background {
       &-enter {
         background: transparent;
@@ -33,7 +34,7 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
         transition: background 200ms;
         .modal-container {
           opacity: 1;
-          bottom: 0;
+          bottom: 20px;
         }
       }
       &-enter-done {
@@ -43,7 +44,7 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
       &-exit {
         .modal-container {
           opacity: 1;
-          bottom: 0;
+          bottom: 20px;
         }
       }
       &-exit {
@@ -63,9 +64,12 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
     .modal-container {
       box-sizing: border-box;
       position: relative;
-      width: 100%;
+      width: 90%;
       max-width: 500px;
       transition: all 0.3s;
+      &--changed {
+        bottom: 20px;
+      }
       &::before {
         content: '';
         display: block;
@@ -76,8 +80,9 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
       }
       .inner-modal-container {
         position: relative;
-        padding: 20px;
+        padding: 30px 25px;
         background: ${theme.colors.neutral[10]};
+        border-radius: 0px 0px 15px 15px;
       }
     }
   `

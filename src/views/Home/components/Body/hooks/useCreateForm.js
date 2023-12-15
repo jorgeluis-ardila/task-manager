@@ -1,19 +1,13 @@
 import cn from 'classnames';
 import { date, object, string } from 'yup';
-import { useData } from 'providers/context';
+import { useData, useModal } from 'providers/context';
 import { Field } from 'core';
+import { getCategoriesValues, todayString } from './helpers';
 
-const today = new Date();
-const addZero = number => (String(number).length === 1 ? '0' : '');
-
-const todayString = `${today.getFullYear()}-${addZero(today.getMonth())}${today.getMonth() + 1}-${addZero(
-  today.getDate()
-)}${today.getDate()}`;
-
-export const useCreateForm = modalActions => {
+export const useCreateForm = () => {
+  const { modalActions } = useModal();
   const { data, currentCategory, categoryActions, taskActions } = useData();
-  const options = data.map(item => ({ value: item.id, label: item.name }));
-  const categories = options.map(option => option.value);
+  const categoriesValues = getCategoriesValues(data);
 
   const handleSubmit = (values, setSubmitting, resetForm, submitAction) => {
     submitAction(values);
@@ -22,8 +16,8 @@ export const useCreateForm = modalActions => {
     modalActions.close();
   };
 
-  const formProps = {
-    createTask: {
+  const props = {
+    task: {
       title: 'Crea tú tarea',
       initialValues: {
         name: '',
@@ -37,26 +31,25 @@ export const useCreateForm = modalActions => {
           description: string().max(80, 'Maximo 80 caracteres'),
           dueDate: date().min(todayString, 'La fecha ya paso').required('Requerido'),
           category: string()
-            .oneOf([...categories], 'Categoría Invalida')
+            .oneOf([...categoriesValues.categories], 'Categoría Invalida')
             .required('Requerido'),
         }),
       fields: () => (
         <>
-          <Field variant="placeholder" label="Nombre *" max={30} type="text" id="name" name="name" />
-          <Field as="textarea" label="Descripción" max={80} type="text" id="description" name="description" />
-
+          <Field label="Nombre *" max={30} type="text" id="name" name="name" />
           <div className={cn({ 'two-fields': !currentCategory })}>
-            <Field label="Fecha limite *" type="date" id="dueDate" name="dueDate" value={todayString} />
+            <Field label="Fecha limite *" type="date" id="dueDate" name="dueDate" />
             {!currentCategory && (
-              <Field as="select" label="Categoría" id="category" name="category" options={options} />
+              <Field as="select" label="Categoría *" id="category" name="category" options={categoriesValues.options} />
             )}
           </div>
+          <Field as="textarea" label="Descripción" max={80} id="description" name="description" />
         </>
       ),
       onSubmit: (values, { setSubmitting, resetForm }) =>
         handleSubmit(values, setSubmitting, resetForm, taskActions.add),
     },
-    createCategory: {
+    category: {
       title: 'Crea tú categoría',
       initialValues: {
         name: '',
@@ -69,8 +62,8 @@ export const useCreateForm = modalActions => {
         }),
       fields: () => (
         <>
-          <Field variant="placeholder" label="Nombre *" max={30} type="text" id="name" name="name" />
-          <Field as="textarea" label="Descripción" max={80} type="text" id="description" name="description" />
+          <Field label="Nombre *" max={30} type="text" id="name" name="name" />
+          <Field as="textarea" label="Descripción" max={80} id="description" name="description" />
         </>
       ),
       onSubmit: (values, { setSubmitting, resetForm }) =>
@@ -78,7 +71,7 @@ export const useCreateForm = modalActions => {
     },
   };
 
-  const getFormProps = formType => formProps[formType];
+  const getProps = type => props[type];
 
-  return { getFormProps };
+  return { getProps };
 };

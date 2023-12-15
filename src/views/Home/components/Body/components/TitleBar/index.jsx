@@ -7,10 +7,10 @@ import { StyledHeader } from './style';
 
 const TitleBar = () => {
   const { modalActions } = useModal();
-  const { currentCategory, data, categoryActions } = useData();
+  const { currentCategory, data } = useData();
 
   const handleEditCategory = () => {
-    modalActions.open(<EditForm onAccept={categoryActions.edit} isCategory={true} />);
+    modalActions.open(<EditForm />, 'edit');
   };
 
   return (

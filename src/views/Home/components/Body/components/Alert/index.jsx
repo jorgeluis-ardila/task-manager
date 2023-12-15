@@ -3,12 +3,20 @@ import { useModal } from 'providers/context';
 import { Button, IconButton } from 'core';
 import { AletWrapper, ButtonsWrapper } from './style';
 
-const Alert = ({ title, text, onAccept }) => {
+const Alert = ({ title, text, onAccept, onCancel }) => {
   const { modalActions } = useModal();
 
   const handleAccept = () => {
     onAccept();
     modalActions.close();
+  };
+
+  const handleCancel = () => {
+    if (onCancel) {
+      onCancel();
+    } else {
+      modalActions.close();
+    }
   };
 
   return (
@@ -20,7 +28,7 @@ const Alert = ({ title, text, onAccept }) => {
         <Button className="accept-button" variant="action" onClick={handleAccept}>
           Aceptar
         </Button>
-        <IconButton type="reset" variant="delete" iconType="cancel" onClick={modalActions.close} />
+        <IconButton type="reset" variant="delete" iconType="cancel" onClick={handleCancel} />
       </ButtonsWrapper>
     </AletWrapper>
   );
@@ -30,6 +38,7 @@ Alert.propTypes = {
   title: PropTypes.string,
   text: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   onAccept: PropTypes.func,
+  onCancel: PropTypes.func,
 };
 
 export { Alert };

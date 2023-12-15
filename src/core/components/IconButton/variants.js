@@ -30,9 +30,8 @@ export const Add = ({ theme }) => css`
 
 export const Filter = props => css`
   padding: 5px;
-  border-radius: 100%;
   background: ${props.theme.colors.neutral[10]};
-  color: ${props.theme.colors.green[70]};
+  color: ${props.theme.colors.blue[80]};
   box-shadow: ${props.theme.shadows.blue.dark};
   &:hover {
     background: ${props.theme.colors.green[20]};
@@ -41,7 +40,6 @@ export const Filter = props => css`
 
 export const Action = ({ theme }) => css`
   padding: 10px;
-  border-radius: 100%;
   background: ${theme.colors.green.main};
   color: ${theme.colors.green[80]};
   .icon {

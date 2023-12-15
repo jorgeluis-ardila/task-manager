@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useMemo, useReducer } from 'react';
-import { findIndexById } from 'utils';
+import { findIndex } from 'utils';
 import { actionTypesData, reducerFnData } from './reducers';
 import { FILTERS_FN, INITIAL_DATA } from './constants';
 
@@ -9,6 +9,7 @@ const DataProvider = ({ children }) => {
   // const [data, setData] = useStateLocalStorage('tasks', INITIAL_DATA);
   const [data, dispatch] = useReducer(reducerFnData, INITIAL_DATA);
   const [currentCategory, setCurrentCategory] = useState(null);
+  const [currentTask, setCurrentTask] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeFilter, setActiveFilter] = useState('none');
 
@@ -42,22 +43,36 @@ const DataProvider = ({ children }) => {
 
   const categoryActions = {
     open: id => {
-      const categoryIndex = findIndexById(data, id);
+      const categoryIndex = findIndex(data, id, 'id');
       setCurrentCategory(data[categoryIndex] ?? null);
     },
     add: categoryInfo => dispatch({ type: actionTypesData.createCategory, payload: { categoryInfo } }),
-    edit: () => {},
-    delete: () => {},
-    hightlight: id => dispatch({ type: actionTypesData.highlightCategory, payload: { currentCategoryId: id } }),
+    edit: (newCategoryInfo, categoryId) => {
+      dispatch({ type: actionTypesData.editCategory, payload: { newCategoryInfo, categoryId } });
+    },
+    delete: categoryId => dispatch({ type: actionTypesData.deleteCategory, payload: { categoryId } }),
+    hightlight: id => dispatch({ type: actionTypesData.highlightCategory, payload: { categoryId: id } }),
   };
 
   const taskActions = {
+    open: id => {
+      const taskIndex = findIndex(currentCategory.tasks, id, 'id');
+      setCurrentTask(currentCategory.tasks[taskIndex] ?? null);
+    },
     add: taskInfo => dispatch({ type: actionTypesData.createTask, payload: { taskInfo } }),
-    edit: () => {},
-    complete: taskId =>
-      dispatch({ type: actionTypesData.completeTask, payload: { taskId, currentCategoryId: currentCategory.id } }),
-    delete: taskId =>
-      dispatch({ type: actionTypesData.deleteTask, payload: { taskId, currentCategoryId: currentCategory.id } }),
+    edit: (newTaskInfo, taskId) => {
+      console.log(newTaskInfo);
+      dispatch({
+        type: actionTypesData.editTask,
+        payload: { newTaskInfo, taskId, currentCategoryId: currentCategory.id },
+      });
+    },
+    complete: taskId => {
+      dispatch({ type: actionTypesData.completeTask, payload: { taskId, currentCategoryId: currentCategory.id } });
+    },
+    delete: taskId => {
+      dispatch({ type: actionTypesData.deleteTask, payload: { taskId, currentCategoryId: currentCategory.id } });
+    },
   };
 
   return (
@@ -68,6 +83,7 @@ const DataProvider = ({ children }) => {
         onChangeSearchTerm,
         dataSearched,
         currentCategory,
+        currentTask,
         tasksFiltered,
         activeFilter,
         onChangeActiveFilter,

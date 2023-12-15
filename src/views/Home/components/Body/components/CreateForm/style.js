@@ -13,22 +13,17 @@ export const StyledCreateModal = styled('div')(
       font-weight: 600;
       text-align: center;
     }
-    form {
+    .formik-form {
       display: flex;
       flex-direction: column;
       gap: 10px;
-    }
-    .two-fields {
-      display: flex;
-      gap: 10px;
-      .form-field {
-        width: 50%;
+      .two-fields {
+        display: flex;
+        gap: 10px;
+        .form-field {
+          width: 50%;
+        }
       }
-    }
-    .error-message {
-      display: block;
-      width: 100%;
-      text-align: center;
     }
   `
 );

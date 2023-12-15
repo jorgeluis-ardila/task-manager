@@ -11,7 +11,7 @@ const CreateButtons = () => {
   const { modalActions } = useModal();
 
   const [showButtons, setShowButtons] = useState(false);
-  const { getFormProps } = useCreateForm(modalActions);
+  const { getProps } = useCreateForm();
   const buttonWrapperRef = useRef(null);
   const hasData = !!data.length;
   const hasCurrentCategory = !!currentCategory;
@@ -19,12 +19,12 @@ const CreateButtons = () => {
   useEffect(() => setShowButtons(false), [currentCategory]);
 
   const handleCreateTask = () => {
-    const formProps = getFormProps('createTask');
+    const formProps = getProps('task');
     modalActions.open(<CreateForm {...formProps} />, 'info');
     setShowButtons(false);
   };
   const handleCreateCategory = () => {
-    const formProps = getFormProps('createCategory');
+    const formProps = getProps('category');
     modalActions.open(<CreateForm {...formProps} />, 'info');
     setShowButtons(false);
   };

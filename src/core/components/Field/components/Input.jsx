@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { FieldWrapper, StyledInput } from './style';
 
-const Input = ({ type, name, id, value, onBlur, onFocus, onChange, placeholder }) => {
+const Input = ({ type, name, id, value, onBlur, onFocus, onChange, placeholder, className, disabled, variant }) => {
   const handleChange = e => onChange(e.target.value);
 
   return (
-    <FieldWrapper className="field-wrapper">
+    <FieldWrapper className={className} variant={variant}>
       <StyledInput
         onFocus={onFocus}
         onBlur={onBlur}
@@ -15,6 +15,7 @@ const Input = ({ type, name, id, value, onBlur, onFocus, onChange, placeholder }
         id={id}
         value={value}
         placeholder={placeholder}
+        disabled={disabled}
       />
     </FieldWrapper>
   );
@@ -29,6 +30,9 @@ Input.propTypes = {
   onFocus: PropTypes.func,
   onChange: PropTypes.func,
   placeholder: PropTypes.string,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  variant: PropTypes.string,
 };
 
 export { Input };

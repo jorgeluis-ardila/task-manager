@@ -1,5 +1,5 @@
 import { random } from 'lodash';
-import { getHashId, findIndexById } from 'utils';
+import { getHashId, findIndex } from 'utils';
 import { setLocalStorage } from 'hooks';
 
 export const actionTypesTasks = {
@@ -18,7 +18,7 @@ export const reducerOptionsTasks = (state, payload) => ({
   [actionTypesTasks.createTask]: () => {
     const newData = [...state];
     const { taskInfo } = payload;
-    const categorySelected = newData[findIndexById(state, taskInfo.category)];
+    const categorySelected = newData[findIndex(state, taskInfo.category, 'id')];
 
     categorySelected.tasks.push({
       id: `task_${random(100)}${getHashId(taskInfo.name)}`,
@@ -38,8 +38,8 @@ export const reducerOptionsTasks = (state, payload) => ({
   [actionTypesTasks.completeTask]: () => {
     const newData = [...state];
     const { taskId, currentCategoryId } = payload;
-    const categorySelected = newData[findIndexById(state, currentCategoryId)];
-    const taskSelected = categorySelected.tasks[findIndexById(categorySelected.tasks, taskId)];
+    const categorySelected = newData[findIndex(state, currentCategoryId, 'id')];
+    const taskSelected = categorySelected.tasks[findIndex(categorySelected.tasks, taskId, 'id')];
 
     taskSelected.isCompleted = !taskSelected.isCompleted;
     categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
@@ -50,11 +50,36 @@ export const reducerOptionsTasks = (state, payload) => ({
   [actionTypesTasks.deleteTask]: () => {
     const newData = [...state];
     const { taskId, currentCategoryId } = payload;
-    const categorySelected = newData[findIndexById(state, currentCategoryId)];
+    const categorySelected = newData[findIndex(state, currentCategoryId, 'id')];
 
-    categorySelected.tasks.splice(findIndexById(categorySelected.tasks, taskId), 1);
+    categorySelected.tasks.splice(findIndex(categorySelected.tasks, taskId, 'id'), 1);
     categorySelected.totalTasks = reducerUtils.calculateTotal(categorySelected.tasks);
     categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
+
+    setLocalStorage('data', newData);
+    return newData;
+  },
+  [actionTypesTasks.editTask]: () => {
+    const newData = [...state];
+    const { newTaskInfo, taskId, currentCategoryId } = payload;
+    const currentCategory = newData[findIndex(state, currentCategoryId, 'id')];
+    const categorySelected = newData[findIndex(state, newTaskInfo.category, 'id')];
+    const taskSelected = currentCategory.tasks[findIndex(currentCategory.tasks, taskId, 'id')];
+
+    taskSelected.name = newTaskInfo.name;
+    taskSelected.description = newTaskInfo.description;
+    taskSelected.dueDate = newTaskInfo.dueDate;
+    taskSelected.category = { name: categorySelected.name, id: newTaskInfo.category };
+
+    if (newTaskInfo.category !== currentCategoryId) {
+      categorySelected.tasks.push(taskSelected);
+      categorySelected.totalTasks = reducerUtils.calculateTotal(categorySelected.tasks);
+      categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
+
+      currentCategory.tasks.splice(findIndex(currentCategory.tasks, taskId, 'id'), 1);
+      currentCategory.totalTasks = reducerUtils.calculateTotal(currentCategory.tasks);
+      currentCategory.completedTasks = reducerUtils.calculateCompleted(currentCategory.tasks);
+    }
 
     setLocalStorage('data', newData);
     return newData;

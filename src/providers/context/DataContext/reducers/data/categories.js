@@ -1,5 +1,5 @@
 import { random } from 'lodash';
-import { getHashId, findIndexById } from 'utils';
+import { getHashId, findIndex } from 'utils';
 import { setLocalStorage } from 'hooks';
 
 export const actionTypesCategories = {
@@ -28,10 +28,30 @@ export const reducerOptionsCategories = (state, payload) => ({
   },
   [actionTypesCategories.highlightCategory]: () => {
     const newData = [...state];
-    const { currentCategoryId } = payload;
-    const categorySelected = newData[findIndexById(state, currentCategoryId)];
+    const { categoryId } = payload;
+    const categorySelected = newData[findIndex(state, categoryId, 'id')];
 
     categorySelected.isFavorite = !categorySelected.isFavorite;
+
+    setLocalStorage('data', newData);
+    return newData;
+  },
+  [actionTypesCategories.deleteCategory]: () => {
+    const newData = [...state];
+    const { categoryId } = payload;
+
+    newData.splice(findIndex(newData, categoryId, 'id'), 1);
+
+    setLocalStorage('data', newData);
+    return newData;
+  },
+  [actionTypesCategories.editCategory]: () => {
+    const { newCategoryInfo, categoryId } = payload;
+    const newData = [...state];
+    let categorySelected = newData[findIndex(state, categoryId, 'id')];
+
+    categorySelected.name = newCategoryInfo.name;
+    categorySelected.description = newCategoryInfo.description;
 
     setLocalStorage('data', newData);
     return newData;

@@ -1,19 +1,23 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useModal } from 'providers/context';
-import { Button, Field, IconButton } from 'core';
-import { ActionsWrapper, ButtonsWrapper, FormWrapper, Wrapper } from './style';
+import { useData, useModal } from 'providers/context';
+import { BaseForm, Button, IconButton } from 'core';
+import { useEditFormContent } from '../../hooks';
+import { ActionsWrapper, ButtonsWrapper, Wrapper } from './style';
 
-const EditForm = ({ onAccept, isCategory = false }) => {
+const EditForm = ({ isEditingEnabled = false }) => {
   const { modalActions } = useModal();
-  const [isEditing, setIsEditing] = useState(isCategory);
+  const { currentTask } = useData();
+  const { getProps } = useEditFormContent();
 
-  const handleAccept = () => {
-    onAccept();
-    modalActions.close();
-  };
+  const [isEditing, setIsEditing] = useState(isEditingEnabled);
+  const type = currentTask ? 'task' : 'category';
+
   const handleClose = () => modalActions.close();
   const handleEdit = () => setIsEditing(true);
+
+  const contentProps = getProps(type);
+  const Content = () => contentProps.content(isEditing);
 
   return (
     <Wrapper>
@@ -21,24 +25,40 @@ const EditForm = ({ onAccept, isCategory = false }) => {
         <IconButton iconType="cancel" className="close" onClick={handleClose} />
         {!isEditing && <IconButton iconType="edit" className="edit" onClick={handleEdit} />}
       </ActionsWrapper>
-      <FormWrapper>
-        <input type="file" />
-      </FormWrapper>
-      {isEditing && (
-        <ButtonsWrapper>
-          <Button className="accept-button" variant="action" onClick={handleAccept}>
-            Guardar Cambios
-          </Button>
-          <IconButton variant="delete" iconType="delete" onClick={modalActions.close} />
-        </ButtonsWrapper>
-      )}
+      <BaseForm
+        {...contentProps.form}
+        renderChildren={(isSubmitting, isValid, dirty) => (
+          <>
+            <Content />
+            {isEditing && (
+              <ButtonsWrapper>
+                <Button
+                  className="accept-button"
+                  type="submit"
+                  variant="action"
+                  disabled={!dirty || isSubmitting || !isValid}
+                >
+                  Guardar Cambios
+                </Button>
+                <IconButton
+                  type="button"
+                  variant="delete"
+                  iconType="delete"
+                  disabled={isSubmitting}
+                  onClick={contentProps.handleDelete}
+                />
+              </ButtonsWrapper>
+            )}
+          </>
+        )}
+      />
     </Wrapper>
   );
 };
 
 EditForm.propTypes = {
   onAccept: PropTypes.func,
-  isCategory: PropTypes.bool,
+  isEditingEnabled: PropTypes.bool,
 };
 
 export { EditForm };

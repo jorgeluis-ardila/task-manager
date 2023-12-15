@@ -1,3 +1,4 @@
+export * from './BaseForm';
 export * from './Button';
 export * from './Field';
 export * from './IconButton';

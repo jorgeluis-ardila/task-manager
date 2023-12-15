@@ -28,7 +28,7 @@ const Greeting = ({ userData, onOpenProfile, onGoBack, isCategoryOpen }) => {
         </figure>
         <h2 className="greet">{`Hola ${userName}`}</h2>
       </UserInfo>
-      <IconButton variant="filter" iconType="dots" className="edit-profile" onClick={handleOpenProfile} />
+      <IconButton variant="filter" iconType="menuv" className="edit-profile" onClick={handleOpenProfile} />
     </GreetingContainer>
   );
 };

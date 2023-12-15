@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import cn from 'classnames';
 import { createPortal } from 'react-dom';
 import { onKeyUp } from 'utils';
 import { useModal } from 'providers/context';
@@ -6,7 +7,7 @@ import { TransitionWrapper } from 'core/components';
 import ModalStyled from './style';
 
 const Modal = () => {
-  const { modalState, modalActions } = useModal();
+  const { isModalOpen, modalContent, modalActions } = useModal();
   const nodeRef = useRef(null);
 
   const handleKeyDown = e => {
@@ -14,7 +15,7 @@ const Modal = () => {
   };
 
   return createPortal(
-    <TransitionWrapper open={modalState.isOpen} nodeRef={nodeRef} classNames="background" unmountOnExit>
+    <TransitionWrapper open={isModalOpen} nodeRef={nodeRef} classNames="background" unmountOnExit>
       <ModalStyled
         tabIndex="-1"
         ref={nodeRef}
@@ -22,10 +23,13 @@ const Modal = () => {
         className="background"
         onClick={modalActions.close}
         onKeyDown={handleKeyDown}
-        type={modalState.type}
+        type={modalContent.type}
       >
-        <div className="modal-container" onClick={e => e.stopPropagation()}>
-          <div className="inner-modal-container">{modalState.content}</div>
+        <div
+          className={cn('modal-container', { 'modal-container--changed': modalContent.hasChanged })}
+          onClick={e => e.stopPropagation()}
+        >
+          <div className="inner-modal-container">{modalContent.content}</div>
         </div>
       </ModalStyled>
     </TransitionWrapper>,

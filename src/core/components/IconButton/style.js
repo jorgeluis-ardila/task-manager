@@ -18,6 +18,7 @@ const ButtonStyled = styled(Button, { shouldForwardProp: prop => prop !== 'varia
     justify-content: center;
     min-width: 30px;
     min-height: 30px;
+    border-radius: 100%;
     transition: all 0.3s ease 0s;
     &:hover {
       background: ${theme.hexToRGB(theme.colors.neutral[20], 0.3)};

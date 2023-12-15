@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { FieldWrapper, StyledTextArea } from './style';
 import { useEffect, useRef } from 'react';
 
-const TextArea = ({ name, id, value, placeholder, onBlur, onFocus, onChange }) => {
+const TextArea = ({ name, id, value, placeholder, onBlur, onFocus, onChange, className, disabled, variant }) => {
   const textareaRef = useRef(null);
 
   useEffect(() => {
@@ -15,7 +15,7 @@ const TextArea = ({ name, id, value, placeholder, onBlur, onFocus, onChange }) =
   const handleChange = e => onChange(e.target.value);
 
   return (
-    <FieldWrapper className="field-wrapper field-wrapper--textarea">
+    <FieldWrapper className={className} variant={variant}>
       <StyledTextArea
         onFocus={onFocus}
         onBlur={onBlur}
@@ -26,6 +26,7 @@ const TextArea = ({ name, id, value, placeholder, onBlur, onFocus, onChange }) =
         value={value}
         placeholder={placeholder}
         rows={1}
+        disabled={disabled}
       />
     </FieldWrapper>
   );
@@ -39,6 +40,9 @@ TextArea.propTypes = {
   onBlur: PropTypes.func,
   onFocus: PropTypes.func,
   onChange: PropTypes.func,
+  className: PropTypes.string,
+  disabled: PropTypes.bool,
+  variant: PropTypes.string,
 };
 
 export { TextArea };

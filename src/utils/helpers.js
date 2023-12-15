@@ -3,7 +3,7 @@ import { md5 } from 'js-md5';
 
 export const getHashId = stringValue => md5(stringValue);
 
-export const findIndexById = (data, id) => data.findIndex(item => item.id === id);
+export const findIndex = (data, id, prop) => data.findIndex(item => item[prop] === id);
 
 export const onKeyUp = (e, key, action) => {
   if (e.keyCode === key) {

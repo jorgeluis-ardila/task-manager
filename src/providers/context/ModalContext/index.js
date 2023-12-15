@@ -1,28 +1,43 @@
 import { createContext, useContext, useState } from 'react';
 import { Modal } from 'core';
+import { useData } from '../DataContext';
 
 const ModalContext = createContext();
 
+const INITIALSTATE = {
+  isModalOpen: false,
+  modalContent: { content: null, type: '', hasChanged: false },
+};
+
 export const ModalProvider = ({ children }) => {
-  const [modalState, setModalState] = useState({ isOpen: false, content: null, type: '' });
+  const { taskActions } = useData();
+  const [isModalOpen, setIsModalOpen] = useState(INITIALSTATE.isModalOpen);
+  const [modalContent, setModalContent] = useState(INITIALSTATE.modalContent);
 
   const onOpenModal = (modalContent, modalType) => {
-    setModalState({ isOpen: true, content: modalContent, type: modalType });
+    setIsModalOpen(true);
+    setModalContent({ content: modalContent, type: modalType });
   };
   const onCloseModal = () => {
-    setModalState(prevState => ({ ...prevState, isOpen: false }));
+    setIsModalOpen(false);
+    taskActions.open();
     setTimeout(() => {
-      setModalState(prevState => ({ ...prevState, content: null, type: '' }));
+      setModalContent(INITIALSTATE.modalContent);
     }, 500);
+  };
+
+  const onChangeContent = (modalContent, modalType) => {
+    setModalContent({ content: modalContent, type: modalType, hasChanged: true });
   };
 
   const modalActions = {
     open: onOpenModal,
     close: onCloseModal,
+    change: onChangeContent,
   };
 
   return (
-    <ModalContext.Provider value={{ modalState, modalActions }}>
+    <ModalContext.Provider value={{ isModalOpen, modalContent, modalActions }}>
       {children}
       <Modal />
     </ModalContext.Provider>

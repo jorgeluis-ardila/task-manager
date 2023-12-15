@@ -2,11 +2,25 @@ import { useRef, useState } from 'react';
 import { useField } from 'formik';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { StyledMessageWrapper, StyledWrapper } from './style';
 import { Icon, InputMessage } from 'core/components';
 import { fieldsList, fieldProps } from './constans';
+import { StyledMessageWrapper, StyledWrapper } from './style';
 
-const Field = ({ variant, as = 'default', label, icon, helperText, max, type, id, name, options }) => {
+const Field = ({
+  variant = 'default',
+  as = 'default',
+  label,
+  icon,
+  helperText,
+  max,
+  type,
+  id,
+  name,
+  placeholder,
+  disabled = false,
+  options,
+  className,
+}) => {
   const [field, meta, helpers] = useField({ name });
   const [isFocused, setIsFocused] = useState(false);
   const wrapperRef = useRef(null);
@@ -31,29 +45,39 @@ const Field = ({ variant, as = 'default', label, icon, helperText, max, type, id
     <StyledWrapper
       ref={wrapperRef}
       variant={variant}
-      className={cn('form-field', { error: showFeedback && meta.error, focused: isFocused })}
+      className={cn('form-field', className, { error: showFeedback && meta.error, focused: isFocused })}
     >
-      <label htmlFor={id || name}>{label}</label>
+      {label && <label htmlFor={id || name}>{label}</label>}
       {icon && <Icon type={icon} />}
       <FieldComponent
+        variant={variant}
         name={name}
         id={id}
         value={meta.value}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onChange={handleChange}
+        disabled={disabled}
+        placeholder={placeholder}
+        className={cn('field-wrapper', className, {
+          disabled: disabled,
+          select: as === 'select',
+          textarea: as === 'textarea',
+        })}
         {...fieldComponentProps[as]}
       />
-      <StyledMessageWrapper>
-        {showFeedback && meta.error && (
-          <InputMessage className="input-message" variant="error">
-            {meta.error}
-          </InputMessage>
-        )}
-        {(!!helperText || !!max) && (
-          <InputMessage className="input-message">{!!max ? `${meta.value.length}/${max}` : helperText}</InputMessage>
-        )}
-      </StyledMessageWrapper>
+      {!disabled && ((showFeedback && meta.error) || !!helperText || !!max) && (
+        <StyledMessageWrapper>
+          {showFeedback && meta.error && (
+            <InputMessage className="input-message" variant="error">
+              {meta.error}
+            </InputMessage>
+          )}
+          {(!!helperText || !!max) && (
+            <InputMessage className="input-message">{!!max ? `${meta.value?.length}/${max}` : helperText}</InputMessage>
+          )}
+        </StyledMessageWrapper>
+      )}
     </StyledWrapper>
   );
 };
@@ -61,14 +85,17 @@ const Field = ({ variant, as = 'default', label, icon, helperText, max, type, id
 Field.propTypes = {
   variant: PropTypes.string,
   as: PropTypes.string,
-  label: PropTypes.string.isRequired,
+  label: PropTypes.string,
   icon: PropTypes.string,
   type: PropTypes.string,
   id: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  disabled: PropTypes.bool,
   helperText: PropTypes.string,
   max: PropTypes.number,
   options: PropTypes.array,
+  className: PropTypes.string,
 };
 
 export { Field };

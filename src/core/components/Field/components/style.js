@@ -1,28 +1,43 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
+import { Default, Placeholder, Underlined } from './variants';
 
-export const FieldWrapper = styled('div')(
-  ({ theme }) => css`
+const variants = {
+  default: Default,
+  placeholder: Placeholder,
+  underlined: Underlined,
+};
+
+export const FieldWrapper = styled('div', { shouldForwardProp: prop => prop !== 'variant' })(
+  ({ theme, variant }) => css`
     display: inline-block;
-    padding: 10px 15px;
-    border-radius: 8px;
-    background: ${theme.colors.neutral[0]};
-    border: 1px solid ${theme.hexToRGB(theme.colors.green[80], 0.1)};
     position: relative;
     &.field-wrapper {
-      &--textarea {
+      &.textarea {
         min-height: 44px;
         max-height: 100px;
         overflow-y: auto;
       }
+      &.select {
+        cursor: pointer;
+      }
+      &.disabled {
+        cursor: default;
+        &.select {
+          .icon-button {
+            display: none;
+          }
+        }
+      }
     }
+    ${variant ? variants[variant]({ theme }) : ''}
   `
 );
 
 export const StyledInput = styled('input')(
   ({ theme }) => css`
     width: 100%;
-    color: ${theme.colors.neutral.dark};
+    color: currentColor;
     position: relative;
     &::-webkit-calendar-picker-indicator {
       width: 100%;
@@ -51,8 +66,11 @@ export const StyledInput = styled('input')(
     &::-webkit-datetime-edit-year-field {
       padding: 0;
     }
-    ::-webkit-datetime-edit-fields-wrapper {
+    &::-webkit-datetime-edit-fields-wrapper {
       padding: 0;
+    }
+    &::placeholder {
+      opacity: 0.6;
     }
   `
 );
@@ -61,21 +79,34 @@ export const StyledTextArea = styled('textarea')(
   ({ theme }) => css`
     width: 100%;
     min-height: 60px;
-    color: ${theme.colors.neutral.dark};
+    color: currentColor;
     resize: none;
+    &::placeholder {
+      opacity: 0.6;
+    }
   `
 );
 
 export const StyledSelectValue = styled('div')(
   ({ theme }) => css`
     display: flex;
+    align-items: center;
     justify-content: space-between;
     position: relative;
+    color: currentColor;
     .current-value {
-      min-height: 22px;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
+    }
+    .icon-button {
+      min-width: 18px;
+      max-width: 18px;
+      min-height: 18px;
+      max-height: 18px;
+      .icon {
+        width: 60%;
+      }
     }
     input {
       opacity: 0;
@@ -95,6 +126,7 @@ export const StyledSelectMenu = styled('ul')(
     background: ${theme.colors.neutral[0]};
     color: ${theme.colors.neutral.dark};
     border: 1px solid ${theme.hexToRGB(theme.colors.green[80], 0.1)};
+    box-shadow: ${theme.shadows.blue.dark};
     &:focus {
       border-color: ${theme.colors.green[50]};
     }
