@@ -1,12 +1,11 @@
 import { random } from 'lodash';
 import { getHashId, findIndex } from 'utils';
-import { setLocalStorage } from 'hooks';
 
 export const actionTypesCategories = {
-  createCategory: 'CREATECATEGORY',
-  editCategory: 'EDITCATEGORY',
-  highlightCategory: 'HIGHLIGHTCATEGORY',
-  deleteCategory: 'DELETECATEGORY',
+  createCategory: 'CREATE_CATEGORY',
+  editCategory: 'EDIT_CATEGORY',
+  highlightCategory: 'HIGHLIGHT_CATEGORY',
+  deleteCategory: 'DELETE_CATEGORY',
 };
 
 export const reducerOptionsCategories = (state, payload) => ({
@@ -23,7 +22,6 @@ export const reducerOptionsCategories = (state, payload) => ({
       completedTasks: 0,
     });
 
-    setLocalStorage('data', newData);
     return newData;
   },
   [actionTypesCategories.highlightCategory]: () => {
@@ -33,7 +31,6 @@ export const reducerOptionsCategories = (state, payload) => ({
 
     categorySelected.isFavorite = !categorySelected.isFavorite;
 
-    setLocalStorage('data', newData);
     return newData;
   },
   [actionTypesCategories.deleteCategory]: () => {
@@ -42,7 +39,6 @@ export const reducerOptionsCategories = (state, payload) => ({
 
     newData.splice(findIndex(newData, categoryId, 'id'), 1);
 
-    setLocalStorage('data', newData);
     return newData;
   },
   [actionTypesCategories.editCategory]: () => {
@@ -53,7 +49,6 @@ export const reducerOptionsCategories = (state, payload) => ({
     categorySelected.name = newCategoryInfo.name;
     categorySelected.description = newCategoryInfo.description;
 
-    setLocalStorage('data', newData);
     return newData;
   },
 });

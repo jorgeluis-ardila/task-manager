@@ -67,6 +67,8 @@ const ModalStyled = styled('div', { shouldForwardProp: prop => prop !== 'type' }
       width: 90%;
       max-width: 500px;
       transition: all 0.3s;
+      box-shadow: ${theme.shadows.green.dark2};
+      border-radius: 15px;
       &--changed {
         bottom: 20px;
       }

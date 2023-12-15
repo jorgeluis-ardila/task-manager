@@ -3,7 +3,7 @@ import { md5 } from 'js-md5';
 
 export const getHashId = stringValue => md5(stringValue);
 
-export const findIndex = (data, id, prop) => data.findIndex(item => item[prop] === id);
+export const findIndex = (data, id, prop) => data?.findIndex(item => item?.[prop] === id);
 
 export const onKeyUp = (e, key, action) => {
   if (e.keyCode === key) {
@@ -21,4 +21,10 @@ export const isExpired = date => {
 
 export const getPercentage = ({ partialValue, totalValue }) => {
   return totalValue === 0 ? 0 : round((100 * partialValue) / totalValue);
+};
+
+export const getKeyWithTrueValue = obj => {
+  const keyArray = Object.keys(obj);
+  const keyWithTrueValue = keyArray.find(key => obj[key] === true);
+  return keyWithTrueValue || null;
 };

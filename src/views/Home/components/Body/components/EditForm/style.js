@@ -50,8 +50,8 @@ export const Wrapper = styled('div')(
       }
       .name-field {
         font-family: ${theme.typography.family.montserrat};
-        font-size: ${theme.typography.size(30)};
-        font-weight: 800;
+        font-size: ${theme.typography.size(25)};
+        font-weight: 600;
         letter-spacing: -0.3px;
         color: ${theme.colors.blue[70]};
       }

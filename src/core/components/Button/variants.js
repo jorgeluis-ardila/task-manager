@@ -60,6 +60,19 @@ export const Delete = ({ theme }) => css`
   }
 `;
 
+export const Filter = props => css`
+  padding: 8px 15px;
+  border-radius: 15px;
+  background: ${props.theme.colors.neutral[10]};
+  color: ${props.theme.colors.blue[80]};
+  box-shadow: ${props.theme.shadows.blue.dark};
+  font-weight: 600;
+  letter-spacing: -0.24px;
+  &:hover {
+    background: ${props.theme.colors.green[20]};
+  }
+`;
+
 export const Disabled = ({ theme }) => css`
   border-color: ${theme.hexToRGB(theme.colors.neutral[20], 0.5)};
   background: ${theme.hexToRGB(theme.colors.neutral[20], 0.5)};

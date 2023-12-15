@@ -36,13 +36,13 @@ export const useCreateForm = () => {
         }),
       fields: () => (
         <>
-          <Field label="Nombre *" max={30} type="text" id="name" name="name" />
           <div className={cn({ 'two-fields': !currentCategory })}>
             <Field label="Fecha limite *" type="date" id="dueDate" name="dueDate" />
             {!currentCategory && (
               <Field as="select" label="Categoría *" id="category" name="category" options={categoriesValues.options} />
             )}
           </div>
+          <Field label="Nombre *" max={30} type="text" id="name" name="name" />
           <Field as="textarea" label="Descripción" max={80} id="description" name="description" />
         </>
       ),

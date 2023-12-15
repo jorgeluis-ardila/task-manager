@@ -20,12 +20,12 @@ const CreateButtons = () => {
 
   const handleCreateTask = () => {
     const formProps = getProps('task');
-    modalActions.open(<CreateForm {...formProps} />, 'info');
+    modalActions.open(<CreateForm {...formProps} />, 'create');
     setShowButtons(false);
   };
   const handleCreateCategory = () => {
     const formProps = getProps('category');
-    modalActions.open(<CreateForm {...formProps} />, 'info');
+    modalActions.open(<CreateForm {...formProps} />, 'create');
     setShowButtons(false);
   };
   const handleShowButtons = () => setShowButtons(prevState => !prevState);

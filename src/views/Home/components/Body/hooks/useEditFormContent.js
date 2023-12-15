@@ -3,7 +3,7 @@ import cn from 'classnames';
 import { isExpired } from 'utils';
 import { useData, useModal } from 'providers/context';
 import { Field } from 'core';
-import { deleteModaltext } from '../constants';
+import { DELETE_MODAL_TEXT } from '../constants';
 import { getCategoriesValues, todayString } from './helpers';
 import { Alert, EditForm } from '../components';
 
@@ -32,7 +32,7 @@ export const useEditFormContent = () => {
           object({
             name: string().min(5, 'Minimo 5 caracteres').max(30, 'Maximo 30 caracteres').required('Requerido'),
             description: string().max(80, 'Maximo 80 caracteres'),
-            dueDate: date().required('Requerido'), //.min(todayString, 'La fecha ya paso')
+            dueDate: date().min(todayString, 'La fecha ya paso').required('Requerido'),
             category: string()
               .oneOf([...categoriesValues.categories], 'Categoría Invalida')
               .required('Requerido'),
@@ -57,7 +57,7 @@ export const useEditFormContent = () => {
                 expired: isExpired(currentTask.dueDate) && !currentTask.isCompleted,
               })}
             >
-              {currentTask.isCompleted ? 'Completada' : isExpired(currentTask.dueDate) ? 'Vencida' : 'En Progreso'}
+              {currentTask.isCompleted ? 'Completada' : isExpired(currentTask.dueDate) ? 'Expirada' : 'En Progreso'}
             </p>
           </div>
           {!isEditing ? (
@@ -89,7 +89,7 @@ export const useEditFormContent = () => {
         </>
       ),
       handleDelete: () => {
-        const text = deleteModaltext.task();
+        const text = DELETE_MODAL_TEXT.task();
 
         const handleAccept = () => {
           taskActions.delete(currentTask.id);
@@ -143,7 +143,7 @@ export const useEditFormContent = () => {
         </>
       ),
       handleDelete: () => {
-        const text = deleteModaltext.category();
+        const text = DELETE_MODAL_TEXT.category();
 
         const handleAccept = () => {
           categoryActions.delete(currentCategory.id);

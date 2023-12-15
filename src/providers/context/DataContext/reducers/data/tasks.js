@@ -1,12 +1,11 @@
 import { random } from 'lodash';
 import { getHashId, findIndex } from 'utils';
-import { setLocalStorage } from 'hooks';
 
 export const actionTypesTasks = {
-  createTask: 'CREATETASK',
-  editTask: 'EDITTASK',
-  completeTask: 'COMPLETETASK',
-  deleteTask: 'DELETETASK',
+  createTask: 'CREATE_TASK',
+  editTask: 'EDIT_TASK',
+  completeTask: 'COMPLETE_TASK',
+  deleteTask: 'DELETE_TASK',
 };
 
 const reducerUtils = {
@@ -32,7 +31,6 @@ export const reducerOptionsTasks = (state, payload) => ({
     categorySelected.totalTasks = reducerUtils.calculateTotal(categorySelected.tasks);
     categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
 
-    setLocalStorage('data', newData);
     return newData;
   },
   [actionTypesTasks.completeTask]: () => {
@@ -44,7 +42,6 @@ export const reducerOptionsTasks = (state, payload) => ({
     taskSelected.isCompleted = !taskSelected.isCompleted;
     categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
 
-    setLocalStorage('data', newData);
     return newData;
   },
   [actionTypesTasks.deleteTask]: () => {
@@ -56,7 +53,6 @@ export const reducerOptionsTasks = (state, payload) => ({
     categorySelected.totalTasks = reducerUtils.calculateTotal(categorySelected.tasks);
     categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
 
-    setLocalStorage('data', newData);
     return newData;
   },
   [actionTypesTasks.editTask]: () => {
@@ -81,7 +77,6 @@ export const reducerOptionsTasks = (state, payload) => ({
       currentCategory.completedTasks = reducerUtils.calculateCompleted(currentCategory.tasks);
     }
 
-    setLocalStorage('data', newData);
     return newData;
   },
 });

@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { Outlined, Action, Filled, Disabled, Delete, OutlinedDelete } from './variants';
+import { Outlined, Action, Filled, Disabled, Delete, OutlinedDelete, Filter } from './variants';
 
 const variants = {
   outlined: Outlined,
@@ -8,6 +8,7 @@ const variants = {
   action: Action,
   delete: Delete,
   filled: Filled,
+  filter: Filter,
   disabled: Disabled,
 };
 

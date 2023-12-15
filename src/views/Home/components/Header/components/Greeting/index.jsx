@@ -1,15 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Button, Icon, IconButton } from 'core';
+// TODO COMMENTED UNTIL FEATURE WILL BE REQUIRED
+import { Button, Icon /* , IconButton */ } from 'core';
 import AnonimousUser from 'assets/images/userAnonimus.png';
 import { GreetingContainer, UserInfo } from './style';
 
 const Greeting = ({ userData, onOpenProfile, onGoBack, isCategoryOpen }) => {
   const userName = userData?.displayName?.split(' ')[0] ?? '';
 
-  const handleOpenProfile = () => {
+  // TODO COMMENTED UNTIL FEATURE WILL BE REQUIRED
+  /* const handleOpenProfile = () => {
     onOpenProfile?.();
-  };
+  }; */
 
   const handleGoBack = () => {
     onGoBack();
@@ -28,7 +30,8 @@ const Greeting = ({ userData, onOpenProfile, onGoBack, isCategoryOpen }) => {
         </figure>
         <h2 className="greet">{`Hola ${userName}`}</h2>
       </UserInfo>
-      <IconButton variant="filter" iconType="menuv" className="edit-profile" onClick={handleOpenProfile} />
+      {/* TODO COMMENTED UNTIL FEATURE WILL BE REQUIRED */}
+      {/* <IconButton variant="filter" iconType="menuh" className="edit-profile" onClick={handleOpenProfile} /> */}
     </GreetingContainer>
   );
 };

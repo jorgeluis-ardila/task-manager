@@ -16,12 +16,16 @@ import { ReactComponent as GoogleSVG } from '../../../assets/svg/google-icon.svg
 import { ReactComponent as DetailsSVG } from 'assets/svg/details-icon.svg';
 import { ReactComponent as SquareViewSVG } from 'assets/svg/squareView-icon.svg';
 import { ReactComponent as LineViewSVG } from 'assets/svg/lineView-icon.svg';
+import { ReactComponent as SortAceSVG } from 'assets/svg/sortAce-icon.svg';
+import { ReactComponent as SortDecSVG } from 'assets/svg/sortDec-icon.svg';
+import { ReactComponent as SortDateAceSVG } from 'assets/svg/sortDateAce-icon.svg';
+import { ReactComponent as SortDateDecSVG } from 'assets/svg/sortDateDec-icon.svg';
 
 const iconNames = {
   menuh: props => <MenuHSVG {...props} />,
   menuv: props => <ManuVSVG {...props} />,
   search: props => <SearchSVG {...props} />,
-  sort: props => <SortSVG {...props} />,
+  filters: props => <SortSVG {...props} />,
   check: props => <CheckSVG {...props} />,
   delete: props => <DeleteSVG {...props} />,
   email: props => <EmailSVG {...props} />,
@@ -34,8 +38,12 @@ const iconNames = {
   star: props => <StarSVG {...props} />,
   google: props => <GoogleSVG {...props} />,
   details: props => <DetailsSVG {...props} />,
-  squareview: props => <SquareViewSVG {...props} />,
-  lineview: props => <LineViewSVG {...props} />,
+  squareView: props => <SquareViewSVG {...props} />,
+  lineView: props => <LineViewSVG {...props} />,
+  ascSort: props => <SortAceSVG {...props} />,
+  decSort: props => <SortDecSVG {...props} />,
+  ascDateSort: props => <SortDateAceSVG {...props} />,
+  decDateSort: props => <SortDateDecSVG {...props} />,
 };
 
 export default iconNames;

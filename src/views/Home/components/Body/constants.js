@@ -1,4 +1,6 @@
-export const deleteModaltext = {
+import { actionNamesFilters } from 'providers/context/DataContext/constants';
+
+export const DELETE_MODAL_TEXT = {
   task: () => (
     <>
       <span className="bold">¡Hey!</span> Solo quería informarte que luego de borrar una tarea no se podrá recuperar.{' '}
@@ -13,3 +15,19 @@ export const deleteModaltext = {
     </>
   ),
 };
+
+export const getTaskFilterOptions = actionsList => [
+  { action: actionsList.taskFilters.all, name: actionNamesFilters.taskFilterAll, label: 'Todas' },
+  { action: actionsList.taskFilters.active, name: actionNamesFilters.taskFilterActive, label: 'Activas' },
+  { action: actionsList.taskFilters.expired, name: actionNamesFilters.taskFilterExpired, label: 'Expiradas' },
+  { action: actionsList.taskFilters.completed, name: actionNamesFilters.taskFilterCompleted, label: 'Completadas' },
+];
+
+export const getCategoryFilterOptions = actionsList => [
+  { action: actionsList.categoryFilters.favorite, name: actionNamesFilters.favorite, label: 'Favoritos', icon: 'star' },
+];
+
+export const getLayoutOptions = actionsList => [
+  { action: actionsList.layout.layoutLine, name: actionNamesFilters.layoutLine, icon: 'lineView' },
+  { action: actionsList.layout.layoutSquare, name: actionNamesFilters.layoutSquare, icon: 'squareView' },
+];

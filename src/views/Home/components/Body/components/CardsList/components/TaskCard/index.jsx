@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { isExpired } from 'utils';
 import { Button, Icon, IconButton } from 'core';
-import { deleteModaltext } from '../../../../constants';
+import { DELETE_MODAL_TEXT } from '../../../../constants';
 import { Alert, EditForm } from '../../../index';
 import { StyledTaskCard, StyledTaskCardInfo } from './style';
 
@@ -19,7 +19,7 @@ const TaskCard = ({ isCompleted, name, id, date, category, actions }) => {
   };
   const handleDelete = e => {
     e.stopPropagation();
-    const text = deleteModaltext.task();
+    const text = DELETE_MODAL_TEXT.task();
 
     const handleAccept = () => actions.taskActions.delete(id);
 

@@ -1,7 +1,7 @@
 import { useData } from 'providers/context';
 import { useModal } from 'providers/context';
 import { IconButton } from 'core';
-import { EditForm } from '..';
+import { AditionalFilters, EditForm } from '..';
 import { Title, BoardProgressBar } from './components';
 import { StyledHeader } from './style';
 
@@ -13,6 +13,10 @@ const TitleBar = () => {
     modalActions.open(<EditForm />, 'edit');
   };
 
+  const handleOpenFilters = () => {
+    modalActions.open(<AditionalFilters />, 'info');
+  };
+
   return (
     <>
       <StyledHeader>
@@ -20,7 +24,7 @@ const TitleBar = () => {
           <Title totalCategories={data.length} currentCategory={currentCategory} />
           {currentCategory && <IconButton iconType="edit" className="edit-button" onClick={handleEditCategory} />}
         </div>
-        <IconButton variant="filter" iconType="sort" className="sort-button" />
+        <IconButton variant="filter" iconType="filters" className="sort-button" onClick={handleOpenFilters} />
       </StyledHeader>
       <BoardProgressBar currentCategory={currentCategory} />
     </>

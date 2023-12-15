@@ -14,7 +14,6 @@ export const FieldWrapper = styled('div', { shouldForwardProp: prop => prop !== 
     position: relative;
     &.field-wrapper {
       &.textarea {
-        min-height: 44px;
         max-height: 100px;
         overflow-y: auto;
       }
@@ -78,7 +77,6 @@ export const StyledInput = styled('input')(
 export const StyledTextArea = styled('textarea')(
   ({ theme }) => css`
     width: 100%;
-    min-height: 60px;
     color: currentColor;
     resize: none;
     &::placeholder {

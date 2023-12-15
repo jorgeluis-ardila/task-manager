@@ -1,3 +1,4 @@
+import { setLocalStorage } from 'hooks';
 import { actionTypesCategories, reducerOptionsCategories } from './categories';
 import { actionTypesTasks, reducerOptionsTasks } from './tasks';
 
@@ -12,5 +13,7 @@ const reducerOptionsData = (state, payload) => ({
 });
 
 export const reducerFnData = (state, action) => {
-  return reducerOptionsData(state, action.payload)[action.type]() || state;
+  const newData = reducerOptionsData(state, action.payload)[action.type]() || state;
+  setLocalStorage('data', newData);
+  return newData;
 };
