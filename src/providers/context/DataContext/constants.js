@@ -32,7 +32,7 @@ export const INITIAL_FILTERS = {
     [actionNamesFilters.favorite]: false,
   },
   layout: {
-    [actionNamesFilters.layoutLine]: false,
+    [actionNamesFilters.layoutLine]: true,
     [actionNamesFilters.layoutSquare]: false,
   },
   taskFilters: {

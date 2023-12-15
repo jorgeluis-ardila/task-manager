@@ -1,12 +1,14 @@
+import cn from 'classnames';
 import { getPercentage } from 'utils';
 import { useData, useModal } from 'providers/context';
 import { TaskCard, CategoryCard } from './components';
 import { StyledCardList } from './style';
 import { TaskFilters } from '..';
+import { actionNamesFilters } from 'providers/context/DataContext/constants';
 
 const CardsList = () => {
   const { modalActions } = useModal();
-  const { currentCategory, dataSearched, categoryActions, taskActions } = useData();
+  const { currentCategory, dataSearched, categoryActions, taskActions, layout } = useData();
 
   return (
     <>
@@ -26,6 +28,7 @@ const CardsList = () => {
                   taskActions,
                   modalActions,
                 }}
+                className={cn({ 'half-width': layout[actionNamesFilters.layoutSquare] })}
               />
             );
           }
@@ -41,6 +44,7 @@ const CardsList = () => {
                 totalValue: item.totalTasks,
               })}
               actions={categoryActions}
+              className={cn({ 'half-width': layout[actionNamesFilters.layoutSquare] })}
             />
           );
         })}

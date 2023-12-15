@@ -4,7 +4,7 @@ import ToDo from 'assets/images/to-do-list.png';
 import { Button, Icon, ProgressBar } from 'core';
 import StyledCategoryCard from './style';
 
-const CategoryCard = ({ name, id, isFavorite, totalTasks, percentage, actions }) => {
+const CategoryCard = ({ name, id, isFavorite, totalTasks, percentage, actions, className }) => {
   const handleClick = () => {
     actions.open(id);
   };
@@ -15,7 +15,7 @@ const CategoryCard = ({ name, id, isFavorite, totalTasks, percentage, actions })
   };
 
   return (
-    <StyledCategoryCard className="card" onClick={handleClick}>
+    <StyledCategoryCard className={cn('card', className)} onClick={handleClick}>
       <div className="name-container">
         <Button onClick={handleAddFavorite}>
           <Icon type="star" className={cn({ favorite: isFavorite })} />
@@ -40,6 +40,7 @@ CategoryCard.protoTypes = {
   totalTasks: PropTypes.string,
   percentage: PropTypes.string,
   actions: PropTypes.func,
+  className: PropTypes.string,
 };
 
 export { CategoryCard };

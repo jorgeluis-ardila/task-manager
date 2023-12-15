@@ -6,7 +6,7 @@ import { DELETE_MODAL_TEXT } from '../../../../constants';
 import { Alert, EditForm } from '../../../index';
 import { StyledTaskCard, StyledTaskCardInfo } from './style';
 
-const TaskCard = ({ isCompleted, name, id, date, category, actions }) => {
+const TaskCard = ({ isCompleted, name, id, date, category, actions, className }) => {
   const isTaskExpired = isExpired(date);
 
   const handleOpen = () => {
@@ -29,7 +29,7 @@ const TaskCard = ({ isCompleted, name, id, date, category, actions }) => {
   return (
     <StyledTaskCard
       onClick={handleOpen}
-      className={cn('card', { completed: isCompleted, expired: isTaskExpired && !isCompleted })}
+      className={cn('card', className, { completed: isCompleted, expired: isTaskExpired && !isCompleted })}
     >
       <div className="state-bar" />
       <StyledTaskCardInfo className="task-info">
@@ -65,6 +65,7 @@ TaskCard.propTypes = {
   name: PropTypes.string,
   id: PropTypes.string,
   actions: PropTypes.object,
+  className: PropTypes.string,
 };
 
 export { TaskCard };
