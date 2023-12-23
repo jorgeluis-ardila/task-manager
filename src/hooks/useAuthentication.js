@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState } from 'react';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -9,15 +9,15 @@ import {
   signInWithPopup,
   onAuthStateChanged,
   signOut,
-} from "firebase/auth";
+} from 'firebase/auth';
 
 export function useAuthentication(formData, closeModal) {
-  const auth = getAuth(),
-    [isLogged, setIsLogged] = useState(false),
-    [userData, setUserData] = useState({});
+  const auth = getAuth();
+  const [isLogged, setIsLogged] = useState(false);
+  const [userData, setUserData] = useState({});
 
   const checkLogin = () => {
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, user => {
       if (user?.emailVerified) {
         // console.log('LOGGED');
         setIsLogged(true);
@@ -37,7 +37,7 @@ export function useAuthentication(formData, closeModal) {
 
   const createAccountEmailPass = () => {
     createUserWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
+      .then(userCredential => {
         const user = userCredential.user;
         updateProfile(user, {
           displayName: formData.name,
@@ -48,56 +48,56 @@ export function useAuthentication(formData, closeModal) {
         };
         sendEmailVerification(user, actionCodeSettings)
           .then(() => {
-            console.log("SE HA ENVIADO EL EMAIL DE VERIFICACION");
+            console.log('SE HA ENVIADO EL EMAIL DE VERIFICACION');
             logOut();
             closeModal();
           })
-          .catch((error) => {
+          .catch(error => {
             const errorCode = error.code;
             const errorMessage = error.message;
-            console.error("CATCH EMAIL", errorCode, errorMessage);
+            console.error('CATCH EMAIL', errorCode, errorMessage);
           });
       })
-      .catch((error) => {
+      .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error("CATCH CREATE", errorCode, errorMessage);
+        console.error('CATCH CREATE', errorCode, errorMessage);
       });
   };
 
   const authEmailPass = () => {
     signInWithEmailAndPassword(auth, formData.email, formData.password)
-      .then((userCredential) => {
+      .then(userCredential => {
         const user = userCredential.user;
         if (user.emailVerified) {
-          console.log("EL EMAIL ESTA VERIFICADO");
+          console.log('EL EMAIL ESTA VERIFICADO');
           checkLogin();
           closeModal();
         } else {
-          console.log("DEBES VERIFICAR TU EMAIL");
+          console.log('DEBES VERIFICAR TU EMAIL');
           logOut();
         }
       })
-      .catch((error) => {
+      .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error("CATCH LOGIN", errorCode, errorMessage);
+        console.error('CATCH LOGIN', errorCode, errorMessage);
       });
   };
 
   const authGoogle = () => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
-      .then((result) => {
+      .then(result => {
         // const user = result.user;
         checkLogin();
         closeModal();
       })
-      .catch((error) => {
+      .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
         const email = error.customData.email;
-        console.error("CATCH GOOGLE", errorCode, errorMessage, email);
+        console.error('CATCH GOOGLE', errorCode, errorMessage, email);
       });
   };
 
@@ -106,10 +106,10 @@ export function useAuthentication(formData, closeModal) {
       .then(() => {
         checkLogin();
       })
-      .catch((error) => {
+      .catch(error => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.error("CATCH GOOGLE", errorCode, errorMessage);
+        console.error('CATCH GOOGLE', errorCode, errorMessage);
       });
   };
 

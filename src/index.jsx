@@ -6,6 +6,10 @@ import App from './App';
 // import App from './App/old-index';
 // import './index.css';
 
+if (window.location.pathname === '/') {
+  window.location.replace('/app');
+}
+
 initializeApp(firebaseConfig);
 
 const container = document.getElementById('root');

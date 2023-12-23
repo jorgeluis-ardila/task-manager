@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { useLocalStorage } from "./useLocalStorageData";
-import { useStorageListener } from "./useStorageListener";
+import { useState } from 'react';
+import { useLocalStorage } from './useLocalStorageDataOLD';
+import { useStorageListener } from './useStorageListener';
 
 export function useTasks() {
   const {
@@ -9,34 +9,33 @@ export function useTasks() {
       syncronizeInfo: syncronizeTasks,
       loading,
       error,
-    } = useLocalStorage("TODOS_V1", []),
+    } = useLocalStorage('TODOS_V1', []),
     { storageChange, handleSync } = useStorageListener(syncronizeTasks),
-    [searchValue, setSearchValue] = useState(""),
-    [filterTasks, setFilterTasks] = useState(""),
+    [searchValue, setSearchValue] = useState(''),
+    [filterTasks, setFilterTasks] = useState(''),
     [openModal, setOpenModal] = useState(false),
-    [modalType, setModalType] = useState("");
+    [modalType, setModalType] = useState('');
 
-  const filteredTasks = (filter) => {
+  const filteredTasks = filter => {
     switch (filter) {
-      case "complete":
-        return tasks.filter((todo) => !!todo.completed);
-      case "active":
-        return tasks.filter((todo) => !todo.completed);
+      case 'complete':
+        return tasks.filter(todo => !!todo.completed);
+      case 'active':
+        return tasks.filter(todo => !todo.completed);
       default:
         return tasks;
     }
   };
 
-  const completedTasks = filteredTasks("complete").length,
+  const completedTasks = filteredTasks('complete').length,
     totalTasks = filteredTasks().length,
-    searchedTasks = filteredTasks(filterTasks).filter((todo) =>
+    searchedTasks = filteredTasks(filterTasks).filter(todo =>
       todo.text.toLowerCase().includes(searchValue.toLowerCase())
     );
 
-  const findIndex = (text, key) =>
-    tasks.findIndex((todo) => todo.text === text && todo.key === key);
+  const findIndex = (text, key) => tasks.findIndex(todo => todo.text === text && todo.key === key);
 
-  const addTask = (text) => {
+  const addTask = text => {
     const newTasks = [...tasks];
     newTasks.push({
       completed: false,
@@ -48,8 +47,7 @@ export function useTasks() {
 
   const completeTask = (text, key) => {
     const newTasks = [...tasks];
-    newTasks[findIndex(text, key)].completed =
-      !newTasks[findIndex(text, key)].completed;
+    newTasks[findIndex(text, key)].completed = !newTasks[findIndex(text, key)].completed;
     saveTasks(newTasks);
   };
 
@@ -62,7 +60,7 @@ export function useTasks() {
 
   const deleteCompleted = () => {
     const oldTasks = [...tasks];
-    const newTasks = oldTasks.filter((task) => task.completed !== true);
+    const newTasks = oldTasks.filter(task => task.completed !== true);
     newTasks.forEach((task, index) => (task.key = ++index));
     saveTasks(newTasks);
   };
@@ -70,7 +68,7 @@ export function useTasks() {
   const closeModal = () => {
     setOpenModal(false);
     setTimeout(() => {
-      setModalType("");
+      setModalType('');
     }, 300);
   };
 
