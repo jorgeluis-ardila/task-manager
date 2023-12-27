@@ -1,5 +1,5 @@
 export * from './CardsList';
 export * from './CreateButtons';
-export * from './EditForm';
+export * from './Overview';
 export * from './TaskFilters';
 export * from './TitleBar';

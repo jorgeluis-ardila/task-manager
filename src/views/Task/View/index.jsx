@@ -1,12 +1,12 @@
 import cn from 'classnames';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useData, useModal } from 'providers/context';
-import { Alert, Button, Icon, IconButton } from 'core';
-import { DataItem, TitleBar } from './components';
+import { Alert, Button, FieldValue, Icon, IconButton } from 'core';
+import { TitleBar } from '../components';
 import { isExpired } from 'utils';
 import { ButtonsWrapper, FieldsWrapper, Wrapper } from './style';
 
-const Task = () => {
+const ViewTask = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { categorySlug } = useParams();
@@ -40,9 +40,9 @@ const Task = () => {
       />
       <Wrapper>
         <FieldsWrapper>
-          <DataItem label="Fecha Limite" value={taskData.dueDate} />
-          <DataItem label="Categoría" value={taskData.category.name} />
-          {!currentTask?.description ? null : <DataItem label="Descripción" value={taskData.description} />}
+          <FieldValue label="Fecha Limite" value={taskData.dueDate} />
+          <FieldValue label="Categoría" value={taskData.category.name} />
+          {!currentTask?.description ? null : <FieldValue label="Descripción" value={taskData.description} />}
         </FieldsWrapper>
         <ButtonsWrapper>
           <Button
@@ -62,4 +62,4 @@ const Task = () => {
   );
 };
 
-export { Task };
+export { ViewTask };

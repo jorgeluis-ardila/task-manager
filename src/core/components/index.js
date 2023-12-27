@@ -6,6 +6,7 @@ export * from './CardsList';
 export * from './Counter';
 export * from './CreateForm';
 export * from './Field';
+export * from './FieldValue';
 export * from './IconButton';
 export * from './Icon';
 export * from './InputMessage';

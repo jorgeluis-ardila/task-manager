@@ -1,12 +1,19 @@
 import PropTypes from 'prop-types';
+import { ProtectedRoute } from 'core';
 import { Body, Header, MainWrapper } from './components';
+import { Outlet } from 'react-router-dom';
 
 const LoggedLayout = ({ children }) => {
   return (
-    <MainWrapper>
-      <Header />
-      <Body>{children}</Body>
-    </MainWrapper>
+    <ProtectedRoute>
+      <MainWrapper>
+        <Header />
+        <Body>
+          {children}
+          <Outlet />
+        </Body>
+      </MainWrapper>
+    </ProtectedRoute>
   );
 };
 

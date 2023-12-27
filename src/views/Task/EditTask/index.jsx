@@ -4,7 +4,7 @@ import { findIndex, getCategoriesValues, isExpired, todayString } from 'utils';
 import { useData } from 'providers/context';
 import { BaseForm, Button, Field, IconButton } from 'core';
 import { ButtonsWrapper, FieldsWrapper, Wrapper } from './style';
-import { StatusFlag } from './components';
+import { StatusFlag } from '../components';
 
 const EditTask = () => {
   const { state } = useLocation();

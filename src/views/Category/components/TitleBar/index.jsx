@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useModal } from 'providers/context';
 import { getPercentage } from 'utils';
 import { AditionalFilters, Counter, IconButton, ProgressBar } from 'core';
-import { EditForm } from '../EditForm';
+import { Overview } from '../Overview';
 import { HeaderWrapper } from './style';
 
 const TitleBar = ({ title, completedTasks, totalTasks }) => {
@@ -14,7 +14,7 @@ const TitleBar = ({ title, completedTasks, totalTasks }) => {
   });
 
   const handleEditCategory = () => {
-    modalActions.open(<EditForm />, 'edit');
+    modalActions.open(<Overview />, 'edit');
   };
 
   const handleOpenFilters = () => {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import { ItemWrapper } from './style';
 
-const DataItem = ({ label, value }) => {
+const FieldValue = ({ label, value }) => {
   return (
     <ItemWrapper>
       <p className="label">{label}</p>
@@ -10,9 +10,9 @@ const DataItem = ({ label, value }) => {
   );
 };
 
-DataItem.protoTypes = {
+FieldValue.protoTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
 };
 
-export { DataItem };
+export { FieldValue };
