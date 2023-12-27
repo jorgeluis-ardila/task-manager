@@ -1,16 +1,13 @@
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import ToDo from 'assets/images/to-do-list.png';
 import { getPercentage } from 'utils';
-import { useGlobalStore } from 'providers/context';
 import { Button, Icon, ProgressBar } from 'core';
 import { CategoryCardWrapper, DetailContainer, NameContainer } from './style';
 
 const CategoryCard = ({ categoryData, actions, className }) => {
-  const location = useLocation();
   const navigate = useNavigate();
-  const { onChangeLoading } = useGlobalStore();
   const { name, id, isFavorite, totalTasks, completedTasks, slug } = categoryData;
 
   const percentage = getPercentage({
@@ -20,8 +17,7 @@ const CategoryCard = ({ categoryData, actions, className }) => {
 
   const handleClick = () => {
     actions.open(id);
-    onChangeLoading(true);
-    navigate(`${slug}`, { state: { categoryId: categoryData.id, from: location } });
+    navigate(`/c/${slug}`, { state: { categoryId: id } });
   };
 
   const handleAddFavorite = e => {

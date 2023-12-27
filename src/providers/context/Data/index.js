@@ -8,10 +8,12 @@ import { matchPath, useLocation } from 'react-router-dom';
 const DataContext = createContext();
 
 const DataProvider = ({ children }) => {
-  // const [data, setData] = useStateLocalStorage('tasks', INITIAL_DATA);
   const { pathname } = useLocation();
-  const matchCategoryRoute = matchPath({ path: '/:categorySlug' }, pathname)?.params;
-  const matchTaskRoute = matchPath({ path: '/:categorySlug/:taskSlug' }, pathname)?.params;
+  const matchCategoryRoute = useMemo(() => matchPath({ path: 'c/:categorySlug' }, pathname)?.params, [pathname]);
+  const matchTaskRoute = useMemo(
+    () => matchPath({ path: 'c/:categorySlug/t/:taskSlug' }, pathname)?.params,
+    [pathname]
+  );
 
   const [data, dispatchData] = useReducer(reducerFnData, INITIAL_DATA);
   const [currentCategory, setCurrentCategory] = useState(() => {
@@ -29,27 +31,21 @@ const DataProvider = ({ children }) => {
   const [filtersState, dispatchFilters] = useReducer(reducerFnFilters, INITIAL_FILTERS);
   const { sort, categoryFilters, layout, taskFilters, sortDate } = filtersState;
 
-  const defineCurrentCategory = useCallback(
-    id => {
-      const categoryIndex = findIndex(data, id, 'id');
-      setCurrentCategory(data[categoryIndex] ?? null);
-    },
-    [data]
-  );
+  const defineCurrentCategory = id => {
+    const categoryIndex = findIndex(data, id, 'id');
+    setCurrentCategory(data[categoryIndex] ?? null);
+  };
 
-  const defineCurrentTask = useCallback(
-    id => {
-      const taskIndex = findIndex(currentCategory?.tasks, id, 'id');
-      setCurrentTask(currentCategory?.tasks[taskIndex] ?? null);
-    },
-    [currentCategory]
-  );
+  const defineCurrentTask = id => {
+    const taskIndex = findIndex(currentCategory?.tasks, id, 'id');
+    setCurrentTask(currentCategory?.tasks[taskIndex] ?? null);
+  };
 
   const filterData = useCallback(
     data => {
-      let newData = !currentCategory ? data : currentCategory?.tasks;
+      let newData = !matchCategoryRoute ? data : currentCategory?.tasks;
 
-      newData = newData.filter(item => {
+      newData = newData?.filter(item => {
         if (currentCategory) {
           const taskActiveFilter = getKeyWithTrueValue(taskFilters);
           return FILTERS_FN?.[taskActiveFilter](item);
@@ -61,7 +57,7 @@ const DataProvider = ({ children }) => {
         return item;
       });
 
-      newData.sort((a, b) => {
+      newData?.sort((a, b) => {
         if (currentCategory) {
           const sortTaskActiveFilter = getKeyWithTrueValue(sortDate);
           return FILTERS_FN?.[sortTaskActiveFilter]?.(a, b);
@@ -70,12 +66,12 @@ const DataProvider = ({ children }) => {
         return FILTERS_FN?.[sortActiveFilter]?.(a, b);
       });
 
-      return newData;
+      return newData ?? [];
     },
-    [categoryFilters, sort, sortDate, taskFilters, currentCategory]
+    [categoryFilters, sort, sortDate, taskFilters, currentCategory, matchCategoryRoute]
   );
 
-  let filteredData = filterData(data);
+  const filteredData = filterData(data);
 
   const dataSearched = useMemo(() => {
     let newData = filteredData;
@@ -105,24 +101,24 @@ const DataProvider = ({ children }) => {
     },
     taskFilters: {
       all: () => {
-        dispatchFilters({ type: actionNamesFilters.taskFilterAll, payload: {} });
+        dispatchFilters({ type: actionNamesFilters.taskFilterAll });
       },
       active: () => {
-        dispatchFilters({ type: actionNamesFilters.taskFilterActive, payload: {} });
+        dispatchFilters({ type: actionNamesFilters.taskFilterActive });
       },
       expired: () => {
-        dispatchFilters({ type: actionNamesFilters.taskFilterExpired, payload: {} });
+        dispatchFilters({ type: actionNamesFilters.taskFilterExpired });
       },
       completed: () => {
-        dispatchFilters({ type: actionNamesFilters.taskFilterCompleted, payload: {} });
+        dispatchFilters({ type: actionNamesFilters.taskFilterCompleted });
       },
     },
     layout: {
       layoutLine: () => {
-        dispatchFilters({ type: actionNamesFilters.layoutLine, payload: {} });
+        dispatchFilters({ type: actionNamesFilters.layoutLine });
       },
       layoutSquare: () => {
-        dispatchFilters({ type: actionNamesFilters.layoutSquare, payload: {} });
+        dispatchFilters({ type: actionNamesFilters.layoutSquare });
       },
     },
   };
@@ -143,6 +139,7 @@ const DataProvider = ({ children }) => {
     },
     delete: categoryId => dispatchData({ type: actionTypesData.deleteCategory, payload: { categoryId } }),
     hightlight: id => dispatchData({ type: actionTypesData.highlightCategory, payload: { categoryId: id } }),
+    deleteCompleted: id => dispatchData({ type: actionTypesData.deleteCompleted, payload: { categoryId: id } }),
   };
 
   const taskActions = {

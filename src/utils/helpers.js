@@ -18,7 +18,7 @@ export const findIndex = (data, id, prop) => data?.findIndex(item => item?.[prop
 // CHECK IF THE DATE PASSED IS EXPIRED
 export const isExpired = date => {
   const currentDate = new Date();
-  const formatedDate = date.split('-').map(item => parseInt(item));
+  const formatedDate = date?.split('-').map(item => parseInt(item));
   const taskDate = new Date(formatedDate[0], formatedDate[1] - 1, formatedDate[2], 23, 59, 59);
   return currentDate > taskDate;
 };

@@ -1,17 +1,18 @@
 import PropTypes from 'prop-types';
 import cn from 'classnames';
+import { useNavigate } from 'react-router-dom';
 import { isExpired } from 'utils';
-import { Button, Icon, IconButton } from 'core';
-import { Alert, EditForm } from '../../../Body/components/index';
-import { StyledTaskCard, StyledTaskCardInfo } from './style';
+import { Alert, Button, Icon, IconButton } from 'core';
+import { TaskCardWrapper, TaskCardInfo } from './style';
 
 const TaskCard = ({ taskData, actions, className }) => {
-  const { isCompleted, name, id, dueDate, category } = taskData;
+  const navigate = useNavigate();
+  const { isCompleted, name, id, dueDate, category, slug } = taskData;
   const isTaskExpired = isExpired(dueDate);
 
   const handleOpen = () => {
     actions.taskActions.open(id);
-    actions.modalActions.open(<EditForm />, 'edit');
+    navigate(`t/${slug}`, { state: { taskId: id } });
   };
   const handleComplete = e => {
     e.stopPropagation();
@@ -22,29 +23,16 @@ const TaskCard = ({ taskData, actions, className }) => {
 
     const handleAccept = () => actions.taskActions.delete(id);
 
-    actions.modalActions.open(
-      <Alert
-        title="¡Oye, cuidado!"
-        text={() => (
-          <>
-            <span className="bold">¡Hey!</span> Solo quería informarte que luego de borrar una tarea no se podrá
-            recuperar. <span className="bold">Esta acción no se puede deshacer</span>, así que asegúrate de haber
-            revisado todo.
-          </>
-        )}
-        onAccept={handleAccept}
-      />,
-      'alert'
-    );
+    actions.modalActions.open(<Alert title="¡Oye, cuidado!" textType="deleteTask" onAccept={handleAccept} />, 'alert');
   };
 
   return (
-    <StyledTaskCard
+    <TaskCardWrapper
       onClick={handleOpen}
       className={cn('card', className, { completed: isCompleted, expired: isTaskExpired && !isCompleted })}
     >
       <div className="state-bar" />
-      <StyledTaskCardInfo className="task-info">
+      <TaskCardInfo className="task-info">
         <div className="check-box">
           <Button onClick={handleComplete}>{isCompleted && <Icon type="check" />}</Button>
         </div>
@@ -65,8 +53,8 @@ const TaskCard = ({ taskData, actions, className }) => {
         <div className="delete-content">
           <IconButton onClick={handleDelete} iconType="delete" />
         </div>
-      </StyledTaskCardInfo>
-    </StyledTaskCard>
+      </TaskCardInfo>
+    </TaskCardWrapper>
   );
 };
 

@@ -1,7 +1,6 @@
 export * from './AditionalFilters';
 export * from './Alert';
 export * from './BaseForm';
-export * from './Body';
 export * from './Button';
 export * from './CardsList';
 export * from './Counter';
@@ -10,8 +9,6 @@ export * from './Field';
 export * from './IconButton';
 export * from './Icon';
 export * from './InputMessage';
-export * from './Header';
-export * from './MainWrapper';
 export * from './Modal';
 export * from './ProgressBar';
 export * from './ProtectedRoute';

@@ -1,11 +1,13 @@
-import { random } from 'lodash';
-import { getHashId, findIndex, createSlug } from 'utils';
+import { v4 as uuidv4 } from 'uuid';
+import { findIndex, createSlug } from 'utils';
+import { calculateCompleted, calculateTotal } from './utils.reducer';
 
 export const actionTypesCategories = {
   createCategory: 'CREATE_CATEGORY',
   editCategory: 'EDIT_CATEGORY',
   highlightCategory: 'HIGHLIGHT_CATEGORY',
   deleteCategory: 'DELETE_CATEGORY',
+  deleteCompleted: 'DELETE_COMPLETED',
 };
 
 export const reducerOptionsCategories = (state, payload) => ({
@@ -13,7 +15,6 @@ export const reducerOptionsCategories = (state, payload) => ({
     const { categoryInfo } = payload;
     const newData = [...state];
     const newCategory = {
-      slug: `${createSlug(categoryInfo.name)}`,
       name: categoryInfo.name,
       description: categoryInfo.description,
       tasks: [],
@@ -21,8 +22,8 @@ export const reducerOptionsCategories = (state, payload) => ({
       totalTasks: 0,
       completedTasks: 0,
     };
-    newCategory.id = `${random(100)}${getHashId(JSON.stringify(newCategory))}`;
-    newCategory.slug = `${newCategory.id}--${newCategory.slug}`;
+    newCategory.id = uuidv4().substr(0, 8); // ${getHashId(JSON.stringify(newCategory))}
+    newCategory.slug = `${newCategory.id}--${createSlug(categoryInfo.name)}`;
 
     newData.push(newCategory);
 
@@ -51,8 +52,19 @@ export const reducerOptionsCategories = (state, payload) => ({
     let categorySelected = newData[findIndex(state, categoryId, 'id')];
 
     categorySelected.name = newCategoryInfo.name;
-    categorySelected.slug = createSlug(newCategoryInfo.name);
+    categorySelected.slug = `${categorySelected.id}--${createSlug(newCategoryInfo.name)}`;
     categorySelected.description = newCategoryInfo.description;
+
+    return newData;
+  },
+  [actionTypesCategories.deleteCompleted]: () => {
+    const { categoryId } = payload;
+    const newData = [...state];
+    let categorySelected = newData[findIndex(state, categoryId, 'id')];
+
+    categorySelected.tasks = categorySelected.tasks.filter(task => task.isCompleted !== true);
+    categorySelected.totalTasks = calculateTotal(categorySelected.tasks);
+    categorySelected.completedTasks = calculateCompleted(categorySelected.tasks);
 
     return newData;
   },

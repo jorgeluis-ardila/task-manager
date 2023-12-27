@@ -1,6 +1,5 @@
 import { createContext, useContext, useState } from 'react';
 import { Modal } from 'core';
-import { useData } from '../Data';
 
 const ModalContext = createContext();
 
@@ -10,7 +9,6 @@ const INITIALSTATE = {
 };
 
 export const ModalProvider = ({ children }) => {
-  const { taskActions } = useData();
   const [isModalOpen, setIsModalOpen] = useState(INITIALSTATE.isModalOpen);
   const [modalContent, setModalContent] = useState(INITIALSTATE.modalContent);
 
@@ -20,7 +18,6 @@ export const ModalProvider = ({ children }) => {
   };
   const onCloseModal = () => {
     setIsModalOpen(false);
-    taskActions.open();
     setTimeout(() => {
       setModalContent(INITIALSTATE.modalContent);
     }, 500);

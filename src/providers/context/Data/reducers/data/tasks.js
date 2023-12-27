@@ -1,5 +1,6 @@
-import { random } from 'lodash';
-import { getHashId, findIndex, createSlug } from 'utils';
+import { v4 as uuidv4 } from 'uuid';
+import { findIndex, createSlug } from 'utils';
+import { calculateCompleted, calculateTotal } from './utils.reducer';
 
 export const actionTypesTasks = {
   createTask: 'CREATE_TASK',
@@ -8,31 +9,25 @@ export const actionTypesTasks = {
   deleteTask: 'DELETE_TASK',
 };
 
-const reducerUtils = {
-  calculateCompleted: tasks => tasks.filter(task => task?.isCompleted).length,
-  calculateTotal: tasks => tasks.length,
-};
-
 export const reducerOptionsTasks = (state, payload) => ({
   [actionTypesTasks.createTask]: () => {
     const newData = [...state];
     const { taskInfo } = payload;
     const categorySelected = newData[findIndex(state, taskInfo.category, 'id')];
     const newTask = {
-      slug: createSlug(taskInfo.name),
       name: taskInfo.name,
       description: taskInfo.description,
       isCompleted: false,
       dueDate: taskInfo.dueDate,
-      category: { name: categorySelected.name, id: taskInfo.category },
+      category: { name: categorySelected.name, id: taskInfo.category, slug: categorySelected.slug },
     };
-    newTask.id = `${random(100)}${getHashId(JSON.stringify(newTask))}`;
-    newTask.slug = `${newTask.id}--${newTask.slug}`;
+    newTask.id = uuidv4().substr(0, 8); // ${getHashId(JSON.stringify(newTask))}
+    newTask.slug = `${newTask.id}--${createSlug(taskInfo.name)}`;
 
     categorySelected.tasks.push(newTask);
 
-    categorySelected.totalTasks = reducerUtils.calculateTotal(categorySelected.tasks);
-    categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
+    categorySelected.totalTasks = calculateTotal(categorySelected.tasks);
+    categorySelected.completedTasks = calculateCompleted(categorySelected.tasks);
 
     return newData;
   },
@@ -43,7 +38,7 @@ export const reducerOptionsTasks = (state, payload) => ({
     const taskSelected = categorySelected.tasks[findIndex(categorySelected.tasks, taskId, 'id')];
 
     taskSelected.isCompleted = !taskSelected.isCompleted;
-    categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
+    categorySelected.completedTasks = calculateCompleted(categorySelected.tasks);
 
     return newData;
   },
@@ -53,8 +48,8 @@ export const reducerOptionsTasks = (state, payload) => ({
     const categorySelected = newData[findIndex(state, currentCategoryId, 'id')];
 
     categorySelected.tasks.splice(findIndex(categorySelected.tasks, taskId, 'id'), 1);
-    categorySelected.totalTasks = reducerUtils.calculateTotal(categorySelected.tasks);
-    categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
+    categorySelected.totalTasks = calculateTotal(categorySelected.tasks);
+    categorySelected.completedTasks = calculateCompleted(categorySelected.tasks);
 
     return newData;
   },
@@ -66,19 +61,19 @@ export const reducerOptionsTasks = (state, payload) => ({
     const taskSelected = currentCategory.tasks[findIndex(currentCategory.tasks, taskId, 'id')];
 
     taskSelected.name = newTaskInfo.name;
-    taskSelected.slug = createSlug(newTaskInfo.name);
+    taskSelected.slug = `${taskSelected.id}--${createSlug(newTaskInfo.name)}`;
     taskSelected.description = newTaskInfo.description;
     taskSelected.dueDate = newTaskInfo.dueDate;
-    taskSelected.category = { name: categorySelected.name, id: newTaskInfo.category };
+    taskSelected.category = { name: categorySelected.name, id: newTaskInfo.category, slug: categorySelected.slug };
 
     if (newTaskInfo.category !== currentCategoryId) {
       categorySelected.tasks.push(taskSelected);
-      categorySelected.totalTasks = reducerUtils.calculateTotal(categorySelected.tasks);
-      categorySelected.completedTasks = reducerUtils.calculateCompleted(categorySelected.tasks);
+      categorySelected.totalTasks = calculateTotal(categorySelected.tasks);
+      categorySelected.completedTasks = calculateCompleted(categorySelected.tasks);
 
       currentCategory.tasks.splice(findIndex(currentCategory.tasks, taskId, 'id'), 1);
-      currentCategory.totalTasks = reducerUtils.calculateTotal(currentCategory.tasks);
-      currentCategory.completedTasks = reducerUtils.calculateCompleted(currentCategory.tasks);
+      currentCategory.totalTasks = calculateTotal(currentCategory.tasks);
+      currentCategory.completedTasks = calculateCompleted(currentCategory.tasks);
     }
 
     return newData;

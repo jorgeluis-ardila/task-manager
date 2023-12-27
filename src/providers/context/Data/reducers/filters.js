@@ -33,42 +33,6 @@ const reducerOptionsFilters = (state, payload) => ({
 
     return newFilters;
   },
-  /* [actionNamesFilters.asc]: () => {
-    const newFilters = { ...state };
-    newFilters.sort[actionNamesFilters.asc] = true;
-    newFilters.sort[actionNamesFilters.dec] = false;
-    newFilters.sortDate[actionNamesFilters.dateAsc] = false;
-    newFilters.sortDate[actionNamesFilters.dateDec] = false;
-
-    return newFilters;
-  },
-  [actionNamesFilters.dec]: () => {
-    const newFilters = { ...state };
-    newFilters.sort[actionNamesFilters.asc] = false;
-    newFilters.sort[actionNamesFilters.dec] = true;
-    newFilters.sortDate[actionNamesFilters.dateAsc] = false;
-    newFilters.sortDate[actionNamesFilters.dateDec] = false;
-
-    return newFilters;
-  },
-  [actionNamesFilters.dateAsc]: () => {
-    const newFilters = { ...state };
-    newFilters.sort[actionNamesFilters.asc] = false;
-    newFilters.sort[actionNamesFilters.dec] = false;
-    newFilters.sortDate[actionNamesFilters.dateAsc] = true;
-    newFilters.sortDate[actionNamesFilters.dateDec] = false;
-
-    return newFilters;
-  },
-  [actionNamesFilters.dateDec]: () => {
-    const newFilters = { ...state };
-    newFilters.sort[actionNamesFilters.asc] = false;
-    newFilters.sort[actionNamesFilters.dec] = false;
-    newFilters.sortDate[actionNamesFilters.dateAsc] = false;
-    newFilters.sortDate[actionNamesFilters.dateDec] = true;
-
-    return newFilters;
-  }, */
   [actionNamesFilters.favorite]: () => {
     const newFilters = { ...state };
     const { value } = payload;

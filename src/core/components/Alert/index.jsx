@@ -2,8 +2,9 @@ import PropTypes from 'prop-types';
 import { useModal } from 'providers/context';
 import { Button, IconButton } from 'core';
 import { AletWrapper, ButtonsWrapper } from './style';
+import { MODAL_TEXT } from './constants';
 
-const Alert = ({ title, text, onAccept, onCancel }) => {
+const Alert = ({ title, textType, onAccept, onCancel }) => {
   const { modalActions } = useModal();
 
   const handleAccept = () => {
@@ -19,7 +20,7 @@ const Alert = ({ title, text, onAccept, onCancel }) => {
     }
   };
 
-  const Text = text();
+  const Text = MODAL_TEXT[textType]();
 
   return (
     <AletWrapper>
@@ -38,7 +39,7 @@ const Alert = ({ title, text, onAccept, onCancel }) => {
 
 Alert.propTypes = {
   title: PropTypes.string,
-  text: PropTypes.func,
+  textType: PropTypes.string,
   onAccept: PropTypes.func,
   onCancel: PropTypes.func,
 };

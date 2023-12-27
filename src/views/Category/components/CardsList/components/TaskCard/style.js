@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const StyledTaskCard = styled('div')(
+export const TaskCardWrapper = styled('div')(
   ({ theme }) => css`
     display: flex;
     align-items: stretch;
@@ -58,7 +58,7 @@ export const StyledTaskCard = styled('div')(
   `
 );
 
-export const StyledTaskCardInfo = styled('div')(
+export const TaskCardInfo = styled('div')(
   ({ theme }) => css`
     flex-grow: 1;
     display: flex;

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import { useModal } from 'providers/context';
 import { getPercentage } from 'utils';
 import { AditionalFilters, Counter, IconButton, ProgressBar } from 'core';
-import { EditForm } from './components';
+import { EditForm } from '../EditForm';
 import { HeaderWrapper } from './style';
 
 const TitleBar = ({ title, completedTasks, totalTasks }) => {
@@ -24,7 +24,7 @@ const TitleBar = ({ title, completedTasks, totalTasks }) => {
   return (
     <>
       <HeaderWrapper>
-        <h2 title="Tus Tableros">{title}</h2>
+        <h2 title={title}>{title}</h2>
         <div className="options-container">
           <div className="counter-wrapper">
             <p>TAREAS</p> <Counter isCategory total={totalTasks} current={completedTasks} />

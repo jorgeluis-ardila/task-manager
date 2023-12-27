@@ -1,42 +1,24 @@
-import { Routes, Route } from 'react-router-dom';
-import { ProtectedRoute } from 'core';
+import { Routes, Route, Outlet } from 'react-router-dom';
+import { LoggedLayout, ProtectedRoute } from 'core';
 import { Category, EditTask, Home, Login, NotFound, Task } from 'views';
 
 const AppRoutes = () => {
   return (
     <Routes>
       <Route
-        path="/"
         element={
           <ProtectedRoute>
-            <Home />
+            <LoggedLayout>
+              <Outlet />
+            </LoggedLayout>
           </ProtectedRoute>
         }
-      />
-      <Route
-        path="/:categorySlug"
-        element={
-          <ProtectedRoute>
-            <Category />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/:categorySlug/:taskSlug"
-        element={
-          <ProtectedRoute>
-            <Task />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/:categorySlug/:taskSlug/edit-task"
-        element={
-          <ProtectedRoute>
-            <EditTask />
-          </ProtectedRoute>
-        }
-      />
+      >
+        <Route path="/" element={<Home />} />
+        <Route path="/c/:categorySlug" element={<Category />} />
+        <Route path="/c/:categorySlug/t/:taskSlug" element={<Task />} />
+        <Route path="/c/:categorySlug/t/:taskSlug/edit" element={<EditTask />} />
+      </Route>
       {/* <Route
       path="/profile"
       element={
@@ -46,7 +28,7 @@ const AppRoutes = () => {
       }
     /> */}
       <Route path="/login" element={<Login />} />
-      {/* <Route path="*" element={<NotFound />} /> */}
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 };

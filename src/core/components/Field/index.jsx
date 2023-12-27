@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { useField } from 'formik';
+import { useField, useFormikContext } from 'formik';
 import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { Icon, InputMessage } from 'core/components';
@@ -21,10 +21,11 @@ const Field = ({
   options,
   className,
 }) => {
+  const { validateOnMount } = useFormikContext();
   const [field, meta, helpers] = useField({ name });
   const [isFocused, setIsFocused] = useState(false);
   const wrapperRef = useRef(null);
-  const showFeedback = (!!isFocused && field.value.trim().length > 2) || meta.touched;
+  const showFeedback = (validateOnMount && meta.error) || (isFocused && field.value.trim().length > 0) || meta.touched;
 
   const handleFocus = e => {
     setIsFocused(true);

@@ -26,8 +26,8 @@ export const useCreateForm = () => {
       },
       validationSchema: () =>
         object({
-          name: string().min(5, 'Minimo 5 caracteres').max(30, 'Maximo 30 caracteres').required('Requerido'),
-          description: string().max(80, 'Maximo 80 caracteres'),
+          name: string().min(3, 'Minimo 3 caracteres').max(30, 'Maximo 30 caracteres').required('Requerido'),
+          description: string().max(150, 'Maximo 150 caracteres'),
           dueDate: date().min(todayString, 'La fecha ya paso').required('Requerido'),
           category: string()
             .oneOf([...categoriesValues.categories], 'Categoría Invalida')
@@ -38,15 +38,15 @@ export const useCreateForm = () => {
         handleSubmit(values, setSubmitting, resetForm, taskActions.add),
     },
     category: {
-      title: 'Crea tú categoría',
+      title: 'Crea tú tablero',
       initialValues: {
         name: '',
         description: '',
       },
       validationSchema: () =>
         object({
-          name: string().min(5, 'Minimo 5 caracteres').max(30, 'Maximo 30 caracteres').required('Requerido'),
-          description: string().max(80, 'Maximo 80 caracteres'),
+          name: string().min(3, 'Minimo 3 caracteres').max(30, 'Maximo 30 caracteres').required('Requerido'),
+          description: string().max(150, 'Maximo 150 caracteres'),
         }),
       fields: () => <CreateForm.CategoryFields />,
       onSubmit: (values, { setSubmitting, resetForm }) =>

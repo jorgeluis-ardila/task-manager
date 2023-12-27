@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const StyledButtonsWrapper = styled('div')(
+export const ButtonsWrapper = styled('div')(
   ({ theme }) => css`
     align-self: flex-end;
     position: absolute;
@@ -13,50 +13,10 @@ export const StyledButtonsWrapper = styled('div')(
     align-items: flex-end;
     gap: 10px;
 
-    .inner-buttons-wrapper {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 10px;
-      position: relative;
-      transform: translateY(20%);
-      opacity: 0;
+    button {
       transition: all 0.3s;
-      &.buttons-wrapper {
-        &-enter {
-        }
-
-        &-enter-active {
-          opacity: 1;
-          transform: translateY(0%);
-        }
-        &-enter-done {
-        }
-        &-enter-done,
-        &-exit {
-          opacity: 1;
-          transform: translateY(0%);
-        }
-        &-exit {
-        }
-
-        &-exit-active {
-          opacity: 0;
-          transform: translateY(20%);
-        }
-      }
-    }
-
-    .toggle-button {
-      width: 50px;
-      height: 50px;
-      .icon {
-        width: 100%;
-      }
-      &.delete {
-        .icon {
-          width: 80%;
-        }
+      &.animated {
+        animation: slidein 0.5s ease 1;
       }
     }
 
@@ -65,11 +25,14 @@ export const StyledButtonsWrapper = styled('div')(
       padding: 12px 15px;
     }
 
-    .toggle-button,
-    .create-button {
-      transition: all 0.3s;
-      &.animated {
-        animation: slidein 0.5s ease 1;
+    .delete-completed {
+      width: 133px;
+      border: 1px solid ${theme.colors.red.main};
+      color: ${theme.colors.red[40]};
+      font-weight: 600;
+      &:hover {
+        background: ${theme.colors.red.main};
+        color: ${theme.colors.neutral.light};
       }
     }
 
