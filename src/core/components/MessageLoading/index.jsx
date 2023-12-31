@@ -11,8 +11,10 @@ const StatusMessage = ({ type }) => {
       <figure className="image-wrapper">
         <img src={message.image} alt={message.highlihgt} />
       </figure>
-      <p className="message-hightlith">{message.highlihgt}</p>
-      <p className="message-description">{message.description}</p>
+      <div className="message-wrapper">
+        <p className="message-hightligth">{message.highlihgt}</p>
+        <p className="message-description">{message.description}</p>
+      </div>
     </MessageWrapper>
   );
 };
