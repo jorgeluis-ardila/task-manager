@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const TaskCardWrapper = styled('div')(
+export const TaskCardWrapper = styled('li')(
   ({ theme }) => css`
     display: flex;
     align-items: stretch;
@@ -50,6 +50,13 @@ export const TaskCardWrapper = styled('div')(
         }
       }
     }
+    &.half-width {
+      flex-direction: column;
+      .state-bar {
+        min-width: 100%;
+        height: 8px;
+      }
+    }
     .state-bar {
       background: ${theme.colors.yellow.main};
       min-width: 8px;
@@ -67,33 +74,50 @@ export const TaskCardInfo = styled('div')(
     gap: 8px;
     padding: 7.5px 10px;
     background: ${theme.colors.neutral[0]};
-    .check-box {
-      button {
-        position: relative;
-        width: 30px;
-        height: 30px;
+    &.half-width {
+      flex-direction: column;
+      .task-data {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        &__name {
+          overflow: inherit;
+          white-space: break-spaces;
+        }
+      }
+      .actions-content {
+        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: center;
+        justify-content: space-between;
+      }
+    }
+    .check-box-button {
+      position: relative;
+      width: 30px;
+      height: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 100%;
+      background: ${theme.colors.blue[10]};
+      &::before {
+        content: '';
+        display: block;
+        width: 83%;
+        height: 83%;
         border-radius: 100%;
-        background: ${theme.colors.blue[10]};
-        &::before {
-          content: '';
-          display: block;
-          width: 83%;
-          height: 83%;
-          border-radius: 100%;
-          background: ${theme.colors.blue[20]};
-          opacity: 0.5;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-        }
-        .icon {
-          z-index: 1;
-          color: ${theme.colors.green[70]};
-        }
+        background: ${theme.colors.blue[20]};
+        opacity: 0.5;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .icon {
+        z-index: 1;
+        color: ${theme.colors.green[70]};
       }
     }
     .task-data {
@@ -126,13 +150,11 @@ export const TaskCardInfo = styled('div')(
         }
       }
     }
-    .delete-content {
-      .icon-button {
-        border-radius: 100px;
-        color: ${theme.colors.red.main};
-        .icon {
-          width: 18px;
-        }
+    .delete-button {
+      border-radius: 100px;
+      color: ${theme.colors.red.main};
+      .icon {
+        width: 18px;
       }
     }
   `

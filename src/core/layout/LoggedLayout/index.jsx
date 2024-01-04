@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { ProtectedRoute } from 'core';
-import { Body, Header, MainWrapper } from './components';
+import { Body, Header, MainWrapper } from '..';
 import { Outlet } from 'react-router-dom';
 
 const LoggedLayout = ({ children }) => {

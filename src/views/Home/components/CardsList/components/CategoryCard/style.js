@@ -8,8 +8,16 @@ export const CategoryCardWrapper = styled('li')(
     overflow: hidden;
     box-shadow: ${theme.shadows.green.dark};
     cursor: pointer;
+    display: flex;
+    flex-direction: column;
     * {
       transition: all 0.3s ease 0s;
+    }
+    &.half-width {
+      .name-container {
+        flex-grow: 1;
+        min-height: 115px;
+      }
     }
   `
 );

@@ -5,7 +5,7 @@ import { Button, Icon /* , IconButton */ } from 'core';
 import AnonimousUser from 'assets/images/userAnonimus.png';
 import { GreetingContainer, UserInfo } from './style';
 
-const Greeting = ({ userData, onGoBack, onOpenProfile, isHome }) => {
+const Greeting = ({ userData, onGoBack, onOpenProfile, showBack }) => {
   const userName = userData?.displayName?.split(' ')[0] ?? '';
 
   // TODO COMMENTED UNTIL FEATURE WILL BE REQUIRED
@@ -16,7 +16,7 @@ const Greeting = ({ userData, onGoBack, onOpenProfile, isHome }) => {
   return (
     <GreetingContainer>
       <UserInfo className="user-info">
-        {!isHome && (
+        {showBack && (
           <Button className="back-button" onClick={onGoBack}>
             <Icon type="back" />
           </Button>
@@ -36,7 +36,7 @@ Greeting.propTypes = {
   userData: PropTypes.object,
   onOpenProfile: PropTypes.func,
   onGoBack: PropTypes.func,
-  isHome: PropTypes.bool,
+  showBack: PropTypes.bool,
 };
 
 export { Greeting };

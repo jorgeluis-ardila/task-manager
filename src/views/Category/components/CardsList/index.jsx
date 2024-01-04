@@ -3,13 +3,15 @@ import PropTypes from 'prop-types';
 import { useModal } from 'providers/context';
 import { CardList } from 'core';
 import { TaskCard } from './components';
-import { actionNamesFilters } from 'providers/context/Data/constants';
 
-const CardsList = ({ data, actions, layout }) => {
+const CardsList = ({ data, actions, layout, titleHeight }) => {
   const { modalActions } = useModal();
 
   return (
-    <CardList className="items-list">
+    <CardList
+      className={cn('items-list', { 'square-view': layout })}
+      style={{ height: `calc(100% - ${titleHeight + 39}px)` }}
+    >
       {data.map(item => (
         <TaskCard
           key={item.id}
@@ -18,7 +20,7 @@ const CardsList = ({ data, actions, layout }) => {
             taskActions: actions,
             modalActions,
           }}
-          className={cn({ 'half-width': layout[actionNamesFilters.layoutSquare] })}
+          isSquareView={layout}
         />
       ))}
     </CardList>
@@ -29,6 +31,7 @@ CardsList.propTypes = {
   data: PropTypes.array,
   actions: PropTypes.object,
   layout: PropTypes.bool,
+  titleHeight: PropTypes.number,
 };
 
 export { CardsList };

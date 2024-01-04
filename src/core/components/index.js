@@ -1,5 +1,6 @@
 export * from './AditionalFilters';
 export * from './Alert';
+export * from './AppLogo';
 export * from './BaseForm';
 export * from './Button';
 export * from './CardsList';
@@ -13,4 +14,5 @@ export * from './InputMessage';
 export * from './Modal';
 export * from './ProgressBar';
 export * from './ProtectedRoute';
+export * from './StatusMessage';
 export * from './TransitionWrapper';

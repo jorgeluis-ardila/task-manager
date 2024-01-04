@@ -58,8 +58,8 @@ const DataProvider = ({ children }) => {
       });
 
       newData?.sort((a, b) => {
-        if (currentCategory) {
-          const sortTaskActiveFilter = getKeyWithTrueValue(sortDate);
+        const sortTaskActiveFilter = getKeyWithTrueValue(sortDate);
+        if (currentCategory && sortTaskActiveFilter) {
           return FILTERS_FN?.[sortTaskActiveFilter]?.(a, b);
         }
         const sortActiveFilter = getKeyWithTrueValue(sort);

@@ -14,7 +14,6 @@ export const useCreateForm = () => {
     resetForm({});
     modalActions.close();
   };
-
   const props = {
     task: {
       title: 'Crea tú tarea',

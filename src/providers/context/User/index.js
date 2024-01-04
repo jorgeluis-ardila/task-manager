@@ -16,7 +16,7 @@ const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const auth = getAuth();
-  const [isLogged /* setIsLogged */] = useState(true);
+  const [isLogged /* setIsLogged */] = useState(false);
   const [userData, setUserData] = useState(INITIAL_USER_DATA);
 
   useEffect(() => {

@@ -4,8 +4,9 @@ import { getPercentage } from 'utils';
 import { AditionalFilters, Counter, IconButton, ProgressBar } from 'core';
 import { Overview } from '../Overview';
 import { HeaderWrapper } from './style';
+import { forwardRef } from 'react';
 
-const TitleBar = ({ title, completedTasks, totalTasks }) => {
+const TitleBar = forwardRef(({ title, completedTasks, totalTasks }, ref) => {
   const { modalActions } = useModal();
 
   const currentCategorypercentage = getPercentage({
@@ -22,23 +23,21 @@ const TitleBar = ({ title, completedTasks, totalTasks }) => {
   };
 
   return (
-    <>
-      <HeaderWrapper>
-        <h2 title={title}>{title}</h2>
-        <div className="options-container">
-          <div className="counter-wrapper">
-            <p>TAREAS</p> <Counter isCategory total={totalTasks} current={completedTasks} />
-          </div>
-          <div className="button-wrapper">
-            <IconButton iconType="details" className="edit-button" onClick={handleEditCategory} />
-            <IconButton variant="filter" iconType="filters" className="sort-button" onClick={handleOpenFilters} />
-          </div>
+    <HeaderWrapper ref={ref}>
+      <h2 title={title}>{title}</h2>
+      <div className="options-container">
+        <div className="counter-wrapper">
+          <p>TAREAS</p> <Counter isCategory total={totalTasks} current={completedTasks} />
         </div>
-        <ProgressBar percentage={currentCategorypercentage} />
-      </HeaderWrapper>
-    </>
+        <div className="button-wrapper">
+          <IconButton iconType="details" className="edit-button" onClick={handleEditCategory} />
+          <IconButton variant="filter" iconType="filters" className="sort-button" onClick={handleOpenFilters} />
+        </div>
+      </div>
+      <ProgressBar percentage={currentCategorypercentage} />
+    </HeaderWrapper>
   );
-};
+});
 
 TitleBar.propTypes = {
   title: PropTypes.string,

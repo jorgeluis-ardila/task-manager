@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-const MainWrapper = styled('main')(
+const MainWrapperStyled = styled('main')(
   ({ theme }) => css`
     box-sizing: border-box;
     display: flex;
@@ -15,10 +15,16 @@ const MainWrapper = styled('main')(
       theme.colors.green[10],
       0.6
     )} 100%), ${theme.colors.neutral[0]}`};
-    @media screen and (max-width: 768px) {
+    &.login {
+      padding-top: 30px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 30px;
+    }
+    @media screen and (min-width: 768px) {
       max-width: 500px;
     }
   `
 );
 
-export default MainWrapper;
+export default MainWrapperStyled;

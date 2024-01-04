@@ -1,12 +1,24 @@
+import { useNavigate } from 'react-router-dom';
+import { Body, Button, Header, MainWrapper, StatusMessage } from 'core';
 import { ErrorPageWrapper } from './style';
 
 const NotFound = () => {
-  console.log('NOT FOUND');
+  const navigate = useNavigate();
+
+  const handleBackToHome = () => navigate('/');
+
   return (
-    <ErrorPageWrapper>
-      <h1>Error 404</h1>
-      <p>pagina no encontrada</p>
-    </ErrorPageWrapper>
+    <MainWrapper>
+      <Header isNotFound />
+      <Body>
+        <ErrorPageWrapper>
+          <StatusMessage type="notFound" />
+          <Button variant="filled" onClick={handleBackToHome}>
+            Volver al inicio
+          </Button>
+        </ErrorPageWrapper>
+      </Body>
+    </MainWrapper>
   );
 };
 export { NotFound };

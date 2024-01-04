@@ -5,15 +5,16 @@ import { MessageWrapper } from './style';
 
 const StatusMessage = ({ type }) => {
   const message = messageList[type];
+  const Image = message.image;
 
   return (
     <MessageWrapper>
-      <figure className="image-wrapper">
-        <img src={message.image} alt={message.highlihgt} />
-      </figure>
       <div className="message-wrapper">
         <p className="message-hightligth">{message.highlihgt}</p>
         <p className="message-description">{message.description}</p>
+      </div>
+      <div className="image-wrapper">
+        <Image />
       </div>
     </MessageWrapper>
   );

@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { css } from '@emotion/react';
-import iconNames from './iconsList';
 
 const IconStyled = type =>
   type
-    ? styled(iconNames[type])(
+    ? styled(type)(
         ({ theme }) => css`
           display: block;
           height: auto;

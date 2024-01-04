@@ -6,6 +6,10 @@ export const BodyWrapper = styled('section')(
     padding: 0 5px 5px;
     flex-grow: 1;
     height: calc(100% - 172px);
+    &.login {
+      width: 100%;
+      flex-grow: 1;
+    }
     .inner-body {
       display: flex;
       flex-direction: column;
@@ -16,6 +20,10 @@ export const BodyWrapper = styled('section')(
       box-shadow: ${theme.shadows.green.dark};
       background: ${theme.colors.neutral[0]};
       position: relative;
+      overflow: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   `
 );

@@ -5,7 +5,7 @@ import { isExpired } from 'utils';
 import { Alert, Button, Icon, IconButton } from 'core';
 import { TaskCardWrapper, TaskCardInfo } from './style';
 
-const TaskCard = ({ taskData, actions, className }) => {
+const TaskCard = ({ taskData, actions, className, isSquareView }) => {
   const navigate = useNavigate();
   const { isCompleted, name, id, dueDate, category, slug } = taskData;
   const isTaskExpired = isExpired(dueDate);
@@ -29,13 +29,21 @@ const TaskCard = ({ taskData, actions, className }) => {
   return (
     <TaskCardWrapper
       onClick={handleOpen}
-      className={cn('card', className, { completed: isCompleted, expired: isTaskExpired && !isCompleted })}
+      className={cn('card', className, {
+        completed: isCompleted,
+        expired: isTaskExpired && !isCompleted,
+        'half-width': isSquareView,
+      })}
     >
       <div className="state-bar" />
-      <TaskCardInfo className="task-info">
-        <div className="check-box">
-          <Button onClick={handleComplete}>{isCompleted && <Icon type="check" />}</Button>
-        </div>
+      <TaskCardInfo className={cn('task-info', { 'half-width': isSquareView })}>
+        {!isSquareView && (
+          <div className="check-box">
+            <Button className="check-box-button" onClick={handleComplete}>
+              {isCompleted && <Icon type="check" />}
+            </Button>
+          </div>
+        )}
         <div className="task-data">
           <p className="task-data__name" title={name}>
             {name}
@@ -50,9 +58,19 @@ const TaskCard = ({ taskData, actions, className }) => {
             </span>
           </div>
         </div>
-        <div className="delete-content">
-          <IconButton onClick={handleDelete} iconType="delete" />
-        </div>
+        {!isSquareView && (
+          <div className="delete-content">
+            <IconButton className="delete-button" onClick={handleDelete} iconType="delete" />
+          </div>
+        )}
+        {isSquareView && (
+          <div className="actions-content">
+            <Button className="check-box-button" onClick={handleComplete}>
+              {isCompleted && <Icon type="check" />}
+            </Button>
+            <IconButton className="delete-button" onClick={handleDelete} iconType="delete" />
+          </div>
+        )}
       </TaskCardInfo>
     </TaskCardWrapper>
   );
@@ -62,6 +80,7 @@ TaskCard.propTypes = {
   taskData: PropTypes.object,
   actions: PropTypes.object,
   className: PropTypes.string,
+  isSquareView: PropTypes.bool,
 };
 
 export { TaskCard };
