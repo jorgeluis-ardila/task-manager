@@ -10,79 +10,88 @@ import {
   onAuthStateChanged,
   signOut,
 } from 'firebase/auth';
+import { useGlobalStore } from '../Global';
 import { INITIAL_USER_DATA } from './constants';
 
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
   const auth = getAuth();
-  const [isLogged /* setIsLogged */] = useState(false);
+  const { onChangeLoading } = useGlobalStore();
+  const [isLogged, setIsLogged] = useState(false);
   const [userData, setUserData] = useState(INITIAL_USER_DATA);
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
       if (user?.emailVerified) {
-        // console.log('LOGGED');
-        // setIsLogged(true);
+        setIsLogged(true);
         setUserData({
           displayName: user.displayName,
           email: user.email,
           photoURL: user.photoURL,
-          emailVerified: user.emailVerified,
         });
       } else {
-        // console.log('UNLOGGED');
-        // setIsLogged(false);
+        setIsLogged(false);
         setUserData(INITIAL_USER_DATA);
       }
+      setTimeout(() => {
+        onChangeLoading(false);
+      }, 2000);
     });
-  }, [auth]);
+  }, [auth, onChangeLoading]);
+
+  const sendVerificationEmail = (user = auth.currentUser) => {
+    if (user) {
+      let actionCodeSettings = {
+        url: `http://localhost:3000/app/login`,
+      };
+      sendEmailVerification(user, actionCodeSettings)
+        .then(() => {
+          console.log('SE HA ENVIADO EL EMAIL DE VERIFICACION');
+          return { success: true };
+        })
+        .catch(error => {
+          const errorCode = error.code;
+          return { success: false, errorCode };
+        });
+    }
+  };
 
   const createAccountEmailPass = formData => {
-    createUserWithEmailAndPassword(auth, formData.email, formData.password)
+    return createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then(userCredential => {
         const user = userCredential.user;
         updateProfile(user, {
           displayName: formData.name,
         });
-
-        let actionCodeSettings = {
-          url: `http://localhost:3000/task-manager?email=${user.email}`,
-        };
-        sendEmailVerification(user, actionCodeSettings)
-          .then(() => {
-            console.log('SE HA ENVIADO EL EMAIL DE VERIFICACION');
-            logOut();
-          })
-          .catch(error => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.error('CATCH EMAIL', errorCode, errorMessage);
-          });
+        sendEmailVerification(user);
+        return { success: true, errorCode: 'auth/success-register' };
       })
       .catch(error => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('CATCH CREATE', errorCode, errorMessage);
+        return { success: false, errorCode };
       });
   };
 
   const authEmailPass = formData => {
-    signInWithEmailAndPassword(auth, formData.email, formData.password)
-      .then(userCredential => {
+    return signInWithEmailAndPassword(auth, formData.email, formData.password)
+      .then(async userCredential => {
         const user = userCredential.user;
         if (user.emailVerified) {
-          console.log('EL EMAIL ESTA VERIFICADO');
-          // checkLogin();
+          onChangeLoading(true);
+          setIsLogged(true);
+          setUserData({ displayName: user.displayName, email: user.email, photoURL: user.photoURL });
+          return { success: true };
         } else {
-          console.log('DEBES VERIFICAR TU EMAIL');
-          logOut();
+          return {
+            success: false,
+            errorCode: 'auth/email-not-verified',
+          };
         }
       })
       .catch(error => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('CATCH LOGIN', errorCode, errorMessage);
+        return { success: false, errorCode };
       });
   };
 
@@ -90,8 +99,8 @@ export const UserProvider = ({ children }) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(result => {
-        // const user = result.user;
-        // checkLogin();
+        const user = result.user;
+        console.log('GOOGLE LOGIN', user);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -104,7 +113,8 @@ export const UserProvider = ({ children }) => {
   const logOut = () => {
     signOut(auth)
       .then(() => {
-        // checkLogin();
+        onChangeLoading(true);
+        setIsLogged(false);
       })
       .catch(error => {
         const errorCode = error.code;
@@ -118,6 +128,7 @@ export const UserProvider = ({ children }) => {
       value={{
         isLogged,
         userData,
+        sendVerificationEmail,
         createAccountEmailPass,
         authEmailPass,
         authGoogle,

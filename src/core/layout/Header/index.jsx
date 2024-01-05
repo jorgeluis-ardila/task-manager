@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { Greeting, SearchBar } from './components';
-import { useData } from 'providers/context';
+import { useAuth, useData } from 'providers/context';
 import { HeaderWrapper } from './style';
 
 const Header = ({ isNotFound }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const params = useParams();
+  const { userData, logOut } = useAuth();
   const { searchTerm, onChangeSearchTerm, defineCurrentCategory, defineCurrentTask, currentTask } = useData();
 
   const showBack = isNotFound ? false : !!Object.keys(params).length;
@@ -32,7 +33,7 @@ const Header = ({ isNotFound }) => {
 
   return (
     <HeaderWrapper>
-      <Greeting userData={{}} onGoBack={handleGoBack} onOpenProfile={() => null} showBack={showBack} />
+      <Greeting userData={userData} onGoBack={handleGoBack} onOpenProfile={logOut} showBack={showBack} />
       {showSearch && <SearchBar searchValue={searchTerm} onChangeSearchValue={onChangeSearchTerm} />}
     </HeaderWrapper>
   );

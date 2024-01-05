@@ -7,7 +7,7 @@ import { ReactComponent as NotFoundIMG } from 'assets/images/not-found.svg';
 export const messageList = {
   loading: {
     image: props => <LoadingIMG {...props} />,
-    description: 'No desesperes estamo trayendo todo lo necesario.',
+    description: 'No desesperes estamos trayendo todo lo necesario.',
     highlihgt: 'Estamos Cargando',
   },
   error: {

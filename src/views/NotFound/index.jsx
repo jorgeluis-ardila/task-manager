@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
+import { useGlobalStore } from 'providers/context';
 import { Body, Button, Header, MainWrapper, StatusMessage } from 'core';
 import { ErrorPageWrapper } from './style';
 
 const NotFound = () => {
   const navigate = useNavigate();
+  const { error } = useGlobalStore();
 
   const handleBackToHome = () => navigate('/');
 
@@ -12,7 +14,7 @@ const NotFound = () => {
       <Header isNotFound />
       <Body>
         <ErrorPageWrapper>
-          <StatusMessage type="notFound" />
+          <StatusMessage type={error ? 'error' : 'notFound'} />
           <Button variant="filled" onClick={handleBackToHome}>
             Volver al inicio
           </Button>

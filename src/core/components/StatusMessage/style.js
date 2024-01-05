@@ -50,7 +50,7 @@ export const MessageWrapper = styled('div')(
         font-size: ${theme.typography.size(16)};
         font-weight: 400;
         color: ${theme.colors.neutral[50]};
-        letter-spacing: -0.64px;
+        letter-spacing: -0.5px;
       }
     }
   `

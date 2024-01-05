@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { messageList } from './constants';
 import { MessageWrapper } from './style';
 
-const StatusMessage = ({ type }) => {
+const StatusMessage = ({ type, className }) => {
   const message = messageList[type];
   const Image = message.image;
 
   return (
-    <MessageWrapper>
+    <MessageWrapper className={className}>
       <div className="message-wrapper">
         <p className="message-hightligth">{message.highlihgt}</p>
         <p className="message-description">{message.description}</p>
@@ -22,6 +22,7 @@ const StatusMessage = ({ type }) => {
 
 StatusMessage.propTypes = {
   type: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export { StatusMessage };
