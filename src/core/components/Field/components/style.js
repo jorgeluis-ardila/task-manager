@@ -28,6 +28,46 @@ export const FieldWrapper = styled('div', { shouldForwardProp: prop => prop !== 
           }
         }
       }
+      &.password {
+        display: flex;
+        align-items: center;
+        .showPass {
+          min-width: 20px;
+          min-height: 20px;
+          height: 20px;
+          .icon {
+            width: 13px;
+          }
+        }
+      }
+      &.file {
+        position: relative;
+        padding-bottom: 13px;
+        input {
+          display: none;
+        }
+        figure {
+          border-radius: 100%;
+          overflow: hidden;
+          img {
+            display: block;
+            width: 100%;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+          }
+        }
+        .icon-button {
+          position: absolute;
+          left: 50%;
+          bottom: 0;
+          transform: translateX(-50%);
+          background: ${theme.colors.yellow.main};
+          .icon {
+            width: 50%;
+            color: ${theme.colors.neutral.dark};
+          }
+        }
+      }
     }
     ${variant ? variants[variant]({ theme }) : ''}
   `

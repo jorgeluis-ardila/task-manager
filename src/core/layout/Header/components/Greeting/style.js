@@ -6,6 +6,13 @@ export const GreetingContainer = styled('div')(
     display: flex;
     align-items: center;
     justify-content: space-between;
+    .back-button {
+      width: 20px;
+      .icon {
+        width: 100%;
+        color: ${theme.colors.orange.main};
+      }
+    }
     .edit-profile {
       background: ${theme.colors.neutral[0]};
       color: ${theme.colors.orange.main};
@@ -22,16 +29,11 @@ export const UserInfo = styled('div')(
     display: flex;
     align-items: center;
     gap: 12px;
-    .back-button {
-      width: 20px;
-      .icon {
-        width: 100%;
-        color: ${theme.colors.orange.main};
-      }
-    }
     .image {
       width: 47px;
       height: 47px;
+      border-radius: 100%;
+      overflow: hidden;
     }
     .greet {
       font-family: ${theme.typography.family.hauora.extrabold};

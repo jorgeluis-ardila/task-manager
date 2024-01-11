@@ -6,7 +6,7 @@ const View = ({ currentCategory }) => {
   return (
     <FieldsWrapper>
       <p className="name-field">{currentCategory.name}</p>
-      <FieldValue label="Descripción" value={currentCategory.description} />
+      {currentCategory.description && <FieldValue label="Descripción" value={currentCategory.description} />}
     </FieldsWrapper>
   );
 };

@@ -1,4 +1,5 @@
 import { forwardRef } from 'react';
+import PropTypes from 'prop-types';
 import cn from 'classnames';
 import { StyledSelectMenu, StyledSelectMenuItem } from '../style';
 
@@ -18,5 +19,12 @@ const MenuSelect = forwardRef(({ options, styles, onClick, selectedValue }, ref)
     </StyledSelectMenu>
   );
 });
+
+MenuSelect.propTypes = {
+  options: PropTypes.array,
+  styles: PropTypes.object,
+  onClick: PropTypes.func,
+  selectedValue: PropTypes.string,
+};
 
 export { MenuSelect };

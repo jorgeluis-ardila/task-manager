@@ -1,18 +1,25 @@
 import { useNavigate } from 'react-router-dom';
-import { useGlobalStore } from 'providers/context';
-import { Body, Button, Header, MainWrapper, StatusMessage } from 'core';
-import { ErrorPageWrapper } from './style';
+import { useAuth, useGlobalStore } from 'providers/context';
+import { AppLogo, Body, Button, Header, MainWrapper, StatusMessage } from 'core';
+import { ErrorPageWrapper, LogoWrapper } from './style';
 
 const NotFound = () => {
   const navigate = useNavigate();
   const { error } = useGlobalStore();
+  const { isLogged } = useAuth();
 
   const handleBackToHome = () => navigate('/');
 
   return (
     <MainWrapper>
-      <Header isNotFound />
-      <Body>
+      {isLogged ? (
+        <Header isNotFound />
+      ) : (
+        <LogoWrapper>
+          <AppLogo />
+        </LogoWrapper>
+      )}
+      <Body className="unlogged-error">
         <ErrorPageWrapper>
           <StatusMessage type={error ? 'error' : 'notFound'} />
           <Button variant="filled" onClick={handleBackToHome}>

@@ -8,7 +8,17 @@ export const Default = ({ theme }) => css`
   color: ${theme.colors.neutral.dark};
 `;
 
-export const Placeholder = ({ theme }) => css``;
+export const Placeholder = ({ theme }) => css`
+  padding: 10px 10px;
+  border-radius: 8px;
+  border: 1px solid ${theme.colors.neutral[30]};
+  display: flex;
+  gap: 10px;
+  .icon {
+    min-width: 13px;
+    color: ${theme.colors.neutral[40]};
+  }
+`;
 
 export const Underlined = ({ theme }) => css`
   padding: 5px 0px;

@@ -10,6 +10,9 @@ export const PageWrapper = styled('div')(
     justify-content: center;
     height: 100%;
     padding: 30px;
+    .app-logo {
+      width: 160px;
+    }
   `
 );
 

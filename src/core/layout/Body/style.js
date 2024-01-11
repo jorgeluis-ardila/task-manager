@@ -5,10 +5,9 @@ export const BodyWrapper = styled('section')(
   ({ theme }) => css`
     padding: 0 5px 5px;
     flex-grow: 1;
-    height: calc(100% - 172px);
+    height: calc(100% - 237px);
     &.login {
-      width: 100%;
-      flex-grow: 1;
+      height: calc(100% - 320px);
     }
     .inner-body {
       display: flex;

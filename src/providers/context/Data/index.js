@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useMemo, useReducer, useCallback } from 'react';
+import { getDocs, getFirestore, collection } from 'firebase/firestore';
 import { findIndex, getKeyWithTrueValue } from 'utils';
 // import { useStateLocalStorage } from 'hooks';
 import { actionTypesData, reducerFnData, reducerFnFilters } from './reducers';
@@ -9,9 +10,9 @@ const DataContext = createContext();
 
 const DataProvider = ({ children }) => {
   const { pathname } = useLocation();
-  const matchCategoryRoute = useMemo(() => matchPath({ path: 'c/:categorySlug' }, pathname)?.params, [pathname]);
+  const matchCategoryRoute = useMemo(() => matchPath({ path: 'boards/:categorySlug' }, pathname)?.params, [pathname]);
   const matchTaskRoute = useMemo(
-    () => matchPath({ path: 'c/:categorySlug/t/:taskSlug' }, pathname)?.params,
+    () => matchPath({ path: 'boards/:categorySlug/t/:taskSlug' }, pathname)?.params,
     [pathname]
   );
 
@@ -30,6 +31,13 @@ const DataProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filtersState, dispatchFilters] = useReducer(reducerFnFilters, INITIAL_FILTERS);
   const { sort, categoryFilters, layout, taskFilters, sortDate } = filtersState;
+
+  const db = getFirestore();
+  const onGetBoards = async () => {
+    getDocs(collection(db, 'boards')).then(querySnapshot => {
+      console.log(querySnapshot.docs);
+    });
+  };
 
   const defineCurrentCategory = id => {
     const categoryIndex = findIndex(data, id, 'id');
@@ -178,6 +186,7 @@ const DataProvider = ({ children }) => {
         filtersActions,
         categoryActions,
         taskActions,
+        onGetBoards,
       }}
     >
       {children}

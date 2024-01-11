@@ -11,14 +11,16 @@ const Header = ({ isNotFound }) => {
   const { userData, logOut } = useAuth();
   const { searchTerm, onChangeSearchTerm, defineCurrentCategory, defineCurrentTask, currentTask } = useData();
 
-  const showBack = isNotFound ? false : !!Object.keys(params).length;
+  const showBack = isNotFound ? false : !!Object.keys(params).length || location.pathname === '/boards';
   const isEdit = location.pathname.split('/').pop() === 'edit';
+  const showSearch = isNotFound || location.pathname === '/' ? false : !params.taskSlug;
   const fromPath = isEdit
-    ? `/c/${params.categorySlug}/t/${params.taskSlug}`
+    ? `/boards/${params.categorySlug}/t/${params.taskSlug}`
     : params.taskSlug
-    ? `/c/${params.categorySlug}`
-    : `/`;
-  const showSearch = isNotFound ? false : !params.taskSlug;
+    ? `/boards/${params.categorySlug}`
+    : params.categorySlug
+    ? `/boards`
+    : '/';
 
   const handleGoBack = () => {
     if (!isEdit) {

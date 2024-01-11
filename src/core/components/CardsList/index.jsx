@@ -3,8 +3,8 @@ import { List, ListWrapper } from './style';
 
 const CardList = ({ children, className, style }) => {
   return (
-    <ListWrapper style={style}>
-      <List className={className}>{children}</List>
+    <ListWrapper style={style} className={className}>
+      <List>{children}</List>
     </ListWrapper>
   );
 };

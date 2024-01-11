@@ -9,8 +9,10 @@ import { ReactComponent as PasswordSVG } from 'assets/icons/password-icon.svg';
 import { ReactComponent as EditSVG } from 'assets/icons/edit-icon.svg';
 import { ReactComponent as CancelSVG } from 'assets/icons/cancel-icon.svg';
 import { ReactComponent as AddSVG } from 'assets/icons/add-icon.svg';
-import { ReactComponent as ArrowSVG } from 'assets/icons/arrow-icon.svg';
+import { ReactComponent as ArrowBottomSVG } from 'assets/icons/arrow-icon.svg';
+import { ReactComponent as ArrowRightSVG } from 'assets/icons/arrowRight-icon.svg';
 import { ReactComponent as BackSVG } from 'assets/icons/back-icon.svg';
+import { ReactComponent as FrontSVG } from 'assets/icons/front-icon.svg';
 import { ReactComponent as StarSVG } from 'assets/icons/star-icon.svg';
 import { ReactComponent as GoogleSVG } from 'assets/icons/google-icon.svg';
 import { ReactComponent as DetailsSVG } from 'assets/icons/details-icon.svg';
@@ -24,6 +26,9 @@ import { ReactComponent as SortDateDecSVG } from 'assets/icons/sortDateDec-icon.
 import { ReactComponent as HomeSVG } from 'assets/icons/home-icon.svg';
 import { ReactComponent as UserSVG } from 'assets/icons/user-icon.svg';
 import { ReactComponent as ItemsSVG } from 'assets/icons/items-icon.svg';
+import { ReactComponent as ExitSVG } from 'assets/icons/exit-icon.svg';
+import { ReactComponent as ShowSVG } from 'assets/icons/show-icon.svg';
+import { ReactComponent as HideSVG } from 'assets/icons/hide-icon.svg';
 
 const iconNames = {
   menuh: props => <MenuHSVG {...props} />,
@@ -37,8 +42,10 @@ const iconNames = {
   edit: props => <EditSVG {...props} />,
   cancel: props => <CancelSVG {...props} />,
   add: props => <AddSVG {...props} />,
-  arrow: props => <ArrowSVG {...props} />,
-  back: props => <BackSVG {...props} />,
+  arrowBottom: props => <ArrowBottomSVG {...props} />,
+  arrowRight: props => <ArrowRightSVG {...props} />,
+  backArrow: props => <BackSVG {...props} />,
+  frontArrow: props => <FrontSVG {...props} />,
   star: props => <StarSVG {...props} />,
   google: props => <GoogleSVG {...props} />,
   details: props => <DetailsSVG {...props} />,
@@ -52,6 +59,9 @@ const iconNames = {
   home: props => <HomeSVG {...props} />,
   user: props => <UserSVG {...props} />,
   items: props => <ItemsSVG {...props} />,
+  exit: props => <ExitSVG {...props} />,
+  show: props => <ShowSVG {...props} />,
+  hide: props => <HideSVG {...props} />,
 };
 
 export default iconNames;

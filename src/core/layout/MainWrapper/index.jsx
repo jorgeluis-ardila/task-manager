@@ -1,14 +1,13 @@
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import MainWrapperStyled from './style';
 
-const MainWrapper = ({ isLogin, children }) => (
-  <MainWrapperStyled className={cn({ login: isLogin })}>{children}</MainWrapperStyled>
+const MainWrapper = ({ className, children }) => (
+  <MainWrapperStyled className={className}>{children}</MainWrapperStyled>
 );
 
 MainWrapper.propTypes = {
   children: PropTypes.node.isRequired,
-  isLogin: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export { MainWrapper };

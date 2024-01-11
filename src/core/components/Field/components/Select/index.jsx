@@ -61,7 +61,7 @@ const Select = ({ name, id, value, onChange, onFocus, onBlur, options, className
     >
       <StyledSelectValue className="value">
         <span className="current-value">{selectedValue}</span>
-        <IconButton type="button" iconType="arrow" />
+        <IconButton type="button" iconType="arrowBottom" />
         <StyledInput
           ref={inputRef}
           type="text"

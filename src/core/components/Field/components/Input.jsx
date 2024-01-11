@@ -1,11 +1,26 @@
 import PropTypes from 'prop-types';
 import { FieldWrapper, StyledInput } from './style';
+import { Icon } from 'core/components';
 
-const Input = ({ type, name, id, value, onBlur, onFocus, onChange, placeholder, className, disabled, variant }) => {
+const Input = ({
+  type,
+  name,
+  id,
+  value,
+  onBlur,
+  onFocus,
+  onChange,
+  placeholder,
+  className,
+  disabled,
+  variant,
+  hasIcon,
+}) => {
   const handleChange = e => onChange(e.target.value);
 
   return (
     <FieldWrapper className={className} variant={variant}>
+      {hasIcon && <Icon type={name} />}
       <StyledInput
         onFocus={onFocus}
         onBlur={onBlur}
@@ -33,6 +48,7 @@ Input.propTypes = {
   className: PropTypes.string,
   disabled: PropTypes.bool,
   variant: PropTypes.string,
+  hasIcon: PropTypes.bool,
 };
 
 export { Input };

@@ -1,10 +1,9 @@
 import PropTypes from 'prop-types';
-import cn from 'classnames';
 import { BodyWrapper } from './style';
 
-const Body = ({ children, isLogin }) => {
+const Body = ({ children, className }) => {
   return (
-    <BodyWrapper className={cn({ login: isLogin })}>
+    <BodyWrapper className={className}>
       <div className="inner-body">{children}</div>
     </BodyWrapper>
   );
@@ -12,7 +11,7 @@ const Body = ({ children, isLogin }) => {
 
 Body.propTypes = {
   children: PropTypes.node.isRequired,
-  isLogin: PropTypes.bool,
+  className: PropTypes.string,
 };
 
 export { Body };

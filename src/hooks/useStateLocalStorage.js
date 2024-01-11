@@ -18,6 +18,10 @@ const setItem = (key, value) => {
   localStorage.setItem(key, JSON.stringify(value));
 };
 
+const removeItem = key => {
+  localStorage.removeItem(key);
+};
+
 const formatStorageValue = (value, id, requiredVersion) =>
   requiredVersion ? (typeof value === 'object' ? { version: id, ...value } : { version: id, value: value }) : value;
 
@@ -51,4 +55,9 @@ const useStateLocalStorage = (key, defaultValue, requiredVersion) => {
   return [localStorageValue, setLocalStorageStateValue];
 };
 
-export { useStateLocalStorage, setItem as setLocalStorage, getItem as getLocalStorage };
+export {
+  useStateLocalStorage,
+  setItem as setLocalStorage,
+  getItem as getLocalStorage,
+  removeItem as removeLocalStorage,
+};

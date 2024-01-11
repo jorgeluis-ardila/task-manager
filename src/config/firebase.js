@@ -1,11 +1,11 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyBhKCvhr2cGxvOGSMOz3K0Ga5S5pXD2EzI",
-  authDomain: "task-manager-2494.firebaseapp.com",
-  projectId: "task-manager-2494",
-  storageBucket: "task-manager-2494.appspot.com",
-  messagingSenderId: "704723060937",
-  appId: "1:704723060937:web:8ef372d0377a5a1954e518",
-  measurementId: "G-8XZPHF91LQ"
+  apiKey: 'AIzaSyA3Rh4N73ObAlb3C-0ZVhv9pXWXfPRO8GM',
+  authDomain: 'task-minder-app.firebaseapp.com',
+  projectId: 'task-minder-app',
+  storageBucket: 'task-minder-app.appspot.com',
+  messagingSenderId: '775910718520',
+  appId: '1:775910718520:web:f4966a674196e52fa17acd',
+  measurementId: 'G-QC5PDK5JBV',
 };
 
-export {firebaseConfig}
+export { firebaseConfig };

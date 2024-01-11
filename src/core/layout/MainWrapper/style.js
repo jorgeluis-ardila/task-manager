@@ -15,12 +15,6 @@ const MainWrapperStyled = styled('main')(
       theme.colors.green[10],
       0.6
     )} 100%), ${theme.colors.neutral[0]}`};
-    &.login {
-      padding-top: 30px;
-      align-items: center;
-      justify-content: space-between;
-      gap: 30px;
-    }
     @media screen and (min-width: 768px) {
       max-width: 500px;
     }

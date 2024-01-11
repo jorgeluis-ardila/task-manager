@@ -18,7 +18,7 @@ const Overview = ({ isEditingEnabled }) => {
     <Wrapper>
       <ActionsWrapper className={cn({ editing: isEditing })}>
         <IconButton iconType="cancel" className="close" onClick={handleClose} />
-        <IconButton iconType={isEditing ? 'back' : 'edit'} className="edit" onClick={handleEdit} />
+        <IconButton iconType={isEditing ? 'backArrow' : 'edit'} className="edit" onClick={handleEdit} />
       </ActionsWrapper>
       <p className="active-tasks">
         <span>{currentCategory.totalTasks - currentCategory.completedTasks} </span>

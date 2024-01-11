@@ -4,6 +4,7 @@ import {
   createUserWithEmailAndPassword,
   updateProfile,
   sendEmailVerification,
+  sendPasswordResetEmail,
   signInWithEmailAndPassword,
   GoogleAuthProvider,
   signInWithPopup,
@@ -23,6 +24,7 @@ export const UserProvider = ({ children }) => {
 
   useEffect(() => {
     onAuthStateChanged(auth, user => {
+      console.log(user);
       if (user?.emailVerified) {
         setIsLogged(true);
         setUserData({
@@ -44,8 +46,9 @@ export const UserProvider = ({ children }) => {
     if (user) {
       let actionCodeSettings = {
         url: `http://localhost:3000/app/login`,
+        handleCodeInApp: true,
       };
-      sendEmailVerification(user, actionCodeSettings)
+      return sendEmailVerification(user, actionCodeSettings)
         .then(() => {
           console.log('SE HA ENVIADO EL EMAIL DE VERIFICACION');
           return { success: true };
@@ -57,6 +60,19 @@ export const UserProvider = ({ children }) => {
     }
   };
 
+  const sendRecoveryEmail = email => {
+    return sendPasswordResetEmail(auth, email)
+      .then(() => {
+        console.log('SE HA ENVIADO EL EMAIL DE RECUPERACION');
+        return { success: true };
+      })
+      .catch(error => {
+        const errorCode = error.code;
+        console.log(error);
+        return { success: false, errorCode };
+      });
+  };
+
   const createAccountEmailPass = formData => {
     return createUserWithEmailAndPassword(auth, formData.email, formData.password)
       .then(userCredential => {
@@ -64,7 +80,8 @@ export const UserProvider = ({ children }) => {
         updateProfile(user, {
           displayName: formData.name,
         });
-        sendEmailVerification(user);
+        sendVerificationEmail(user);
+        logOut();
         return { success: true, errorCode: 'auth/success-register' };
       })
       .catch(error => {
@@ -104,9 +121,8 @@ export const UserProvider = ({ children }) => {
       })
       .catch(error => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        const email = error.customData.email;
-        console.error('CATCH GOOGLE', errorCode, errorMessage, email);
+        console.error('CATCH GOOGLE', errorCode);
+        return { success: false, errorCode };
       });
   };
 
@@ -118,8 +134,8 @@ export const UserProvider = ({ children }) => {
       })
       .catch(error => {
         const errorCode = error.code;
-        const errorMessage = error.message;
-        console.error('CATCH GOOGLE', errorCode, errorMessage);
+        console.error('CATCH LOGOUT', errorCode);
+        return { success: false, errorCode };
       });
   };
 
@@ -129,6 +145,7 @@ export const UserProvider = ({ children }) => {
         isLogged,
         userData,
         sendVerificationEmail,
+        sendRecoveryEmail,
         createAccountEmailPass,
         authEmailPass,
         authGoogle,

@@ -1,33 +1,40 @@
-import { useEffect, useRef, useState } from 'react';
+import cn from 'classnames';
 import { useData } from 'providers/context';
-import { actionNamesFilters } from 'providers/context/Data/constants';
-import { CardsList, CreateButtons, TitleBar } from './components';
+import { CardsList, TitleBar } from './components';
 import { StatusMessage } from 'core';
+// import { CategoryCard } from './components';
+import { SectionWrapper } from './style';
 
 const Home = () => {
-  const { data, dataSearched, categoryActions, layout, searchTerm } = useData();
-
-  const [titleHeight, setTitleHeight] = useState(0);
-  const titleRef = useRef(null);
-
-  useEffect(() => {
-    setTitleHeight(titleRef.current?.clientHeight);
-  }, []);
+  const { dataSearched, /* categoryActions, layout, */ searchTerm } = useData();
 
   return (
     <>
-      <TitleBar total={data.length} ref={titleRef} />
+      <SectionWrapper>
+        <TitleBar text="Tus Tableros Favoritos" />
+        <CardsList className="categories-list">
+          {/* {data.map(item => (
+            <CategoryCard key={item.id} categoryData={item} actions={actions} className={cn({ 'half-width': true })} />
+          ))} */}
+        </CardsList>
+      </SectionWrapper>
+      <SectionWrapper>
+        <TitleBar text="Algunas tareas por vencer" />
+        <CardsList className="taks-list"></CardsList>
+      </SectionWrapper>
       {dataSearched.length ? (
-        <CardsList
+        <>
+          {/* <CardsList
           data={dataSearched}
           actions={categoryActions}
           layout={layout[actionNamesFilters.layoutSquare]}
           titleHeight={titleHeight}
         />
+         */}
+        </>
       ) : (
         <StatusMessage type={searchTerm ? 'emptySearch' : 'empty'} />
       )}
-      <CreateButtons hasData={!!data.length} />
     </>
   );
 };

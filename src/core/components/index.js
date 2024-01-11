@@ -15,4 +15,5 @@ export * from './Modal';
 export * from './ProgressBar';
 export * from './ProtectedRoute';
 export * from './StatusMessage';
+export * from './TopAlert';
 export * from './TransitionWrapper';

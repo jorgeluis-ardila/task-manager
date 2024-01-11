@@ -1,39 +1,25 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import { ReactComponent as IntroImage } from 'assets/images/intro-img.svg';
-import { AppLogo } from 'core';
-
-export const LoginLogo = styled(AppLogo)(
-  ({ theme }) => css`
-    width: 176px;
-  `
-);
-
-export const IntroIMG = styled(IntroImage)(
-  ({ theme }) => css`
-    min-height: 170px;
-  `
-);
 
 export const Wrapper = styled('div')(
   ({ theme }) => css`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 15px;
+    gap: 25px;
     padding: 25px 25px 0;
     flex-grow: 1;
     .formik-form {
       display: flex;
       flex-direction: column;
       gap: 15px;
-      width: 100%;
-      flex-grow: 1;
+      width: 80%;
       .error-message {
+        font-family: ${theme.typography.family.hauora.semibold};
         font-size: ${theme.typography.size(12)};
         text-align: center;
         color: ${theme.colors.red.main};
-        .resend-email {
+        button.resend-email {
           cursor: pointer;
           font-family: ${theme.typography.family.hauora.semibold};
           color: ${theme.colors.green[70]};
@@ -47,11 +33,23 @@ export const Wrapper = styled('div')(
   `
 );
 
-export const FieldsWrapper = styled('div')(
+export const AuthGreetWrapper = styled('div')(
   ({ theme }) => css`
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    h2 {
+      font-family: ${theme.typography.family.montserrat};
+      font-size: ${theme.typography.size(28)};
+      font-weight: 700;
+      color: ${theme.colors.blue[70]};
+      letter-spacing: -1.05px;
+      text-align: center;
+      margin-bottom: 10px;
+    }
+    p {
+      text-align: center;
+      font-family: ${theme.typography.family.hauora.regular};
+      font-size: ${theme.typography.size(16)};
+      color: ${theme.colors.neutral[40]};
+    }
   `
 );
 
@@ -61,6 +59,7 @@ export const AuthOptionsWrapper = styled('div')(
     flex-direction: column;
     gap: 10px;
     width: 50%;
+    padding-top: 10px;
     p {
       display: flex;
       align-items: center;
@@ -83,6 +82,20 @@ export const AuthOptionsWrapper = styled('div')(
       align-items: center;
       justify-content: center;
       gap: 10px;
+    }
+  `
+);
+
+export const ChangeOption = styled('p')(
+  ({ theme }) => css`
+    font-family: ${theme.typography.family.hauora.regular};
+    color: ${theme.colors.neutral[40]};
+    font-size: ${theme.typography.size(14)};
+    text-align: center;
+    button {
+      font-family: ${theme.typography.family.hauora.semibold};
+      font-size: inherit;
+      color: ${theme.colors.orange[30]};
     }
   `
 );

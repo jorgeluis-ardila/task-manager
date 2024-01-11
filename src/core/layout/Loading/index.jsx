@@ -1,11 +1,11 @@
-import { MainWrapper } from 'core';
-import { LoadingMessage, LoginLogo, PageWrapper } from './style';
+import { AppLogo, MainWrapper } from 'core';
+import { LoadingMessage, PageWrapper } from './style';
 
 const Loading = () => {
   return (
     <MainWrapper>
       <PageWrapper>
-        <LoginLogo />
+        <AppLogo />
         <LoadingMessage type="loading" />
       </PageWrapper>
     </MainWrapper>
