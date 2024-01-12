@@ -7,36 +7,34 @@ import { ButtonsWrapper, FieldsWrapper, Wrapper } from './style';
 import { StatusFlag } from '../components';
 
 const EditTask = () => {
-  const { state } = useLocation();
+  const location = useLocation();
   const navigate = useNavigate();
   const { data, currentTask, currentCategory, taskActions, defineCurrentCategory } = useData();
-  const taskData = state?.taskData ?? currentTask;
-  const taskRoute = `/c/${currentCategory?.slug}/t/${currentTask?.slug}`;
-  const from = state?.from?.pathname ?? taskRoute;
+  const taskRoute = `/boards/${currentCategory?.slug}/t/${currentTask?.slug}`;
   const categoriesValues = getCategoriesValues(data);
 
-  const handleCancelEdit = () => navigate(from);
+  const handleCancelEdit = () => navigate(taskRoute, { state: { from: location.state.fromTask } });
 
   const handleSubmit = (values, setSubmitting) => {
     const newCategorySlug = data[findIndex(data, values.category, 'id')].slug;
 
     setSubmitting(false);
-    taskActions.edit(values, currentTask.id);
+    taskActions.edit(values, currentTask.id, values.category);
     defineCurrentCategory(values.category);
-    navigate(`/c/${newCategorySlug}/t/${currentTask.slug}`, { replace: true, from: `/c/${newCategorySlug}` });
+    navigate(`/boards/${newCategorySlug}/t/${currentTask.slug}`, { replace: true, from: `/boards/${newCategorySlug}` });
   };
 
-  if (!taskData) return <Navigate to={currentCategory ? taskRoute : '/'} replace />;
+  if (!currentTask) return <Navigate to={currentCategory ? taskRoute : '/'} replace />;
 
   return (
     <Wrapper>
       <BaseForm
         validateOnMount
         initialValues={{
-          name: taskData?.name,
-          description: taskData?.description,
-          dueDate: taskData?.dueDate,
-          category: taskData?.category.id,
+          name: currentTask?.name,
+          description: currentTask?.description,
+          dueDate: currentTask?.dueDate,
+          category: currentTask?.category.id,
         }}
         validationSchema={() =>
           object({
@@ -54,7 +52,7 @@ const EditTask = () => {
             <FieldsWrapper>
               <div className="two-fields">
                 <Field variant="underlined" label="Fecha Limite" type="date" id="dueDate" name="dueDate" />
-                <StatusFlag isCompleted={taskData.isCompleted} isExpired={isExpired(taskData.dueDate)} />
+                <StatusFlag isCompleted={currentTask.isCompleted} isExpired={isExpired(currentTask.dueDate)} />
               </div>
               <Field variant="underlined" label="Nombre" max={30} type="text" id="name" name="name" />
               <Field

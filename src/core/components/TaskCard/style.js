@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const TaskCardWrapper = styled('li')(
+export const TaskCardWrapper = styled('div')(
   ({ theme }) => css`
     display: flex;
     align-items: stretch;
@@ -51,6 +51,7 @@ export const TaskCardWrapper = styled('li')(
       }
     }
     &.half-width {
+      height: 100%;
       flex-direction: column;
       .state-bar {
         min-width: 100%;

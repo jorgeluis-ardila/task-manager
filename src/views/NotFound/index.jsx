@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import { useAuth, useGlobalStore } from 'providers/context';
-import { AppLogo, Body, Button, Header, MainWrapper, StatusMessage } from 'core';
+import { AppLogo, Body, Button, Header, MainWrapper, NavBar, StatusMessage } from 'core';
 import { ErrorPageWrapper, LogoWrapper } from './style';
 
 const NotFound = () => {
@@ -27,6 +27,7 @@ const NotFound = () => {
           </Button>
         </ErrorPageWrapper>
       </Body>
+      {isLogged && <NavBar />}
     </MainWrapper>
   );
 };

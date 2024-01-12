@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const CategoryCardWrapper = styled('li')(
+export const CategoryCardWrapper = styled('div')(
   ({ theme }) => css`
     background: ${theme.colors.neutral[0]};
     border-radius: 20px;
@@ -14,6 +14,7 @@ export const CategoryCardWrapper = styled('li')(
       transition: all 0.3s ease 0s;
     }
     &.half-width {
+      height: 100%;
       .name-container {
         flex-grow: 1;
         min-height: 115px;
@@ -25,6 +26,7 @@ export const NameContainer = styled('div')(
   ({ theme }) => css`
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     gap: 13px;
     background: ${theme.colors.green[20]};
     padding: 15px 10px;

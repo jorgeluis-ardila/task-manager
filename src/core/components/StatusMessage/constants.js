@@ -15,6 +15,11 @@ export const messageList = {
     description: 'Algo a sucedido por favor vuelve al inicio.',
     highlihgt: 'Opps, tuvimos un problema',
   },
+  emptyHome: {
+    // image: props => <EmptySearchIMG {...props} />,
+    description: 'Parece que no tienes tareas asociadas',
+    highlihgt: 'Opps, no hay tareas',
+  },
   empty: {
     image: props => <EmptyIMG {...props} />,
     description: '¡Que esperas crea tus tablero y tareas ahora mismo!',

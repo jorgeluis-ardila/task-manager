@@ -2,7 +2,7 @@ import cn from 'classnames';
 import PropTypes from 'prop-types';
 import { Icon } from 'core';
 import { useData } from 'providers/context';
-import { actionNamesFilters } from 'providers/context/Data/constants';
+import { actionTypesFilters } from 'providers/context/Data/constants';
 import { FilterButton, FilterIconButton, FiltersWrapper, MainWrapper, Section } from './style';
 import { getCategoryFilterOptions, getLayoutOptions } from './constants';
 
@@ -18,36 +18,36 @@ const AditionalFilters = ({ isCategory }) => {
         <FiltersWrapper>
           <FilterButton
             variant="filter"
-            className={cn('filter-button', { active: sort[actionNamesFilters.asc] || sort[actionNamesFilters.dec] })}
+            className={cn('filter-button', { active: sort[actionTypesFilters.asc] || sort[actionTypesFilters.dec] })}
             onClick={() => filtersActions.sort()}
           >
             <Icon
-              type={sort[actionNamesFilters.asc] ? 'ascSort' : sort[actionNamesFilters.dec] ? 'decSort' : 'ascSort'}
+              type={sort[actionTypesFilters.asc] ? 'ascSort' : sort[actionTypesFilters.dec] ? 'decSort' : 'ascSort'}
             />
             Nombre
-            {sort[actionNamesFilters.asc] && ' ASC'}
-            {sort[actionNamesFilters.dec] && ' DESC'}
+            {sort[actionTypesFilters.asc] && ' ASC'}
+            {sort[actionTypesFilters.dec] && ' DESC'}
           </FilterButton>
           {!!isCategory && (
             <FilterButton
               variant="filter"
               className={cn('filter-button', {
-                active: sortDate[actionNamesFilters.dateAsc] || sortDate[actionNamesFilters.dateDec],
+                active: sortDate[actionTypesFilters.dateAsc] || sortDate[actionTypesFilters.dateDec],
               })}
               onClick={() => filtersActions.sortDate()}
             >
               <Icon
                 type={
-                  sortDate[actionNamesFilters.dateAsc]
+                  sortDate[actionTypesFilters.dateAsc]
                     ? 'ascDateSort'
-                    : sortDate[actionNamesFilters.dateDec]
+                    : sortDate[actionTypesFilters.dateDec]
                     ? 'decDateSort'
                     : 'ascDateSort'
                 }
               />
               Fecha
-              {sortDate[actionNamesFilters.dateAsc] && ' ASC'}
-              {sortDate[actionNamesFilters.dateDec] && ' DESC'}
+              {sortDate[actionTypesFilters.dateAsc] && ' ASC'}
+              {sortDate[actionTypesFilters.dateDec] && ' DESC'}
             </FilterButton>
           )}
           {!isCategory &&

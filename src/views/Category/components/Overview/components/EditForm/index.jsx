@@ -18,7 +18,7 @@ const EditForm = ({ currentCategory, actions, onEdit }) => {
     const handleAccept = () => {
       actions.categoryActions.delete(currentCategory.id);
       actions.categoryActions.open();
-      navigate('/', { replace: true });
+      navigate('/boards', { replace: true });
     };
 
     const handleCancelDelete = () => actions.modalActions.change(<Overview isEditingEnabled />, 'edit');

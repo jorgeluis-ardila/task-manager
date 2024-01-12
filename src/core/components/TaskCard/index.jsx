@@ -1,29 +1,34 @@
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { isExpired } from 'utils';
+import { useData, useModal } from 'providers/context';
 import { Alert, Button, Icon, IconButton } from 'core';
 import { TaskCardWrapper, TaskCardInfo } from './style';
 
-const TaskCard = ({ taskData, actions, className, isSquareView }) => {
+const TaskCard = ({ taskData, className, isSquareView }) => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { modalActions } = useModal();
+  const { taskActions } = useData();
   const { isCompleted, name, id, dueDate, category, slug } = taskData;
   const isTaskExpired = isExpired(dueDate);
 
-  const handleOpen = () => {
-    actions.taskActions.open(id);
-    navigate(`t/${slug}`, { state: { taskId: id } });
+  const handleOpen = async () => {
+    const toPath = `${location.pathname === '/' ? `boards/${category.slug}/` : ''}t/${slug}`;
+    await taskActions.open(id, category.id);
+    navigate(toPath, { state: { from: location } });
   };
   const handleComplete = e => {
     e.stopPropagation();
-    actions.taskActions.complete(id);
+    taskActions.complete(id, category.id);
   };
   const handleDelete = e => {
     e.stopPropagation();
 
-    const handleAccept = () => actions.taskActions.delete(id);
+    const handleAccept = () => taskActions.delete(id, category.id);
 
-    actions.modalActions.open(<Alert title="¡Oye, cuidado!" textType="deleteTask" onAccept={handleAccept} />, 'alert');
+    modalActions.open(<Alert title="¡Oye, cuidado!" textType="deleteTask" onAccept={handleAccept} />, 'alert');
   };
 
   return (
@@ -77,8 +82,7 @@ const TaskCard = ({ taskData, actions, className, isSquareView }) => {
 };
 
 TaskCard.propTypes = {
-  taskData: PropTypes.object,
-  actions: PropTypes.object,
+  taskData: PropTypes.object.isRequired,
   className: PropTypes.string,
   isSquareView: PropTypes.bool,
 };

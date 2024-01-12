@@ -5,7 +5,7 @@ import { MessageWrapper } from './style';
 
 const StatusMessage = ({ type, className }) => {
   const message = messageList[type];
-  const Image = message.image;
+  const Image = message?.image;
 
   return (
     <MessageWrapper className={className}>
@@ -13,9 +13,7 @@ const StatusMessage = ({ type, className }) => {
         <p className="message-hightligth">{message.highlihgt}</p>
         <p className="message-description">{message.description}</p>
       </div>
-      <div className="image-wrapper">
-        <Image />
-      </div>
+      <div className="image-wrapper">{message?.image && <Image />}</div>
     </MessageWrapper>
   );
 };

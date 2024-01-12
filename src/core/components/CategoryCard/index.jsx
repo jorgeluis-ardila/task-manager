@@ -1,13 +1,16 @@
 import PropTypes from 'prop-types';
 import cn from 'classnames';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import ToDo from 'assets/images/to-do-list.png';
 import { getPercentage } from 'utils';
+import { useData } from 'providers/context';
 import { Button, Icon, ProgressBar } from 'core';
 import { CategoryCardWrapper, DetailContainer, NameContainer } from './style';
 
-const CategoryCard = ({ categoryData, actions, className }) => {
+const CategoryCard = ({ categoryData, className }) => {
+  const location = useLocation();
   const navigate = useNavigate();
+  const { categoryActions } = useData();
   const { name, id, isFavorite, totalTasks, completedTasks, slug } = categoryData;
 
   const percentage = getPercentage({
@@ -16,13 +19,14 @@ const CategoryCard = ({ categoryData, actions, className }) => {
   });
 
   const handleClick = () => {
-    actions.open(id);
-    navigate(`/c/${slug}`, { state: { categoryId: id } });
+    const toPath = `${location.pathname === '/' ? '/boards/' : ''}${slug}`;
+    categoryActions.open(id);
+    navigate(toPath, { state: { categoryId: id, from: location } });
   };
 
   const handleAddFavorite = e => {
     e.stopPropagation();
-    actions.hightlight(id);
+    categoryActions.hightlight(id);
   };
 
   return (
@@ -45,8 +49,7 @@ const CategoryCard = ({ categoryData, actions, className }) => {
 };
 
 CategoryCard.protoTypes = {
-  categoryData: PropTypes.object,
-  actions: PropTypes.object,
+  categoryData: PropTypes.object.isRequired,
   className: PropTypes.string,
 };
 

@@ -14,23 +14,25 @@ const Header = ({ isNotFound }) => {
   const showBack = isNotFound ? false : !!Object.keys(params).length || location.pathname === '/boards';
   const isEdit = location.pathname.split('/').pop() === 'edit';
   const showSearch = isNotFound || location.pathname === '/' ? false : !params.taskSlug;
+  const locationFrom = location.state?.from?.pathname;
   const fromPath = isEdit
     ? `/boards/${params.categorySlug}/t/${params.taskSlug}`
-    : params.taskSlug
-    ? `/boards/${params.categorySlug}`
-    : params.categorySlug
-    ? `/boards`
-    : '/';
+    : locationFrom ?? (params.taskSlug ? `/boards/${params.categorySlug}` : params.categorySlug ? `/boards` : '/');
 
   const handleGoBack = () => {
     if (!isEdit) {
-      if (currentTask) {
+      if (locationFrom) {
+        defineCurrentTask();
+        defineCurrentCategory();
+      } else if (currentTask) {
         defineCurrentTask();
       } else {
         defineCurrentCategory();
       }
+      navigate(fromPath);
+    } else {
+      navigate(fromPath, { state: { from: location.state?.from } });
     }
-    navigate(fromPath);
   };
 
   return (

@@ -1,93 +1,93 @@
 import { setLocalStorage } from 'hooks';
-import { actionNamesFilters } from '../constants';
+import { actionTypesFilters } from '../constants';
 
 const reducerOptionsFilters = (state, payload) => ({
-  [actionNamesFilters.sort]: () => {
+  [actionTypesFilters.sort]: () => {
     const newFilters = { ...state };
     const { value } = payload;
 
-    const isFirtChange = !newFilters.sort[actionNamesFilters.asc] && !newFilters.sort[actionNamesFilters.dec];
+    const isFirtChange = !newFilters.sort[actionTypesFilters.asc] && !newFilters.sort[actionTypesFilters.dec];
 
-    newFilters.sort[actionNamesFilters.asc] =
-      value?.[actionNamesFilters.asc] ?? !isFirtChange ? !newFilters.sort[actionNamesFilters.asc] : true;
-    newFilters.sort[actionNamesFilters.dec] =
-      value?.[actionNamesFilters.dec] ?? !isFirtChange ? !newFilters.sort[actionNamesFilters.dec] : false;
-    newFilters.sortDate[actionNamesFilters.dateAsc] = false;
-    newFilters.sortDate[actionNamesFilters.dateDec] = false;
+    newFilters.sort[actionTypesFilters.asc] =
+      value?.[actionTypesFilters.asc] ?? !isFirtChange ? !newFilters.sort[actionTypesFilters.asc] : true;
+    newFilters.sort[actionTypesFilters.dec] =
+      value?.[actionTypesFilters.dec] ?? !isFirtChange ? !newFilters.sort[actionTypesFilters.dec] : false;
+    newFilters.sortDate[actionTypesFilters.dateAsc] = false;
+    newFilters.sortDate[actionTypesFilters.dateDec] = false;
 
     return newFilters;
   },
-  [actionNamesFilters.sortDate]: () => {
+  [actionTypesFilters.sortDate]: () => {
     const newFilters = { ...state };
     const { value } = payload;
 
     const isFirtChange =
-      !newFilters.sortDate[actionNamesFilters.dateAsc] && !newFilters.sortDate[actionNamesFilters.dateDec];
+      !newFilters.sortDate[actionTypesFilters.dateAsc] && !newFilters.sortDate[actionTypesFilters.dateDec];
 
-    newFilters.sort[actionNamesFilters.asc] = false;
-    newFilters.sort[actionNamesFilters.dec] = false;
-    newFilters.sortDate[actionNamesFilters.dateAsc] =
-      value?.[actionNamesFilters.dateAsc] ?? !isFirtChange ? !newFilters.sortDate[actionNamesFilters.dateAsc] : true;
-    newFilters.sortDate[actionNamesFilters.dateDec] =
-      value?.[actionNamesFilters.dateDec] ?? !isFirtChange ? !newFilters.sortDate[actionNamesFilters.dateDec] : false;
+    newFilters.sort[actionTypesFilters.asc] = false;
+    newFilters.sort[actionTypesFilters.dec] = false;
+    newFilters.sortDate[actionTypesFilters.dateAsc] =
+      value?.[actionTypesFilters.dateAsc] ?? !isFirtChange ? !newFilters.sortDate[actionTypesFilters.dateAsc] : true;
+    newFilters.sortDate[actionTypesFilters.dateDec] =
+      value?.[actionTypesFilters.dateDec] ?? !isFirtChange ? !newFilters.sortDate[actionTypesFilters.dateDec] : false;
 
     return newFilters;
   },
-  [actionNamesFilters.favorite]: () => {
+  [actionTypesFilters.favorite]: () => {
     const newFilters = { ...state };
     const { value } = payload;
-    newFilters.categoryFilters[actionNamesFilters.favorite] =
-      value ?? !newFilters.categoryFilters[actionNamesFilters.favorite];
+    newFilters.categoryFilters[actionTypesFilters.favorite] =
+      value ?? !newFilters.categoryFilters[actionTypesFilters.favorite];
 
     return newFilters;
   },
-  [actionNamesFilters.taskFilterAll]: () => {
+  [actionTypesFilters.taskFilterAll]: () => {
     const newFilters = { ...state };
-    newFilters.taskFilters[actionNamesFilters.taskFilterAll] = true;
-    newFilters.taskFilters[actionNamesFilters.taskFilterActive] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterExpired] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterCompleted] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterAll] = true;
+    newFilters.taskFilters[actionTypesFilters.taskFilterActive] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterExpired] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterCompleted] = false;
 
     return newFilters;
   },
-  [actionNamesFilters.taskFilterActive]: () => {
+  [actionTypesFilters.taskFilterActive]: () => {
     const newFilters = { ...state };
-    newFilters.taskFilters[actionNamesFilters.taskFilterAll] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterActive] = true;
-    newFilters.taskFilters[actionNamesFilters.taskFilterExpired] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterCompleted] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterAll] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterActive] = true;
+    newFilters.taskFilters[actionTypesFilters.taskFilterExpired] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterCompleted] = false;
 
     return newFilters;
   },
-  [actionNamesFilters.taskFilterExpired]: () => {
+  [actionTypesFilters.taskFilterExpired]: () => {
     const newFilters = { ...state };
-    newFilters.taskFilters[actionNamesFilters.taskFilterAll] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterActive] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterExpired] = true;
-    newFilters.taskFilters[actionNamesFilters.taskFilterCompleted] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterAll] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterActive] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterExpired] = true;
+    newFilters.taskFilters[actionTypesFilters.taskFilterCompleted] = false;
 
     return newFilters;
   },
-  [actionNamesFilters.taskFilterCompleted]: () => {
+  [actionTypesFilters.taskFilterCompleted]: () => {
     const newFilters = { ...state };
-    newFilters.taskFilters[actionNamesFilters.taskFilterAll] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterActive] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterExpired] = false;
-    newFilters.taskFilters[actionNamesFilters.taskFilterCompleted] = true;
+    newFilters.taskFilters[actionTypesFilters.taskFilterAll] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterActive] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterExpired] = false;
+    newFilters.taskFilters[actionTypesFilters.taskFilterCompleted] = true;
 
     return newFilters;
   },
-  [actionNamesFilters.layoutLine]: () => {
+  [actionTypesFilters.layoutLine]: () => {
     const newFilters = { ...state };
-    newFilters.layout[actionNamesFilters.layoutLine] = true;
-    newFilters.layout[actionNamesFilters.layoutSquare] = false;
+    newFilters.layout[actionTypesFilters.layoutLine] = true;
+    newFilters.layout[actionTypesFilters.layoutSquare] = false;
 
     return newFilters;
   },
-  [actionNamesFilters.layoutSquare]: () => {
+  [actionTypesFilters.layoutSquare]: () => {
     const newFilters = { ...state };
-    newFilters.layout[actionNamesFilters.layoutLine] = false;
-    newFilters.layout[actionNamesFilters.layoutSquare] = true;
+    newFilters.layout[actionTypesFilters.layoutLine] = false;
+    newFilters.layout[actionTypesFilters.layoutSquare] = true;
 
     return newFilters;
   },

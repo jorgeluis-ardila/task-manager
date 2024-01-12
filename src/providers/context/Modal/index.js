@@ -15,7 +15,6 @@ export const ModalProvider = ({ children }) => {
   const [modalContent, setModalContent] = useState(INITIALSTATE.modalContent);
   const [showAlert, setShowAlert] = useState(false);
   const [alertText, setAlertText] = useState('');
-  console.log(location.state);
 
   const clearAlertText = () => {
     const windowState = window.history?.state;

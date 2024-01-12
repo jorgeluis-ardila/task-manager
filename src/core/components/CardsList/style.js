@@ -36,6 +36,11 @@ export const ListWrapper = styled('div', { shouldForwardProp: prop => prop !== '
       margin-bottom: -1px;
       z-index: 2;
     }
+    &.square-view {
+      .list {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
   `
 );
 export const List = styled('ul')(
@@ -51,9 +56,6 @@ export const List = styled('ul')(
     grid-template-columns: unset;
     grid-template-rows: unset;
     gap: 10px;
-    &.square-view {
-      grid-template-columns: repeat(2, 1fr);
-    }
     &::-webkit-scrollbar {
       display: none;
     }

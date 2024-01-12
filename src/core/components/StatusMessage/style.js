@@ -42,13 +42,13 @@ export const MessageWrapper = styled('div')(
       .message-hightligth {
         font-family: ${theme.typography.family.hauora.semibold};
         font-size: ${theme.typography.size(22)};
-        color: ${theme.colors.yellow[50]};
+        color: ${theme.colors.green[70]};
         letter-spacing: -0.44px;
       }
       .message-description {
         font-family: ${theme.typography.family.montserrat};
         font-size: ${theme.typography.size(16)};
-        font-weight: 400;
+        font-weight: 500;
         color: ${theme.colors.neutral[50]};
         letter-spacing: -0.5px;
       }

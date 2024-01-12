@@ -1,24 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { Navigate } from 'react-router-dom';
+import cn from 'classnames';
 import { useData } from 'providers/context';
-import { actionNamesFilters } from 'providers/context/Data/constants';
-import { StatusMessage } from 'core';
-import { CardsList, CreateButtons, TaskFilters, TitleBar } from './components';
+import { actionTypesFilters } from 'providers/context/Data/constants';
+import { CardList, StatusMessage, TaskCard } from 'core';
+import { CreateButtons, TaskFilters, TitleBar } from './components';
 
 const Category = () => {
-  const {
-    dataSearched,
-    taskActions,
-    layout,
-    currentCategory,
-    filtersActions,
-    taskFilters,
-    categoryActions,
-    searchTerm,
-  } = useData();
+  const { dataSearched, layout, currentCategory, filtersActions, taskFilters, categoryActions, searchTerm } = useData();
 
   const [titleHeight, setTitleHeight] = useState(0);
   const titleRef = useRef(null);
+  const cardsLayout = layout[actionTypesFilters.layoutSquare];
 
   useEffect(() => {
     setTitleHeight(titleRef.current?.clientHeight);
@@ -31,7 +24,7 @@ const Category = () => {
     categoryActions.deleteCompleted(currentCategory.id);
   };
 
-  if (!currentCategory) return <Navigate to="/" replace />;
+  if (!currentCategory) return <Navigate to="/boards" replace />;
 
   return (
     <>
@@ -43,17 +36,21 @@ const Category = () => {
       />
       {!!currentCategory?.totalTasks && <TaskFilters actions={filtersActions} filters={taskFilters} />}
       {dataSearched.length ? (
-        <CardsList
-          data={dataSearched}
-          actions={taskActions}
-          layout={layout[actionNamesFilters.layoutSquare]}
-          titleHeight={titleHeight}
-        />
+        <CardList
+          className={cn({ 'square-view': cardsLayout })}
+          style={{ height: `calc(100% - ${titleHeight + 39}px)` }}
+        >
+          {dataSearched.map(item => (
+            <li key={item.id}>
+              <TaskCard taskData={item} isSquareView={cardsLayout} />
+            </li>
+          ))}
+        </CardList>
       ) : (
         <StatusMessage type={searchTerm ? 'emptySearch' : 'empty'} />
       )}
       <CreateButtons
-        isOnCompleted={taskFilters[actionNamesFilters.taskFilterCompleted]}
+        isOnCompleted={taskFilters[actionTypesFilters.taskFilterCompleted]}
         onDelete={handleDeleteCoompleted}
         hasCompleted={hasCompleted}
       />

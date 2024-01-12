@@ -12,48 +12,47 @@ const ViewTask = () => {
   const { categorySlug } = useParams();
   const { modalActions } = useModal();
   const { currentTask, currentCategory, taskActions } = useData();
-  const taskData = location.state?.taskData ?? currentTask;
 
-  const handleEdit = () => navigate(`${location.pathname}/edit`, { state: { taskData, from: location } });
+  const handleEdit = () => navigate(`${location.pathname}/edit`, { state: { from: location?.state?.from } });
 
-  const handleComplete = () => taskActions.complete(currentTask.id);
+  const handleComplete = () => taskActions.complete(currentTask.id, currentTask.category.id);
 
   const handleDelete = () => {
     const handleAccept = () => {
-      taskActions.delete(currentTask.id);
+      taskActions.delete(currentTask.id, currentTask.category.id);
       taskActions.open();
-      navigate(`/c/${categorySlug}`, { replace: true });
+      navigate(`/boards/${categorySlug}`, { replace: true });
     };
 
     modalActions.open(<Alert title="¡Oye, cuidado!" textType="deleteTask" onAccept={handleAccept} />, 'alert');
   };
 
-  if (!taskData) return <Navigate to={currentCategory ? `/c/${currentCategory.slug}` : '/'} replace />;
+  if (!currentTask) return <Navigate to={currentCategory ? `/boards/${currentCategory.slug}` : '/boards'} replace />;
 
   return (
     <>
       <TitleBar
-        title={taskData.name}
-        isCompleted={taskData.isCompleted}
-        isExpired={isExpired(taskData.dueDate)}
+        title={currentTask.name}
+        isCompleted={currentTask.isCompleted}
+        isExpired={isExpired(currentTask.dueDate)}
         onEdit={handleEdit}
       />
       <Wrapper>
         <FieldsWrapper>
-          <FieldValue label="Fecha Limite" value={taskData.dueDate} />
-          <FieldValue label="Categoría" value={taskData.category.name} />
-          {!currentTask?.description ? null : <FieldValue label="Descripción" value={taskData.description} />}
+          <FieldValue label="Fecha Limite" value={currentTask.dueDate} />
+          <FieldValue label="Categoría" value={currentTask.category.name} />
+          {!currentTask?.description ? null : <FieldValue label="Descripción" value={currentTask.description} />}
         </FieldsWrapper>
         <ButtonsWrapper>
           <Button
             type="button"
-            variant={!taskData.isCompleted ? 'action' : 'outlined'}
+            variant={!currentTask.isCompleted ? 'action' : 'outlined'}
             iconType="check"
-            className={cn('complete-button success-button', { completed: taskData.isCompleted })}
+            className={cn('complete-button success-button', { completed: currentTask.isCompleted })}
             onClick={handleComplete}
           >
-            {!taskData.isCompleted ? 'Completar' : 'Descompletar'}
-            {!taskData.isCompleted && <Icon type="check" />}
+            {!currentTask.isCompleted ? 'Completar' : 'Descompletar'}
+            {!currentTask.isCompleted && <Icon type="check" />}
           </Button>
           <IconButton type="button" variant="delete" iconType="delete" onClick={handleDelete} />
         </ButtonsWrapper>

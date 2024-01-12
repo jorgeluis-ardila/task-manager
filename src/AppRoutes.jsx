@@ -7,7 +7,7 @@ const AppRoutes = () => {
     <Routes>
       <Route element={<LoggedLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="/boards" element={<Categories />} />
+        <Route path="/boards" element={<Categories />} loader={() => {}} />
         <Route path="/boards/:categorySlug" element={<Category />} />
         <Route path="/boards/:categorySlug/t/:taskSlug" element={<Task.View />} />
         <Route path="/boards/:categorySlug/t/:taskSlug/edit" element={<Task.Edit />} />

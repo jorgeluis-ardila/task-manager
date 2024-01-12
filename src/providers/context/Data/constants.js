@@ -1,7 +1,7 @@
 import { getLocalStorage } from 'hooks';
 import { isExpired } from 'utils';
 
-export const actionNamesFilters = {
+export const actionTypesFilters = {
   sort: 'SORT',
   sortDate: 'SORT_BY_DATE',
   asc: 'SORT_BY_ASC',
@@ -21,73 +21,45 @@ export const INITIAL_DATA = getLocalStorage('data') || [];
 
 export const INITIAL_FILTERS = getLocalStorage('filters') || {
   sort: {
-    [actionNamesFilters.asc]: true,
-    [actionNamesFilters.dec]: false,
+    [actionTypesFilters.asc]: true,
+    [actionTypesFilters.dec]: false,
   },
   sortDate: {
-    [actionNamesFilters.dateAsc]: false,
-    [actionNamesFilters.dateDec]: false,
+    [actionTypesFilters.dateAsc]: false,
+    [actionTypesFilters.dateDec]: false,
   },
   categoryFilters: {
-    [actionNamesFilters.favorite]: false,
+    [actionTypesFilters.favorite]: false,
   },
   layout: {
-    [actionNamesFilters.layoutLine]: true,
-    [actionNamesFilters.layoutSquare]: false,
+    [actionTypesFilters.layoutLine]: true,
+    [actionTypesFilters.layoutSquare]: false,
   },
   taskFilters: {
-    [actionNamesFilters.taskFilterAll]: true,
-    [actionNamesFilters.taskFilterActive]: false,
-    [actionNamesFilters.taskFilterExpired]: false,
-    [actionNamesFilters.taskFilterCompleted]: false,
+    [actionTypesFilters.taskFilterAll]: true,
+    [actionTypesFilters.taskFilterActive]: false,
+    [actionTypesFilters.taskFilterExpired]: false,
+    [actionTypesFilters.taskFilterCompleted]: false,
   },
-};
-
-export const FILTERS_FN2 = {
-  [actionNamesFilters.taskFilterAll]: prevData => prevData,
-  [actionNamesFilters.taskFilterActive]: prevData =>
-    prevData.filter(item => !item.isCompleted && !isExpired(item?.dueDate)),
-  [actionNamesFilters.taskFilterExpired]: prevData =>
-    prevData.filter(item => !item.isCompleted && isExpired(item?.dueDate)),
-  [actionNamesFilters.taskFilterCompleted]: prevData => prevData.filter(item => item?.isCompleted),
-  [actionNamesFilters.asc]: prevData => prevData.sort((a, b) => a?.name.localeCompare(b?.name)),
-  [actionNamesFilters.dec]: prevData => prevData.sort((a, b) => b?.name.localeCompare(a?.name)),
-  [actionNamesFilters.dateAsc]: prevData =>
-    prevData.sort((a, b) => {
-      const aDateParts = a?.dueDate.split('-').map(item => parseInt(item));
-      const bDateParts = b?.dueDate.split('-').map(item => parseInt(item));
-      const aDate = new Date(aDateParts[0], aDateParts[1] - 1, aDateParts[2], 23, 59, 59);
-      const bDate = new Date(bDateParts[0], bDateParts[1] - 1, bDateParts[2], 23, 59, 59);
-      return bDate - aDate;
-    }),
-  [actionNamesFilters.dateDec]: prevData =>
-    prevData.sort((a, b) => {
-      const aDateParts = a?.dueDate.split('-').map(item => parseInt(item));
-      const bDateParts = b?.dueDate.split('-').map(item => parseInt(item));
-      const aDate = new Date(aDateParts[0], aDateParts[1] - 1, aDateParts[2], 23, 59, 59);
-      const bDate = new Date(bDateParts[0], bDateParts[1] - 1, bDateParts[2], 23, 59, 59);
-      return aDate - bDate;
-    }),
-  [actionNamesFilters.favorite]: prevData => prevData.filter(item => item?.isFavorite),
 };
 
 export const FILTERS_FN = {
-  [actionNamesFilters.taskFilterAll]: item => item,
-  [actionNamesFilters.taskFilterActive]: item => !item.isCompleted && !isExpired(item?.dueDate),
-  [actionNamesFilters.taskFilterExpired]: item => !item.isCompleted && isExpired(item?.dueDate),
-  [actionNamesFilters.taskFilterCompleted]: item => item?.isCompleted,
+  [actionTypesFilters.taskFilterAll]: item => item,
+  [actionTypesFilters.taskFilterActive]: item => !item.isCompleted && !isExpired(item?.dueDate),
+  [actionTypesFilters.taskFilterExpired]: item => !item.isCompleted && isExpired(item?.dueDate),
+  [actionTypesFilters.taskFilterCompleted]: item => item?.isCompleted,
 
-  [actionNamesFilters.asc]: (a, b) => b?.name.localeCompare(a?.name),
-  [actionNamesFilters.dec]: (a, b) => a?.name.localeCompare(b?.name),
+  [actionTypesFilters.asc]: (a, b) => b?.name.localeCompare(a?.name),
+  [actionTypesFilters.dec]: (a, b) => a?.name.localeCompare(b?.name),
 
-  [actionNamesFilters.dateAsc]: (a, b) => {
+  [actionTypesFilters.dateAsc]: (a, b) => {
     const aDateParts = a?.dueDate.split('-').map(item => parseInt(item));
     const bDateParts = b?.dueDate.split('-').map(item => parseInt(item));
     const aDate = new Date(aDateParts[0], aDateParts[1] - 1, aDateParts[2], 23, 59, 59);
     const bDate = new Date(bDateParts[0], bDateParts[1] - 1, bDateParts[2], 23, 59, 59);
     return bDate - aDate;
   },
-  [actionNamesFilters.dateDec]: (a, b) => {
+  [actionTypesFilters.dateDec]: (a, b) => {
     const aDateParts = a?.dueDate.split('-').map(item => parseInt(item));
     const bDateParts = b?.dueDate.split('-').map(item => parseInt(item));
     const aDate = new Date(aDateParts[0], aDateParts[1] - 1, aDateParts[2], 23, 59, 59);
@@ -95,5 +67,5 @@ export const FILTERS_FN = {
     return aDate - bDate;
   },
 
-  [actionNamesFilters.favorite]: item => item?.isFavorite,
+  [actionTypesFilters.favorite]: item => item?.isFavorite,
 };

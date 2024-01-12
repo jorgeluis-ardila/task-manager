@@ -1,18 +1,22 @@
-import { createContext, useContext, useState, useMemo, useReducer, useCallback } from 'react';
+import { createContext, useContext, useState, useMemo, useReducer, useCallback, useEffect } from 'react';
+import { matchPath, useLocation, useSearchParams } from 'react-router-dom';
 import { getDocs, getFirestore, collection } from 'firebase/firestore';
 import { findIndex, getKeyWithTrueValue } from 'utils';
 // import { useStateLocalStorage } from 'hooks';
 import { actionTypesData, reducerFnData, reducerFnFilters } from './reducers';
-import { FILTERS_FN, INITIAL_DATA, INITIAL_FILTERS, actionNamesFilters } from './constants';
-import { matchPath, useLocation } from 'react-router-dom';
+import { FILTERS_FN, INITIAL_DATA, INITIAL_FILTERS, actionTypesFilters } from './constants';
 
 const DataContext = createContext();
 
 const DataProvider = ({ children }) => {
   const { pathname } = useLocation();
+
   const matchCategoryRoute = useMemo(() => matchPath({ path: 'boards/:categorySlug' }, pathname)?.params, [pathname]);
+
   const matchTaskRoute = useMemo(
-    () => matchPath({ path: 'boards/:categorySlug/t/:taskSlug' }, pathname)?.params,
+    () =>
+      matchPath({ path: 'boards/:categorySlug/t/:taskSlug' }, pathname)?.params ||
+      matchPath({ path: 'boards/:categorySlug/t/:taskSlug/edit' }, pathname)?.params,
     [pathname]
   );
 
@@ -39,14 +43,95 @@ const DataProvider = ({ children }) => {
     });
   };
 
-  const defineCurrentCategory = id => {
+  const defineCurrentCategory = async id => {
     const categoryIndex = findIndex(data, id, 'id');
-    setCurrentCategory(data[categoryIndex] ?? null);
+    const selectedCategory = data[categoryIndex] ?? null;
+    await setCurrentCategory(selectedCategory);
+    return selectedCategory;
   };
 
-  const defineCurrentTask = id => {
-    const taskIndex = findIndex(currentCategory?.tasks, id, 'id');
-    setCurrentTask(currentCategory?.tasks[taskIndex] ?? null);
+  const defineCurrentTask = (id, category) => {
+    const taskIndex = findIndex(category?.tasks, id, 'id');
+    setCurrentTask(category?.tasks[taskIndex] ?? null);
+  };
+
+  const onChangeSearchTerm = newSearchTerm => setSearchTerm(newSearchTerm);
+
+  const filtersActions = {
+    sort: value => {
+      dispatchFilters({ type: actionTypesFilters.sort, payload: { value } });
+    },
+    sortDate: value => {
+      dispatchFilters({ type: actionTypesFilters.sortDate, payload: { value } });
+    },
+    categoryFilters: {
+      favorite: value => {
+        dispatchFilters({ type: actionTypesFilters.favorite, payload: { value } });
+      },
+    },
+    taskFilters: {
+      all: () => {
+        dispatchFilters({ type: actionTypesFilters.taskFilterAll });
+      },
+      active: () => {
+        dispatchFilters({ type: actionTypesFilters.taskFilterActive });
+      },
+      expired: () => {
+        dispatchFilters({ type: actionTypesFilters.taskFilterExpired });
+      },
+      completed: () => {
+        dispatchFilters({ type: actionTypesFilters.taskFilterCompleted });
+      },
+    },
+    layout: {
+      layoutLine: () => {
+        dispatchFilters({ type: actionTypesFilters.layoutLine });
+      },
+      layoutSquare: () => {
+        dispatchFilters({ type: actionTypesFilters.layoutSquare });
+      },
+    },
+  };
+
+  const categoryActions = {
+    open: categoryId => {
+      defineCurrentCategory(categoryId);
+      if (filtersState.sortDate[actionTypesFilters.dateAsc]) {
+        filtersActions.sort({ [actionTypesFilters.asc]: true, [actionTypesFilters.dec]: false });
+      }
+      if (filtersState.sortDate[actionTypesFilters.dateDec]) {
+        filtersActions.sort({ [actionTypesFilters.asc]: false, [actionTypesFilters.dec]: true });
+      }
+    },
+    add: categoryInfo => dispatchData({ type: actionTypesData.createCategory, payload: { categoryInfo } }),
+    edit: (newCategoryInfo, categoryId) => {
+      dispatchData({ type: actionTypesData.editCategory, payload: { newCategoryInfo, categoryId } });
+    },
+    delete: categoryId => dispatchData({ type: actionTypesData.deleteCategory, payload: { categoryId } }),
+    hightlight: categoryId =>
+      dispatchData({ type: actionTypesData.highlightCategory, payload: { categoryId: categoryId } }),
+    deleteCompleted: categoryId =>
+      dispatchData({ type: actionTypesData.deleteCompleted, payload: { categoryId: categoryId } }),
+  };
+
+  const taskActions = {
+    open: async (taskId, categoryId) => {
+      const selectedCategory = await defineCurrentCategory(categoryId);
+      defineCurrentTask(taskId, selectedCategory);
+    },
+    add: taskInfo => dispatchData({ type: actionTypesData.createTask, payload: { taskInfo } }),
+    edit: (newTaskInfo, taskId, categoryId) => {
+      dispatchData({
+        type: actionTypesData.editTask,
+        payload: { newTaskInfo, taskId, currentCategoryId: categoryId },
+      });
+    },
+    complete: (taskId, categoryId) => {
+      dispatchData({ type: actionTypesData.completeTask, payload: { taskId, currentCategoryId: categoryId } });
+    },
+    delete: (taskId, categoryId) => {
+      dispatchData({ type: actionTypesData.deleteTask, payload: { taskId, currentCategoryId: categoryId } });
+    },
   };
 
   const filterData = useCallback(
@@ -58,9 +143,9 @@ const DataProvider = ({ children }) => {
           const taskActiveFilter = getKeyWithTrueValue(taskFilters);
           return FILTERS_FN?.[taskActiveFilter](item);
         }
-        if (!currentCategory && categoryFilters[actionNamesFilters.favorite]) {
+        if (!currentCategory) {
           const categoryActiveFilter = getKeyWithTrueValue(categoryFilters);
-          return FILTERS_FN?.[categoryActiveFilter]?.(item);
+          return FILTERS_FN?.[categoryActiveFilter]?.(item) ?? item;
         }
         return item;
       });
@@ -92,80 +177,6 @@ const DataProvider = ({ children }) => {
 
     return newData;
   }, [searchTerm, filteredData]);
-
-  const onChangeSearchTerm = newSearchTerm => setSearchTerm(newSearchTerm);
-
-  const filtersActions = {
-    sort: value => {
-      dispatchFilters({ type: actionNamesFilters.sort, payload: { value } });
-    },
-    sortDate: value => {
-      dispatchFilters({ type: actionNamesFilters.sortDate, payload: { value } });
-    },
-    categoryFilters: {
-      favorite: value => {
-        dispatchFilters({ type: actionNamesFilters.favorite, payload: { value } });
-      },
-    },
-    taskFilters: {
-      all: () => {
-        dispatchFilters({ type: actionNamesFilters.taskFilterAll });
-      },
-      active: () => {
-        dispatchFilters({ type: actionNamesFilters.taskFilterActive });
-      },
-      expired: () => {
-        dispatchFilters({ type: actionNamesFilters.taskFilterExpired });
-      },
-      completed: () => {
-        dispatchFilters({ type: actionNamesFilters.taskFilterCompleted });
-      },
-    },
-    layout: {
-      layoutLine: () => {
-        dispatchFilters({ type: actionNamesFilters.layoutLine });
-      },
-      layoutSquare: () => {
-        dispatchFilters({ type: actionNamesFilters.layoutSquare });
-      },
-    },
-  };
-
-  const categoryActions = {
-    open: id => {
-      defineCurrentCategory(id);
-      if (filtersState.sortDate[actionNamesFilters.dateAsc]) {
-        filtersActions.sort({ [actionNamesFilters.asc]: true, [actionNamesFilters.dec]: false });
-      }
-      if (filtersState.sortDate[actionNamesFilters.dateDec]) {
-        filtersActions.sort({ [actionNamesFilters.asc]: false, [actionNamesFilters.dec]: true });
-      }
-    },
-    add: categoryInfo => dispatchData({ type: actionTypesData.createCategory, payload: { categoryInfo } }),
-    edit: (newCategoryInfo, categoryId) => {
-      dispatchData({ type: actionTypesData.editCategory, payload: { newCategoryInfo, categoryId } });
-    },
-    delete: categoryId => dispatchData({ type: actionTypesData.deleteCategory, payload: { categoryId } }),
-    hightlight: id => dispatchData({ type: actionTypesData.highlightCategory, payload: { categoryId: id } }),
-    deleteCompleted: id => dispatchData({ type: actionTypesData.deleteCompleted, payload: { categoryId: id } }),
-  };
-
-  const taskActions = {
-    open: id => defineCurrentTask(id),
-    add: taskInfo => dispatchData({ type: actionTypesData.createTask, payload: { taskInfo } }),
-    edit: (newTaskInfo, taskId) => {
-      dispatchData({
-        type: actionTypesData.editTask,
-        payload: { newTaskInfo, taskId, currentCategoryId: currentCategory.id },
-      });
-    },
-    complete: taskId => {
-      dispatchData({ type: actionTypesData.completeTask, payload: { taskId, currentCategoryId: currentCategory.id } });
-    },
-    delete: taskId => {
-      dispatchData({ type: actionTypesData.deleteTask, payload: { taskId, currentCategoryId: currentCategory.id } });
-    },
-  };
 
   return (
     <DataContext.Provider

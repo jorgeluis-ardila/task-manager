@@ -11,6 +11,7 @@ import { ReactComponent as CancelSVG } from 'assets/icons/cancel-icon.svg';
 import { ReactComponent as AddSVG } from 'assets/icons/add-icon.svg';
 import { ReactComponent as ArrowBottomSVG } from 'assets/icons/arrow-icon.svg';
 import { ReactComponent as ArrowRightSVG } from 'assets/icons/arrowRight-icon.svg';
+import { ReactComponent as ArrowLeftSVG } from 'assets/icons/arrowLeft-icon.svg';
 import { ReactComponent as BackSVG } from 'assets/icons/back-icon.svg';
 import { ReactComponent as FrontSVG } from 'assets/icons/front-icon.svg';
 import { ReactComponent as StarSVG } from 'assets/icons/star-icon.svg';
@@ -29,6 +30,8 @@ import { ReactComponent as ItemsSVG } from 'assets/icons/items-icon.svg';
 import { ReactComponent as ExitSVG } from 'assets/icons/exit-icon.svg';
 import { ReactComponent as ShowSVG } from 'assets/icons/show-icon.svg';
 import { ReactComponent as HideSVG } from 'assets/icons/hide-icon.svg';
+import { ReactComponent as BoardSVG } from 'assets/icons/board-icon.svg';
+import { ReactComponent as TaskSVG } from 'assets/icons/task-icon.svg';
 
 const iconNames = {
   menuh: props => <MenuHSVG {...props} />,
@@ -44,6 +47,7 @@ const iconNames = {
   add: props => <AddSVG {...props} />,
   arrowBottom: props => <ArrowBottomSVG {...props} />,
   arrowRight: props => <ArrowRightSVG {...props} />,
+  arrowLeft: props => <ArrowLeftSVG {...props} />,
   backArrow: props => <BackSVG {...props} />,
   frontArrow: props => <FrontSVG {...props} />,
   star: props => <StarSVG {...props} />,
@@ -62,6 +66,8 @@ const iconNames = {
   exit: props => <ExitSVG {...props} />,
   show: props => <ShowSVG {...props} />,
   hide: props => <HideSVG {...props} />,
+  board: props => <BoardSVG {...props} />,
+  task: props => <TaskSVG {...props} />,
 };
 
 export default iconNames;

@@ -12,22 +12,28 @@ const StyledProgressBar = styled('div')(
     * {
       transition: all 0.3s ease 0s;
     }
-    .progress-bar {
+    .bar {
       border-radius: 100px;
       width: ${percentage}%;
-      background: ${theme.hexToRGB(theme.colors.blue[50], 0.5)};
+      overflow: hidden;
+      z-index: 1;
+      .inner-bar {
+        height: 100%;
+        position: relative;
+        background: ${theme.hexToRGB(theme.colors.blue[50], 0.5)};
+      }
     }
-    ${hasText && TextVariant({ theme })}
+    ${hasText && TextVariant({ theme, percentage })}
   `
 );
 
-const TextVariant = ({ theme }) => css`
+const TextVariant = ({ theme, percentage }) => css`
   height: 25px;
   border-radius: 5px;
-  .progress-bar {
+  .bar {
     border-radius: 5px;
   }
-  span {
+  .text {
     position: absolute;
     left: 50%;
     top: 50%;
