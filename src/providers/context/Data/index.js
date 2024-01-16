@@ -1,8 +1,6 @@
-import { createContext, useContext, useState, useMemo, useReducer, useCallback, useEffect } from 'react';
-import { matchPath, useLocation, useSearchParams } from 'react-router-dom';
-import { getDocs, getFirestore, collection } from 'firebase/firestore';
+import { createContext, useContext, useState, useMemo, useReducer, useCallback } from 'react';
+import { matchPath, useLocation } from 'react-router-dom';
 import { findIndex, getKeyWithTrueValue } from 'utils';
-// import { useStateLocalStorage } from 'hooks';
 import { actionTypesData, reducerFnData, reducerFnFilters } from './reducers';
 import { FILTERS_FN, INITIAL_DATA, INITIAL_FILTERS, actionTypesFilters } from './constants';
 
@@ -35,13 +33,6 @@ const DataProvider = ({ children }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filtersState, dispatchFilters] = useReducer(reducerFnFilters, INITIAL_FILTERS);
   const { sort, categoryFilters, layout, taskFilters, sortDate } = filtersState;
-
-  const db = getFirestore();
-  const onGetBoards = async () => {
-    getDocs(collection(db, 'boards')).then(querySnapshot => {
-      console.log(querySnapshot.docs);
-    });
-  };
 
   const defineCurrentCategory = async id => {
     const categoryIndex = findIndex(data, id, 'id');
