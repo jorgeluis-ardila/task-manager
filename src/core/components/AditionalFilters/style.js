@@ -5,7 +5,7 @@ import { IconButton } from 'core/components/IconButton';
 // import { Button, IconButton } from '..';
 
 export const MainWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
   `
@@ -44,7 +44,7 @@ export const Section = styled('section')(
 );
 
 export const FiltersWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-wrap: wrap;
     ${'' /* flex-direction: column; */}

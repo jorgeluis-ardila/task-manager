@@ -1,10 +1,9 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import { Button, Icon /* IconButton */ } from 'core';
 import AnonimousUser from 'assets/images/userAnonimus.png';
 import { GreetingContainer, UserInfo } from './style';
 
-const Greeting = ({ userData, onGoBack, onOpenProfile, showBack }) => {
+const Greeting = ({ userData, onGoBack, /* onOpenProfile, */ showBack }) => {
   const userName = userData?.displayName?.split(' ')[0] ?? '';
 
   // TODO COMMENTED UNTIL FEATURE WILL BE REQUIRED

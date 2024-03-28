@@ -23,6 +23,7 @@ const TitleBar = forwardRef(({ total }, ref) => {
   );
 });
 
+TitleBar.displayName = 'TitleBar';
 TitleBar.propTypes = {
   total: PropTypes.number,
 };

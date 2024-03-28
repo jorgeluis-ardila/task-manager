@@ -19,7 +19,7 @@ const LoggedLayout = ({ children }) => {
   );
 };
 
-LoggedLayout.protoTypes = {
+LoggedLayout.propTypes = {
   children: PropTypes.element,
 };
 

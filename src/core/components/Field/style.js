@@ -32,7 +32,7 @@ export const Wrapper = styled('div', { shouldForwardProp: prop => prop !== 'vari
   `
 );
 export const MessageWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     justify-content: space-between;
     gap: 5px;

@@ -10,7 +10,7 @@ const FieldValue = ({ label, value }) => {
   );
 };
 
-FieldValue.protoTypes = {
+FieldValue.propTypes = {
   label: PropTypes.string,
   value: PropTypes.string,
 };

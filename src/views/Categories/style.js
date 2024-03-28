@@ -1,4 +1,4 @@
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
-export const ComponentName = styled('main')(({ theme }) => css``);
+export const ComponentName = styled('main')(() => css``);

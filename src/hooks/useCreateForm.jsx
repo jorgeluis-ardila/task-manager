@@ -32,7 +32,7 @@ export const useCreateForm = () => {
             .oneOf([...categoriesValues.categories], 'Categoría Invalida')
             .required('Requerido'),
         }),
-      fields: () => <CreateForm.TaskFields currentCategory={currentCategory} categoriesValues={categoriesValues} />,
+      fields: <CreateForm.TaskFields currentCategory={!!currentCategory} categoriesValues={categoriesValues} />,
       onSubmit: (values, { setSubmitting, resetForm }) =>
         handleSubmit(values, setSubmitting, resetForm, taskActions.add),
     },
@@ -47,7 +47,7 @@ export const useCreateForm = () => {
           name: string().min(3, 'Minimo 3 caracteres').max(30, 'Maximo 30 caracteres').required('Requerido'),
           description: string().max(150, 'Maximo 150 caracteres'),
         }),
-      fields: () => <CreateForm.CategoryFields />,
+      fields: <CreateForm.CategoryFields />,
       onSubmit: (values, { setSubmitting, resetForm }) =>
         handleSubmit(values, setSubmitting, resetForm, categoryActions.add),
     },
@@ -55,5 +55,5 @@ export const useCreateForm = () => {
 
   const getProps = type => props[type];
 
-  return { getProps };
+  return getProps;
 };

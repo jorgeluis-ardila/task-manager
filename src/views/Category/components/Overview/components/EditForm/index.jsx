@@ -70,7 +70,7 @@ const EditForm = ({ currentCategory, actions, onEdit }) => {
   );
 };
 
-EditForm.protoTypes = {
+EditForm.propTypes = {
   currentCategory: PropTypes.object,
   actions: PropTypes.object,
   onEdit: PropTypes.func,

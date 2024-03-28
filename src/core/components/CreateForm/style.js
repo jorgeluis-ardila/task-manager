@@ -28,7 +28,7 @@ export const StyledCreateModal = styled('div')(
   `
 );
 export const StyledButtonWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     align-items: center;
     justify-content: center;

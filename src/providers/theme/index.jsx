@@ -1,4 +1,5 @@
 import { ThemeProvider as EmotionThemeProvider, Global } from '@emotion/react';
+import PropTypes from 'prop-types';
 import { useGlobalStore } from 'providers/context';
 import getThemeConfig from './config';
 import GlobalStyles from './style';
@@ -14,6 +15,10 @@ const ThemeProvider = ({ children }) => {
       {children}
     </EmotionThemeProvider>
   );
+};
+
+ThemeProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export default ThemeProvider;

@@ -1,4 +1,4 @@
-import { setLocalStorage } from 'hooks';
+import { setLocalStorage } from 'utils';
 import { actionTypesFilters } from '../constants';
 
 const reducerOptionsFilters = (state, payload) => ({

@@ -10,6 +10,6 @@ const neutral = {
   60: '#414443',
   70: '#191A1A',
   80: '#000000',
-}
+};
 
 export default neutral;

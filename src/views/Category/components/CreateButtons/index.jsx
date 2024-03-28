@@ -7,7 +7,7 @@ import { ButtonsWrapper } from './style';
 const CreateButtons = ({ isOnCompleted, onDelete, hasCompleted }) => {
   const { modalActions } = useModal();
 
-  const { getProps } = useCreateForm();
+  const getProps = useCreateForm();
 
   const handleCreateTask = () => {
     const formProps = getProps('task');
@@ -32,7 +32,7 @@ const CreateButtons = ({ isOnCompleted, onDelete, hasCompleted }) => {
   );
 };
 
-CreateButtons.protoTypes = {
+CreateButtons.propTypes = {
   hasCompleted: PropTypes.bool,
   isOnCompleted: PropTypes.bool,
   onDelete: PropTypes.func,

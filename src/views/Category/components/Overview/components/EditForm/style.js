@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const ButtonsWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     align-items: center;
     justify-content: space-between;

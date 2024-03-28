@@ -106,14 +106,16 @@ export const Progress = styled('div')(
       }
       .progress-bar {
         width: 65%;
-        background: ${theme.hexToRGB(theme.colors.green[40], 0.2)};
-        .inner-bar {
-          background: ${theme.colors.green.main};
-        }
-        .text {
-          color: ${theme.colors.green[40]};
-          &-bar {
-            color: ${theme.colors.green[80]};
+        .bar {
+          background: ${theme.hexToRGB(theme.colors.green[40], 0.2)};
+          .text {
+            color: ${theme.colors.green[40]};
+          }
+          &--front {
+            background: ${theme.colors.green.main};
+            .text {
+              color: ${theme.colors.green[80]};
+            }
           }
         }
       }

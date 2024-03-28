@@ -20,6 +20,7 @@ const MenuSelect = forwardRef(({ options, styles, onClick, selectedValue }, ref)
   );
 });
 
+MenuSelect.displayName = 'MenuSelect';
 MenuSelect.propTypes = {
   options: PropTypes.array,
   styles: PropTypes.object,

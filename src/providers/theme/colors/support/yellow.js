@@ -6,6 +6,6 @@ const yellow = {
   40: '#AD5810',
   50: '#743913',
   60: '#421D06',
-}
+};
 
 export default yellow;

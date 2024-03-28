@@ -17,7 +17,7 @@ const TaskFilters = ({ actions, filters }) => {
   );
 };
 
-TaskFilters.protoTypes = {
+TaskFilters.propTypes = {
   actions: PropTypes.object,
   filters: PropTypes.object,
 };

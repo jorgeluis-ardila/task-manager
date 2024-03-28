@@ -74,7 +74,7 @@ export const FieldWrapper = styled('div', { shouldForwardProp: prop => prop !== 
 );
 
 export const StyledInput = styled('input')(
-  ({ theme }) => css`
+  () => css`
     width: 100%;
     color: currentColor;
     position: relative;
@@ -115,7 +115,7 @@ export const StyledInput = styled('input')(
 );
 
 export const StyledTextArea = styled('textarea')(
-  ({ theme }) => css`
+  () => css`
     width: 100%;
     color: currentColor;
     resize: none;
@@ -126,7 +126,7 @@ export const StyledTextArea = styled('textarea')(
 );
 
 export const StyledSelectValue = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     align-items: center;
     justify-content: space-between;

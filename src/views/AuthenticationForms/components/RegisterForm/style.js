@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Field } from 'core';
 
 export const FieldsWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -11,7 +11,7 @@ export const FieldsWrapper = styled('div')(
 );
 
 export const FileField = styled(Field)(
-  ({ theme }) => css`
+  () => css`
     width: 70px;
   `
 );

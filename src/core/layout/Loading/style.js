@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { AppLogo, StatusMessage } from 'core/components';
 
 export const PageWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,13 +17,13 @@ export const PageWrapper = styled('div')(
 );
 
 export const LoginLogo = styled(AppLogo)(
-  ({ theme }) => css`
+  () => css`
     width: 176px;
   `
 );
 
 export const LoadingMessage = styled(StatusMessage)(
-  ({ theme }) => css`
+  () => css`
     padding: 0;
     justify-content: center;
   `

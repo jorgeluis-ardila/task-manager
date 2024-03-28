@@ -7,7 +7,7 @@ import { FieldWrapper, StyledInput } from './style';
 const File = ({ name, id, value, onChange, className, disabled, fileRef }) => {
   const image = fileRef?.current?.files.length ? URL.createObjectURL(fileRef?.current?.files[0]) : AnonimousUser;
 
-  const handleClick = e => fileRef?.current?.click();
+  const handleClick = () => fileRef?.current?.click();
   const handleChange = e => onChange(e.target.value);
 
   return (

@@ -6,6 +6,6 @@ const red = {
   40: '#D3003C',
   50: '#96053A',
   60: '#550019',
-}
+};
 
 export default red;

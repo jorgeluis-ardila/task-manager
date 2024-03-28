@@ -10,7 +10,7 @@ const CreateButtons = ({ hasData }) => {
   const { modalActions } = useModal();
 
   const [showButtons, setShowButtons] = useState(false);
-  const { getProps } = useCreateForm();
+  const getProps = useCreateForm();
   const buttonWrapperRef = useRef(null);
 
   const handleCreateTask = () => {
@@ -49,7 +49,7 @@ const CreateButtons = ({ hasData }) => {
   );
 };
 
-CreateButtons.protoTypes = {
+CreateButtons.propTypes = {
   hasData: PropTypes.bool,
 };
 

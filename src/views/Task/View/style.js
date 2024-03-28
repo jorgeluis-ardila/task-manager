@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Wrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
     justify-content: space-between;

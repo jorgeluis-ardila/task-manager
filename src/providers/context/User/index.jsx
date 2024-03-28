@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   getAuth,
   createUserWithEmailAndPassword,
@@ -160,4 +161,8 @@ export const UserProvider = ({ children }) => {
 export const useAuth = () => {
   const userContext = useContext(UserContext);
   return userContext;
+};
+
+UserProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

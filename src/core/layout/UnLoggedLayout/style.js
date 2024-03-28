@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { ReactComponent as IntroImage } from 'assets/images/intro-img.svg';
 
 export const LogoWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,7 +17,7 @@ export const LogoWrapper = styled('div')(
 );
 
 export const IntroIMG = styled(IntroImage)(
-  ({ theme }) => css`
+  () => css`
     min-height: 150px;
   `
 );

@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 const IconStyled = type =>
   type
     ? styled(type)(
-        ({ theme }) => css`
+        () => css`
           display: block;
           height: auto;
           color: currentColor;

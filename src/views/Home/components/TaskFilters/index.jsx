@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { taskFilters } from './constants';
 import { FilterButton, FiltersWrapper } from './style';
 
-const TaskFilters = ({ data, activeFilter, onChangeFilter }) => {
+const TaskFilters = ({ activeFilter, onChangeFilter }) => {
   const handleClick = name => {
     onChangeFilter(name);
   };
@@ -23,10 +23,9 @@ const TaskFilters = ({ data, activeFilter, onChangeFilter }) => {
   );
 };
 
-TaskFilters.protoTypes = {
-  data: PropTypes.array,
+TaskFilters.propTypes = {
   onChangeTasks: PropTypes.func,
-  activeFilter: PropTypes.func,
+  activeFilter: PropTypes.string,
   onChangeFilter: PropTypes.func,
 };
 

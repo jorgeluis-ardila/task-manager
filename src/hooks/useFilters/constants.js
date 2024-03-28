@@ -1,4 +1,4 @@
-import { getLocalStorage } from 'utils';
+import { getLocalStorage } from '..';
 import { isExpired } from 'utils';
 
 export const actionTypesFilters = {
@@ -16,8 +16,6 @@ export const actionTypesFilters = {
   layoutLine: 'VIEW_LINE_LAYOUT',
   layoutSquare: 'VIEW_SQUARE_LAYOUT',
 };
-
-export const INITIAL_DATA = getLocalStorage('data') || [];
 
 export const INITIAL_FILTERS = getLocalStorage('filters') || {
   sort: {

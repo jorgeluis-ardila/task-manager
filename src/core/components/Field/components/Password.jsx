@@ -7,7 +7,7 @@ const Password = ({ name, id, onBlur, onFocus, onChange, placeholder, className,
   const [showPassword, setShowPassword] = useState(false);
   const handleChange = e => onChange(e.target.value);
 
-  const handleShowPass = useCallback(e => setShowPassword(prevState => !prevState), []);
+  const handleShowPass = useCallback(() => setShowPassword(prevState => !prevState), []);
 
   return (
     <FieldWrapper className={className} variant={variant}>

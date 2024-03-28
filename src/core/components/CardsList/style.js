@@ -38,23 +38,24 @@ export const ListWrapper = styled('div', { shouldForwardProp: prop => prop !== '
     }
     &.square-view {
       .list {
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(2, calc(50% - 5px));
+        display: grid;
+        grid-auto-flow: row;
+        grid-auto-rows: max-content;
       }
     }
   `
 );
 export const List = styled('ul')(
-  ({ theme }) => css`
+  () => css`
     height: 100%;
     padding: 10px 0;
     overflow: auto;
     -ms-overflow-style: none;
     scrollbar-width: none;
-    display: grid;
-    grid-auto-flow: row;
-    grid-auto-rows: max-content;
-    grid-template-columns: unset;
-    grid-template-rows: unset;
+
+    display: flex;
+    flex-direction: column;
     gap: 10px;
     &::-webkit-scrollbar {
       display: none;

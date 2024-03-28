@@ -1,11 +1,11 @@
 import { File, Input, Password, Select, TextArea } from './components';
 
 export const fieldsList = {
-  default: props => <Input {...props} />,
-  file: props => <File {...props} />,
-  password: props => <Password {...props} />,
-  select: props => <Select {...props} />,
-  textarea: props => <TextArea {...props} />,
+  default: props => Input({ ...props }),
+  file: props => File({ ...props }),
+  password: props => Password({ ...props }),
+  select: props => Select({ ...props }),
+  textarea: props => TextArea({ ...props }),
 };
 
 export const fieldProps = props => ({

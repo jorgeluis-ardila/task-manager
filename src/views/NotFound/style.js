@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const LogoWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -16,7 +16,7 @@ export const LogoWrapper = styled('div')(
 );
 
 export const ErrorPageWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
     align-items: center;

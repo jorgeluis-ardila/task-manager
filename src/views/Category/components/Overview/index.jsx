@@ -40,7 +40,7 @@ const Overview = ({ isEditingEnabled }) => {
   );
 };
 
-Overview.protoTypes = {
+Overview.propTypes = {
   isEditingEnabled: PropTypes.bool,
 };
 

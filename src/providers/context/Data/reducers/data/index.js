@@ -1,4 +1,4 @@
-import { setLocalStorage } from 'hooks';
+import { setLocalStorage } from 'utils';
 import { actionTypesCategories, reducerOptionsCategories } from './categories';
 import { actionTypesTasks, reducerOptionsTasks } from './tasks';
 

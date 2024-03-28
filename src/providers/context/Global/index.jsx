@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from 'react';
+import PropTypes from 'prop-types';
 import { useStateLocalStorage } from 'hooks';
 
 const GlobalStoreContext = createContext();
@@ -9,6 +10,7 @@ const GlobalStoreProvider = ({ children }) => {
   const [error, setError] = useState(false);
 
   console.log('LOADING:', isLoading);
+  console.log('THEME:', theme);
 
   const onChangeTheme = () => setTheme(prevTheme => (prevTheme !== 'light' ? 'light' : 'dark'));
 
@@ -34,6 +36,10 @@ const GlobalStoreProvider = ({ children }) => {
 const useGlobalStore = () => {
   const globalContext = useContext(GlobalStoreContext);
   return globalContext;
+};
+
+GlobalStoreProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export { GlobalStoreProvider, useGlobalStore };

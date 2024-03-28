@@ -39,6 +39,7 @@ const TitleBar = forwardRef(({ title, completedTasks, totalTasks }, ref) => {
   );
 });
 
+TitleBar.displayName = 'TitleBar';
 TitleBar.propTypes = {
   title: PropTypes.string,
   completedTasks: PropTypes.number,

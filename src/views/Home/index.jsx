@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import cn from 'classnames';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -30,7 +30,7 @@ const Home = () => {
   const handleShowAll = () => navigate('boards');
   const handleShowFavorite = () => navigate('boards?favorite=true');
 
-  return !!data?.length ? (
+  return data?.length ? (
     <>
       <SectionWrapper ref={progressRef}>
         <TitleBar text="Tu Progreso" />

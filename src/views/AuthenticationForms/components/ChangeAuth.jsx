@@ -29,9 +29,10 @@ const ChangeAuth = ({ isLogin, from, email }) => {
   );
 };
 
-ChangeAuth.protoTypes = {
+ChangeAuth.propTypes = {
   isLogin: PropTypes.bool,
   from: PropTypes.object,
+  email: PropTypes.string,
 };
 
 export { ChangeAuth };

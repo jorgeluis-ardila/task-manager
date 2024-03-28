@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
+import PropTypes from 'prop-types';
 import { Modal, TopAlert } from 'core';
 import { useLocation } from 'react-router-dom';
 
@@ -81,4 +82,8 @@ export const ModalProvider = ({ children }) => {
 export const useModal = () => {
   const modalContext = useContext(ModalContext);
   return modalContext;
+};
+
+ModalProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };

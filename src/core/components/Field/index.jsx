@@ -27,7 +27,7 @@ const Field = ({
   const [isFocused, setIsFocused] = useState(false);
   const wrapperRef = useRef(null);
   const showFeedback = (validateOnMount && meta.error) || (isFocused && field.value.trim().length > 0) || meta.touched;
-  const handleFocus = e => {
+  const handleFocus = () => {
     setIsFocused(true);
   };
   const handleBlur = e => {
@@ -82,7 +82,7 @@ const Field = ({
             </InputMessage>
           )}
           {(!!helperText || !!max) && (
-            <InputMessage className="input-message">{!!max ? `${meta.value?.length}/${max}` : helperText}</InputMessage>
+            <InputMessage className="input-message">{max ? `${meta.value?.length}/${max}` : helperText}</InputMessage>
           )}
         </MessageWrapper>
       )}

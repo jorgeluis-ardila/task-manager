@@ -48,7 +48,7 @@ const CategoryCard = ({ categoryData, className }) => {
   );
 };
 
-CategoryCard.protoTypes = {
+CategoryCard.propTypes = {
   categoryData: PropTypes.object.isRequired,
   className: PropTypes.string,
 };

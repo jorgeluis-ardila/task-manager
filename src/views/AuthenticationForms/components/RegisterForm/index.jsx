@@ -56,7 +56,7 @@ const RegisterForm = ({ onAuth, from }) => {
         })
       }
       onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
-      renderChildren={(isSubmitting, isValid, dirty, setFieldValue) => (
+      renderChildren={(isSubmitting, isValid, dirty) => (
         <>
           <FieldsWrapper>
             {/* <FileField as="file" id="image" name="image" fileRef={fileRef} /> */}
@@ -79,7 +79,7 @@ const RegisterForm = ({ onAuth, from }) => {
   );
 };
 
-RegisterForm.protoTypes = {
+RegisterForm.propTypes = {
   onAuth: PropTypes.func,
   from: PropTypes.object,
 };

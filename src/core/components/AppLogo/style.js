@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const LogoWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     align-items: center;
     gap: 6%;

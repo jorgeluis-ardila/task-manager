@@ -19,7 +19,7 @@ const UnLoggedLayout = ({ children }) => {
   );
 };
 
-UnLoggedLayout.protoTypes = {
+UnLoggedLayout.propTypes = {
   children: PropTypes.element,
 };
 

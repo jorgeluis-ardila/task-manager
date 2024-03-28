@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, useMemo, useReducer, useCallback } from 'react';
+import PropTypes from 'prop-types';
 import { matchPath, useLocation } from 'react-router-dom';
 import { findIndex, getKeyWithTrueValue } from 'utils';
 import { actionTypesData, reducerFnData, reducerFnFilters } from './reducers';
@@ -188,7 +189,6 @@ const DataProvider = ({ children }) => {
         filtersActions,
         categoryActions,
         taskActions,
-        onGetBoards,
       }}
     >
       {children}
@@ -199,6 +199,10 @@ const DataProvider = ({ children }) => {
 const useData = () => {
   const dataContext = useContext(DataContext);
   return dataContext;
+};
+
+DataProvider.propTypes = {
+  children: PropTypes.node.isRequired,
 };
 
 export { DataProvider, useData };

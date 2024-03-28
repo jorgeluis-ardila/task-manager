@@ -10,16 +10,16 @@ const BaseForm = ({ validateOnMount, initialValues, validationSchema, onSubmit, 
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {({ isSubmitting, isValid, dirty, ...props }) => {
+      {({ isSubmitting, isValid, dirty }) => {
         return <Form className="formik-form">{renderChildren(isSubmitting, isValid, dirty)}</Form>;
       }}
     </Formik>
   );
 };
 
-BaseForm.protoTypes = {
+BaseForm.propTypes = {
   initialValues: PropTypes.object,
-  validationSchema: PropTypes.object,
+  validationSchema: PropTypes.func,
   onSubmit: PropTypes.func,
   renderChildren: PropTypes.func,
   validateOnMount: PropTypes.bool,

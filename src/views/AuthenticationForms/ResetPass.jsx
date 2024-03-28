@@ -14,7 +14,7 @@ const ResetPass = () => {
       <Wrapper>
         <AuthGreet
           heading="¿Olvidaste tu clave?"
-          text={() => <>Ingresa el correo con el que te registrarte y te enviaremos las instrucciones.</>}
+          text={<>Ingresa el correo con el que te registrarte y te enviaremos las instrucciones.</>}
         />
         <ResetPassForm onAuth={sendRecoveryEmail} from={from} />
       </Wrapper>

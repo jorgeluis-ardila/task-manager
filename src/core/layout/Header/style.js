@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const HeaderWrapper = styled('header')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
     gap: 25px;

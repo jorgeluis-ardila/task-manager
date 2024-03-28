@@ -76,7 +76,7 @@ const LoginForm = ({ onAuth, onSendVerification, fromPath }) => {
   );
 };
 
-LoginForm.protoTypes = {
+LoginForm.propTypes = {
   onAuth: PropTypes.func,
   onSendVerification: PropTypes.func,
   fromPath: PropTypes.string,

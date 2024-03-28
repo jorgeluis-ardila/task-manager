@@ -15,9 +15,9 @@ const TaskFields = ({ currentCategory, categoriesValues }) => (
   </>
 );
 
-TaskFields.protoTypes = {
+TaskFields.propTypes = {
   currentCategory: PropTypes.bool,
-  categoriesValues: PropTypes.array,
+  categoriesValues: PropTypes.object,
 };
 
 export { TaskFields };

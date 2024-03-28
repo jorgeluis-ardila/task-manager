@@ -15,12 +15,12 @@ const Login = () => {
       <Wrapper>
         <AuthGreet
           heading="¡Hola!"
-          text={() => (
+          text={
             <>
               Entra y continua tus tareas
               <br /> donde las dejaste
             </>
-          )}
+          }
         />
         <LoginForm onAuth={authEmailPass} onSendVerification={sendVerificationEmail} fromPath={fromPath} />
         <AuthOptions />

@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const FieldsWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     flex-direction: column;
     gap: 10px;
@@ -10,7 +10,7 @@ export const FieldsWrapper = styled('div')(
 );
 
 export const ButtonsWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     align-items: center;
     justify-content: space-between;

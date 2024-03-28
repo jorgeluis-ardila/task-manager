@@ -9,6 +9,6 @@ const blue = {
   70: '#065B58',
   80: '#003939',
   90: '#070E0E',
-}
+};
 
 export default blue;

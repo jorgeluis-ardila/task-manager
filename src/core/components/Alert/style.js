@@ -39,7 +39,7 @@ export const AletWrapper = styled('div')(
 );
 
 export const ButtonsWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     align-items: center;
     justify-content: center;

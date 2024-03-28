@@ -40,7 +40,7 @@ const ResetPassForm = ({ onAuth, from }) => {
         })
       }
       onSubmit={(values, { setSubmitting }) => handleSubmit(values, setSubmitting)}
-      renderChildren={(isSubmitting, isValid, dirty, setFieldValue) => (
+      renderChildren={(isSubmitting, isValid, dirty) => (
         <>
           <FieldsWrapper>
             <Field variant="placeholder" label="Correo" type="text" id="email" name="email" />
@@ -63,7 +63,7 @@ const ResetPassForm = ({ onAuth, from }) => {
   );
 };
 
-ResetPassForm.protoTypes = {
+ResetPassForm.propTypes = {
   onAuth: PropTypes.func,
   from: PropTypes.object,
 };

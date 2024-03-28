@@ -82,7 +82,7 @@ const AditionalFilters = ({ isCategory }) => {
   );
 };
 
-AditionalFilters.protoTypes = {
+AditionalFilters.propTypes = {
   isCategory: PropTypes.bool,
 };
 

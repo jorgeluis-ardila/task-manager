@@ -1,6 +1,29 @@
 {
   "compilerOptions": {
-    "baseUrl": "src"
+    "baseUrl": "./src",
+    "paths": {
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@config/*": [
+        "config/*"
+      ],
+      "@core/*": [
+        "core/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@providers/*": [
+        "providers/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@views/*": [
+        "views/*"
+      ]
+    },
   },
   "include": ["src"]
 }

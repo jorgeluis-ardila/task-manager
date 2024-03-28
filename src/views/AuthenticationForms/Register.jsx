@@ -14,11 +14,11 @@ const Register = () => {
       <Wrapper>
         <AuthGreet
           heading="¡Bienvenido!"
-          text={() => (
+          text={
             <>
               Empieza a gestionar <br /> tus tareas ahora
             </>
-          )}
+          }
         />
         <RegisterForm onAuth={createAccountEmailPass} from={from} />
         <AuthOptions />

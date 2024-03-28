@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const ButtonsWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     align-self: flex-end;
     position: absolute;
     right: 10px;

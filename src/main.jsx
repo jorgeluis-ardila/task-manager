@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { firebaseConfig } from './config/firebase';
 import { initializeApp } from 'firebase/app';
@@ -9,8 +9,7 @@ if (window.location.pathname === '/') {
 }
 
 initializeApp(firebaseConfig);
+//<React.StrictMode>
 
-const container = document.getElementById('root');
-const root = ReactDOM.createRoot(container);
-
-root.render(<App />);
+//</React.StrictMode>
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);

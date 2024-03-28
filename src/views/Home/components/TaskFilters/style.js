@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { Button } from 'core';
 
 export const FiltersWrapper = styled('div')(
-  ({ theme }) => css`
+  () => css`
     display: flex;
     align-items: center;
     justify-content: space-between;

@@ -18,7 +18,7 @@ export const useGetNavRoutes = () => {
       to: `/boards/${categorySlug}`,
       text: 'Tablero',
       icon: 'items',
-      isDetail: !!taskSlug ? true : !categorySlug,
+      isDetail: taskSlug ? true : !categorySlug,
     },
     {
       to: `/boards/${categorySlug}/t/${taskSlug}`,

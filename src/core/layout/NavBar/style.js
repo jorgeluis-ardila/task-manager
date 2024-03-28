@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 
 export const Navigation = styled('nav')(
-  ({ theme }) => css`
+  () => css`
     padding: 0 5px 5px;
   `
 );

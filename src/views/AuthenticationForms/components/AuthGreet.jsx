@@ -2,16 +2,15 @@ import PropTypes from 'prop-types';
 import { AuthGreetWrapper } from './style';
 
 const AuthGreet = ({ heading, text }) => {
-  const Text = text();
   return (
     <AuthGreetWrapper className="greet">
       <h2>{heading}</h2>
-      <p>{Text}</p>
+      <p>{text}</p>
     </AuthGreetWrapper>
   );
 };
 
-AuthGreet.protoTypes = {
+AuthGreet.propTypes = {
   heading: PropTypes.string,
   text: PropTypes.node,
 };

@@ -6,7 +6,6 @@ import { CategoryFields, TaskFields } from './components';
 
 const CreateForm = ({ initialValues, validationSchema, onSubmit, fields, title }) => {
   const { modalActions } = useModal();
-  const Fields = fields;
 
   return (
     <StyledCreateModal>
@@ -17,7 +16,7 @@ const CreateForm = ({ initialValues, validationSchema, onSubmit, fields, title }
         onSubmit={onSubmit}
         renderChildren={(isSubmitting, isValid, dirty) => (
           <>
-            <Fields />
+            {fields}
             <StyledButtonWrapper>
               <Button
                 className="create-button"
@@ -45,9 +44,9 @@ const CreateForm = ({ initialValues, validationSchema, onSubmit, fields, title }
 CreateForm.CategoryFields = CategoryFields;
 CreateForm.TaskFields = TaskFields;
 
-CreateForm.protoTypes = {
+CreateForm.propTypes = {
   initialValues: PropTypes.object,
-  validationSchema: PropTypes.object,
+  validationSchema: PropTypes.func,
   onSubmit: PropTypes.func,
   fields: PropTypes.element,
   title: PropTypes.string,

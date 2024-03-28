@@ -1,8 +1,10 @@
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import { LoggedLayout, UnLoggedLayout } from 'core';
 import { Categories, Category, Home, Login, NotFound, Register, ResetPass, Task } from 'views';
 
 const AppRoutes = () => {
+  const location = useLocation();
+  console.log(location);
   return (
     <Routes>
       <Route element={<LoggedLayout />}>

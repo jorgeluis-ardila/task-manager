@@ -11,7 +11,7 @@ const View = ({ currentCategory }) => {
   );
 };
 
-View.protoTypes = {
+View.propTypes = {
   currentCategory: PropTypes.object,
 };
 
